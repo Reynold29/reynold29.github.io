@@ -1,0 +1,399 @@
+.songs-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.songs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.songs-header h1 {
+  color: #2c3e50;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.search-container {
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.songs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.song-card {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.song-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.song-number {
+  font-size: 1.2rem;
+  color: #3498db;
+  font-weight: 600;
+}
+
+.song-title {
+  font-size: 1.1rem;
+  color: #2c3e50;
+  line-height: 1.4;
+}
+
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  color: #7f8c8d;
+  font-size: 1.1rem;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  font-size: 1.2rem;
+  color: #2c3e50;
+}
+
+.error-message {
+  text-align: center;
+  padding: 2rem;
+  color: #e74c3c;
+  font-size: 1.1rem;
+  background: #fde8e8;
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .songs-container {
+    padding: 1rem;
+  }
+
+  .songs-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-container {
+    max-width: none;
+  }
+
+  .songs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.song-signature {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.song-detail {
+  background: white;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin-top: 2rem;
+}
+
+.song-detail h2 {
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.lyrics-container {
+  margin-top: 2rem;
+  white-space: pre-wrap;
+  font-family: 'Noto Sans Kannada', sans-serif;
+  line-height: 1.8;
+}
+
+.edit-button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+  background: var(--button-hover);
+}
+
+/* Edit Form Styles */
+.edit-form {
+  margin-top: 2rem;
+}
+
+.edit-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.edit-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.edit-form input,
+.edit-form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.edit-form textarea {
+  min-height: 200px;
+  font-family: inherit;
+}
+
+.edit-form input:focus,
+.edit-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.cancel-button {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-button:hover {
+  background: #c0392b;
+}
+
+.song-detail-dark {
+  background: #181820;
+  color: #fff;
+  min-height: 100vh;
+  padding: 24px 0 48px 0;
+  font-family: 'Inter', 'Noto Sans Kannada', sans-serif;
+}
+
+.song-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.song-title {
+  flex: 1;
+  text-align: left;
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5em;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.song-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.song-number {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.favorite-btn {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #fff;
+  transition: color 0.2s;
+}
+
+.favorite-btn.active {
+  color: #e25555;
+}
+
+.lang-toggle-group {
+  display: flex;
+  gap: 4px;
+  margin-left: 16px;
+}
+
+.lang-toggle {
+  background: #232336;
+  color: #fff;
+  border: none;
+  border-radius: 6px 6px 0 0;
+  padding: 4px 16px;
+  font-size: 1em;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.lang-toggle.active {
+  background: #6c63ff;
+  color: #fff;
+  opacity: 1;
+}
+
+.song-signature {
+  font-style: italic;
+  color: #aaa;
+  margin-bottom: 12px;
+  margin-left: 2px;
+}
+
+.font-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.font-btn {
+  background: #232336;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin: 0 2px;
+}
+
+.icon-btn {
+  background: #6c63ff;
+  color: #fff;
+  border-radius: 8px;
+  padding: 4px 10px;
+  margin-left: 8px;
+  font-size: 1.2em;
+}
+
+.lyrics-stanzas {
+  margin-top: 12px;
+  margin-bottom: 24px;
+}
+
+.stanza {
+  margin-bottom: 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.stanza-number {
+  font-weight: 700;
+  min-width: 24px;
+  color: #6c63ff;
+  font-size: 1.1em;
+}
+
+.stanza-text {
+  white-space: pre-line;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.song-detail-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+.edit-button {
+  background: #6c63ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 1em;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: background 0.2s;
+}
+
+.edit-button:hover {
+  background: #5548c8;
+}
+
+.cancel-button {
+  background: #232336;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 1em;
+  cursor: pointer;
+  margin-left: 8px;
+  transition: background 0.2s;
+}
+
+.cancel-button:hover {
+  background: #44445a;
+} 
