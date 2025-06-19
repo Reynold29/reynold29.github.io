@@ -173,6 +173,19 @@ app.post('/login', async (req, res) => {
       JWT_SECRET
     );
 
+    // Sync local data files with latest from GitHub
+    try {
+      const [latestHymns, latestKeerthane] = await Promise.all([
+        fetchFromGitHub(HYMNS_PATH),
+        fetchFromGitHub(KEERTHANE_PATH)
+      ]);
+      fs.writeFileSync(hymnsFile, JSON.stringify(latestHymns, null, 2));
+      fs.writeFileSync(keerthaneFile, JSON.stringify(latestKeerthane, null, 2));
+    } catch (syncError) {
+      console.error('Error syncing data from GitHub on login:', syncError);
+      // Optionally, you can return an error here or just log it and proceed
+    }
+
     res.json({ 
       token,
       user: {
@@ -239,14 +252,29 @@ app.get('/verify-token', authMiddleware, (req, res) => {
 app.get('/api/hymns', authMiddleware, async (req, res) => {
   try {
     let data = await fetchFromGitHub(HYMNS_PATH);
-    if (Array.isArray(data)) data = { hymns: data };
+    // Defensive: ensure data is always an array
+    if (Array.isArray(data)) {
+      // ok
+    } else if (data && Array.isArray(data.hymns)) {
+      data = data.hymns;
+    } else {
+      data = [];
+    }
+    // Write the latest data to the local file for sync (as array)
+    fs.writeFileSync(hymnsFile, JSON.stringify(data, null, 2));
     res.json(data);
   } catch (error) {
     console.error('Error fetching hymns:', error);
     // Fallback to local file if GitHub fetch fails
     try {
       let localData = JSON.parse(fs.readFileSync(hymnsFile, 'utf8'));
-      if (Array.isArray(localData)) localData = { hymns: localData };
+      if (!Array.isArray(localData)) {
+        if (localData && Array.isArray(localData.hymns)) {
+          localData = localData.hymns;
+        } else {
+          localData = [];
+        }
+      }
       res.json(localData);
     } catch (localError) {
       res.status(500).json({ error: 'Failed to fetch hymns' });
@@ -257,14 +285,28 @@ app.get('/api/hymns', authMiddleware, async (req, res) => {
 app.get('/api/keerthane', authMiddleware, async (req, res) => {
   try {
     let data = await fetchFromGitHub(KEERTHANE_PATH);
-    if (Array.isArray(data)) data = { keerthane: data };
+    if (Array.isArray(data)) {
+      // ok
+    } else if (data && Array.isArray(data.keerthane)) {
+      data = data.keerthane;
+    } else {
+      data = [];
+    }
+    // Write the latest data to the local file for sync (as array)
+    fs.writeFileSync(keerthaneFile, JSON.stringify(data, null, 2));
     res.json(data);
   } catch (error) {
     console.error('Error fetching keerthane:', error);
     // Fallback to local file if GitHub fetch fails
     try {
       let localData = JSON.parse(fs.readFileSync(keerthaneFile, 'utf8'));
-      if (Array.isArray(localData)) localData = { keerthane: localData };
+      if (!Array.isArray(localData)) {
+        if (localData && Array.isArray(localData.keerthane)) {
+          localData = localData.keerthane;
+        } else {
+          localData = [];
+        }
+      }
       res.json(localData);
     } catch (localError) {
       res.status(500).json({ error: 'Failed to fetch keerthane' });
@@ -286,22 +328,31 @@ app.put('/api/hymns/:number', authMiddleware, async (req, res) => {
     } catch (error) {
       data = JSON.parse(fs.readFileSync(hymnsFile, 'utf8'));
     }
+    // Ensure data is always an array
+    if (!Array.isArray(data)) {
+      if (data && Array.isArray(data.hymns)) {
+        data = data.hymns;
+      } else {
+        data = [];
+      }
+    }
 
     // Update the hymn
-    const hymnIndex = data.hymns.findIndex(h => h.number === parseInt(number));
+    const hymnIndex = data.findIndex(h => h.number === parseInt(number));
     if (hymnIndex === -1) {
       return res.status(404).json({ error: 'Hymn not found' });
     }
 
-    data.hymns[hymnIndex] = { ...data.hymns[hymnIndex], ...updates };
+    data[hymnIndex] = { ...data[hymnIndex], ...updates };
 
-    // Update on GitHub
+    // Update on GitHub and local file as array
     await updateOnGitHub(HYMNS_PATH, data, user);
+    fs.writeFileSync(hymnsFile, JSON.stringify(data, null, 2));
 
     // Log the edit
-    logEdit(user, number, updates.title || data.hymns[hymnIndex].title, 'hymn');
+    logEdit(user, number, updates.title || data[hymnIndex].title, 'hymn');
 
-    res.json(data.hymns[hymnIndex]);
+    res.json(data[hymnIndex]);
   } catch (error) {
     console.error('Error updating hymn:', error);
     res.status(500).json({ error: 'Failed to update hymn' });
@@ -321,22 +372,31 @@ app.put('/api/keerthane/:number', authMiddleware, async (req, res) => {
     } catch (error) {
       data = JSON.parse(fs.readFileSync(keerthaneFile, 'utf8'));
     }
+    // Ensure data is always an array
+    if (!Array.isArray(data)) {
+      if (data && Array.isArray(data.keerthane)) {
+        data = data.keerthane;
+      } else {
+        data = [];
+      }
+    }
 
     // Update the keerthane
-    const keerthaneIndex = data.keerthane.findIndex(k => k.number === parseInt(number));
+    const keerthaneIndex = data.findIndex(k => k.number === parseInt(number));
     if (keerthaneIndex === -1) {
       return res.status(404).json({ error: 'Keerthane not found' });
     }
 
-    data.keerthane[keerthaneIndex] = { ...data.keerthane[keerthaneIndex], ...updates };
+    data[keerthaneIndex] = { ...data[keerthaneIndex], ...updates };
 
-    // Update on GitHub
+    // Update on GitHub and local file as array
     await updateOnGitHub(KEERTHANE_PATH, data, user);
+    fs.writeFileSync(keerthaneFile, JSON.stringify(data, null, 2));
 
     // Log the edit
-    logEdit(user, number, updates.title || data.keerthane[keerthaneIndex].title, 'keerthane');
+    logEdit(user, number, updates.title || data[keerthaneIndex].title, 'keerthane');
 
-    res.json(data.keerthane[keerthaneIndex]);
+    res.json(data[keerthaneIndex]);
   } catch (error) {
     console.error('Error updating keerthane:', error);
     res.status(500).json({ error: 'Failed to update keerthane' });

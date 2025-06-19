@@ -10,9 +10,8 @@ export default function SongDetail({ type }) {
   const [editedSong, setEditedSong] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [lang, setLang] = useState('english');
+  const [lang, setLang] = useState('kannada');
   const [fontSize, setFontSize] = useState(20);
-  const [favorite, setFavorite] = useState(false);
 
   useEffect(() => {
     const fetchSong = async () => {
@@ -25,7 +24,8 @@ export default function SongDetail({ type }) {
         });
         if (!response.ok) throw new Error('Failed to fetch song');
         const data = await response.json();
-        const foundSong = (data.hymns || data.keerthane || data).find(s => s.number === parseInt(number));
+        const songList = Array.isArray(data) ? data : (type === 'hymns' ? (data.hymns || data) : (data.keerthane || data));
+        const foundSong = songList.find(s => s.number === parseInt(number));
         if (foundSong) {
           setSong(foundSong);
           setEditedSong(foundSong);
@@ -63,7 +63,6 @@ export default function SongDetail({ type }) {
   const handleCancel = () => { setEditedSong(song); setIsEditing(false); };
   const handleLang = (l) => setLang(l);
   const handleFont = (delta) => setFontSize(f => Math.max(14, Math.min(36, f + delta)));
-  const handleFavorite = () => setFavorite(f => !f);
 
   if (loading) return <div className="loading">Loading song...</div>;
   if (error) return <div className="error-message">{error}</div>;
@@ -73,16 +72,13 @@ export default function SongDetail({ type }) {
   const stanzas = (lang === 'english' ? song.lyrics : song.kannadaLyrics || '').split(/\n\s*\n/);
 
   return (
-    <div className="song-detail-dark">
-      <div className="song-detail-header">
+    <div className="song-detail-dark" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: '100vh', justifyContent: 'center' }}>
+      <div className="song-detail-header" style={{ justifyContent: 'center', width: '100%' }}>
         <button className="back-btn" onClick={() => navigate(-1)}>&larr;</button>
-        <span className="song-title">{song.title}</span>
+        <span className="song-title" style={{ textAlign: 'center', width: '100%' }}>{song.title}</span>
       </div>
-      <div className="song-meta-row">
-        <span className="song-number">Hymn {song.number}</span>
-        <button className={`favorite-btn${favorite ? ' active' : ''}`} onClick={handleFavorite}>
-          {favorite ? '❤️' : '🤍'}
-        </button>
+      <div className="song-meta-row" style={{ justifyContent: 'center', width: '100%' }}>
+        <span className="song-number">{type === 'hymns' ? 'Hymn' : 'Keerthane'} {song.number}</span>
         <div className="lang-toggle-group">
           <button className={`lang-toggle${lang === 'english' ? ' active' : ''}`} onClick={() => handleLang('english')}>English</button>
           <button className={`lang-toggle${lang === 'kannada' ? ' active' : ''}`} onClick={() => handleLang('kannada')}>ಕನ್ನಡ</button>
@@ -93,14 +89,14 @@ export default function SongDetail({ type }) {
         <button onClick={() => handleFont(-2)} className="font-btn">-</button>
         <span>Font</span>
         <button onClick={() => handleFont(2)} className="font-btn">+</button>
-        <span className="icon-btn">🎵</span>
-        <span className="icon-btn">🎼</span>
       </div>
-      <div className="lyrics-stanzas" style={{ fontSize: fontSize }}>
+      <div className="lyrics-stanzas" style={{ fontSize: fontSize, width: '100%', maxWidth: 600 }}>
         {stanzas.map((stanza, idx) => (
-          <div className="stanza" key={idx}>
-            <div className="stanza-number">{idx + 1}.</div>
-            <div className="stanza-text">{stanza.trim().split('\n').map((line, i) => <div key={i}>{line}</div>)}</div>
+          <div className="stanza" key={idx} style={{ flexDirection: 'column', alignItems: 'center', display: 'flex' }}>
+            <div className="stanza-number" style={{ marginBottom: 4}}>{idx + 1}.</div>
+            <div className="stanza-text">
+              {stanza.trim().split('\n').map((line, i) => <div key={i}>{line}</div>)}
+            </div>
           </div>
         ))}
       </div>

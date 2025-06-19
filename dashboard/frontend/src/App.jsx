@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'r
 import { useState, useEffect } from 'react'
 import Login from './components/Auth/Login'
 import SongList from './components/Songs/SongList'
+import SongDetail from './components/Songs/SongDetail'
 import './App.css'
 
 // Protected Route component
@@ -101,7 +102,7 @@ function Home() {
 
         {/* Keerthane Box */}
         <div 
-          onClick={() => navigate('/keerthane')}
+          onClick={() => navigate('/keerthanes')}
           className="home-box"
         >
           <div className="home-icon">🎼</div>
@@ -140,7 +141,23 @@ export default function App() {
           path="/keerthanes"
           element={
             <ProtectedRoute>
-              <SongList type="keerthanes" />
+              <SongList type="keerthane" />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/hymns/:number"
+          element={
+            <ProtectedRoute>
+              <SongDetail type="hymns" />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/keerthanes/:number"
+          element={
+            <ProtectedRoute>
+              <SongDetail type="keerthane" />
             </ProtectedRoute>
           }
         />

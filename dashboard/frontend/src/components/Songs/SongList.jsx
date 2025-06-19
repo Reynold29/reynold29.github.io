@@ -28,8 +28,7 @@ const SongList = ({ type }) => {
       }
 
       const data = await response.json();
-      const songArray = data.hymns || data.keerthane || [];
-      setSongs(songArray);
+      setSongs(Array.isArray(data) ? data : (data.hymns || data.keerthane || []));
     } catch (error) {
       setError(error.message);
     } finally {
@@ -74,7 +73,7 @@ const SongList = ({ type }) => {
           <div
             key={song.number}
             className="song-card"
-            onClick={() => navigate(`/${type}/${song.number}`)}
+            onClick={() => navigate(`/${type === 'hymns' ? 'hymns' : 'keerthanes'}/${song.number}`)}
           >
             <div className="song-number">{song.number}</div>
             <div className="song-title">{song.title}</div>
