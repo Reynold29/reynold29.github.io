@@ -19,18 +19,17 @@ app.use(cors({
 app.use(express.json());
 
 // Enhanced user management
-const users = [
-  {
-    username: 'admin',
-    password: 'secret',  // Plain text for now
-    role: 'admin'
-  },
-  {
-    username: 'reynold',
-    password: 'password123',  // Plain text for now
-    role: 'user'
+let users = [];
+try {
+  if (process.env.USERS_JSON) {
+    users = JSON.parse(process.env.USERS_JSON);
+  } else {
+    console.error('USERS_JSON not set in .env. No users loaded.');
   }
-];
+} catch (e) {
+  console.error('Failed to parse USERS_JSON from .env:', e);
+  users = [];
+}
 
 // JWT Secret
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
