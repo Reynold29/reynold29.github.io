@@ -115,4 +115,44 @@
   to {
     transform: rotate(1turn);
   }
+}
+
+body.dark .auth-container {
+  background: linear-gradient(135deg, #181A20 0%, #23272f 100%);
+}
+
+body.dark .auth-card {
+  background: #23272f;
+  color: #f1f1f1;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+}
+
+body.dark .auth-card h2,
+body.dark .form-group label {
+  color: #f1f1f1;
+}
+
+body.dark .form-group input {
+  background: #23272f;
+  color: #f1f1f1;
+  border: 2px solid #333a4d;
+}
+
+body.dark .form-group input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+}
+
+body.dark .auth-card button {
+  background: #2563eb;
+  color: #fff;
+}
+
+body.dark .auth-card button:hover {
+  background: #1d4ed8;
+}
+
+body.dark .error-message {
+  background: #2c0b0e;
+  color: #ffb4b4;
 } 

@@ -14,7 +14,7 @@
 }
 
 .songs-header h1 {
-  color: #2c3e50;
+  color: var(--header-text);
   font-size: 2rem;
   margin: 0;
 }
@@ -46,48 +46,51 @@
 }
 
 .song-card {
-  background: white;
+  background: var(--card-bg);
+  color: var(--text);
   border-radius: 10px;
   padding: 1.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--box-shadow);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
 .song-card:hover {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
   transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .song-number {
   font-size: 1.2rem;
-  color: #3498db;
+  color: var(--primary);
   font-weight: 600;
 }
 
 .song-title {
   font-size: 1.1rem;
-  color: #2c3e50;
+  color: var(--primary);
   line-height: 1.4;
 }
 
 .no-results {
   text-align: center;
   padding: 2rem;
-  color: #7f8c8d;
+  color: var(--text);
   font-size: 1.1rem;
 }
 
 .loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 200px;
+  color: var(--primary);
   font-size: 1.2rem;
-  color: #2c3e50;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .error-message {
@@ -95,7 +98,7 @@
   padding: 2rem;
   color: #e74c3c;
   font-size: 1.1rem;
-  background: #fde8e8;
+  background: #2c0b0e;
   border-radius: 8px;
   margin: 2rem 0;
 }
@@ -126,10 +129,11 @@
 }
 
 .song-detail {
-  background: white;
+  background: var(--card-bg);
+  color: var(--text);
   border-radius: 10px;
   padding: 2rem;
-  box-shadow: var(--shadow);
+  box-shadow: var(--box-shadow);
   margin-top: 2rem;
 }
 
