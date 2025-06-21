@@ -4,6 +4,7 @@
 
 [build.environment]
   NODE_VERSION = "18"
+  REACT_APP_API_URL = "https://reynold29githubio-production.up.railway.app"
 
 [[redirects]]
   from = "/*"

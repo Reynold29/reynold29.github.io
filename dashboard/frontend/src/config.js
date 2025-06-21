@@ -6,7 +6,7 @@ const config = {
   },
   // Production environment (Railway backend)
   production: {
-    apiUrl: process.env.REACT_APP_API_URL || 'https://your-app-name-production.up.railway.app'
+    apiUrl: process.env.REACT_APP_API_URL || 'https://reynold29githubio-production.up.railway.app'
   }
 };
 
