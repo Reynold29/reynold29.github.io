@@ -5,13 +5,61 @@ import SongList from './components/Songs/SongList'
 import SongDetail from './components/Songs/SongDetail'
 import { apiUrl } from './config'
 import './App.css'
+import { FaMoon, FaSun } from 'react-icons/fa'
 
-// Protected Route component
+function useDarkMode() {
+  const [dark, setDark] = useState(() => {
+    const saved = localStorage.getItem('theme');
+    if (saved) return saved === 'dark';
+    return true; // Default to dark mode
+  });
+  useEffect(() => {
+    if (dark) {
+      document.body.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [dark]);
+  return [dark, setDark];
+}
+
+function Header({ user, onLogout, dark, setDark }) {
+  return (
+    <div className="header">
+      <h1>Welcome, {user?.username || 'User'}!</h1>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <button onClick={() => setDark(d => !d)} className="theme-toggle" title="Toggle dark mode">
+          {dark ? <FaSun /> : <FaMoon />}
+        </button>
+        <button onClick={onLogout} className="logout-button">Logout</button>
+      </div>
+    </div>
+  );
+}
+
+function ProtectedLayout({ children }) {
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const [dark, setDark] = useDarkMode();
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
+  return (
+    <div className="home-container">
+      <Header user={user} onLogout={handleLogout} dark={dark} setDark={setDark} />
+      {children}
+    </div>
+  );
+}
+
 function ProtectedRoute({ children }) {
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
-
   useEffect(() => {
     const verifyToken = async () => {
       const token = localStorage.getItem('token');
@@ -20,14 +68,12 @@ function ProtectedRoute({ children }) {
         navigate('/login');
         return;
       }
-
       try {
         const response = await fetch(`${apiUrl}/verify-token`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
         });
-
         if (response.ok) {
           setIsAuthenticated(true);
         } else {
@@ -42,10 +88,8 @@ function ProtectedRoute({ children }) {
         setLoading(false);
       }
     };
-
     verifyToken();
   }, [navigate]);
-
   if (loading) {
     return (
       <div style={{ 
@@ -66,28 +110,13 @@ function ProtectedRoute({ children }) {
       </div>
     );
   }
-
   return isAuthenticated ? children : null;
 }
 
-// Home component
 function Home() {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    navigate('/login');
-  };
-
   return (
-    <div className="home-container">
-      <div className="header">
-        <h1>Welcome, {user.username}!</h1>
-        <button onClick={handleLogout} className="logout-button">Logout</button>
-      </div>
-      
+    <div>
       <div className="home-grid">
         {/* Hymns Box */}
         <div 
@@ -100,7 +129,6 @@ function Home() {
             Browse and manage the collection of hymns
           </p>
         </div>
-
         {/* Keerthane Box */}
         <div 
           onClick={() => navigate('/keerthanes')}
@@ -126,7 +154,9 @@ export default function App() {
           path="/"
           element={
             <ProtectedRoute>
-              <Home />
+              <ProtectedLayout>
+                <Home />
+              </ProtectedLayout>
             </ProtectedRoute>
           }
         />
@@ -134,7 +164,9 @@ export default function App() {
           path="/hymns"
           element={
             <ProtectedRoute>
-              <SongList type="hymns" />
+              <ProtectedLayout>
+                <SongList type="hymns" />
+              </ProtectedLayout>
             </ProtectedRoute>
           }
         />
@@ -142,7 +174,9 @@ export default function App() {
           path="/keerthanes"
           element={
             <ProtectedRoute>
-              <SongList type="keerthane" />
+              <ProtectedLayout>
+                <SongList type="keerthane" />
+              </ProtectedLayout>
             </ProtectedRoute>
           }
         />
@@ -150,7 +184,9 @@ export default function App() {
           path="/hymns/:number"
           element={
             <ProtectedRoute>
-              <SongDetail type="hymns" />
+              <ProtectedLayout>
+                <SongDetail type="hymns" />
+              </ProtectedLayout>
             </ProtectedRoute>
           }
         />
@@ -158,7 +194,9 @@ export default function App() {
           path="/keerthanes/:number"
           element={
             <ProtectedRoute>
-              <SongDetail type="keerthane" />
+              <ProtectedLayout>
+                <SongDetail type="keerthane" />
+              </ProtectedLayout>
             </ProtectedRoute>
           }
         />
