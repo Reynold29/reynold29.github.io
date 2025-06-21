@@ -1,38 +1,36 @@
-# Deployment Guide: Frontend (Netlify) + Backend (Render)
+# Deployment Guide: Frontend (Netlify) + Backend (Railway)
 
-This guide will help you deploy your hymns management system with the frontend on Netlify and backend on Render.
+This guide will help you deploy your hymns management system with the frontend on Netlify and backend on Railway.
 
 ## Prerequisites
 
 1. GitHub repository with your code
 2. Netlify account
-3. Render account
+3. Railway account
 4. GitHub Personal Access Token
 
-## Step 1: Deploy Backend to Render
+## Step 1: Deploy Backend to Railway
 
 ### 1.1 Prepare Your Backend
 
 1. Make sure your backend code is in the `dashboard/backend/` directory
 2. Ensure `package.json` has the correct dependencies and scripts
-3. Verify your `server.js` has proper CORS configuration
+3. Verify your `server.js` has proper CORS configuration for Netlify
 
-### 1.2 Deploy to Render
+### 1.2 Deploy to Railway
 
-1. Go to [Render Dashboard](https://dashboard.render.com/)
-2. Click "New +" and select "Web Service"
+1. Go to [Railway Dashboard](https://railway.app/)
+2. Click "New Project" and select "Deploy from GitHub repo"
 3. Connect your GitHub repository
 4. Configure the service:
-   - **Name**: `hymns-backend` (or your preferred name)
    - **Root Directory**: `dashboard/backend`
-   - **Runtime**: `Node`
-   - **Build Command**: `npm install`
-   - **Start Command**: `npm start`
-   - **Plan**: Free (or paid if needed)
+   - **Railway will automatically detect it's a Node.js app**
+   - **Build Command**: `npm install` (automatic)
+   - **Start Command**: `npm start` (automatic)
 
 ### 1.3 Set Environment Variables
 
-In your Render service settings, add these environment variables:
+In your Railway project settings, add these environment variables:
 
 ```
 JWT_SECRET=your-super-secret-jwt-key-here
@@ -46,12 +44,12 @@ USERS_JSON=[{"username":"admin","password":"your-password","role":"admin"}]
 - Generate a strong JWT_SECRET (you can use a password generator)
 - Create a GitHub Personal Access Token with repo permissions
 - Update the USERS_JSON with your actual admin credentials
-- The PORT will be automatically set by Render
+- The PORT will be automatically set by Railway
 
-### 1.4 Get Your Backend URL
+### 1.4 Get Your Railway URL
 
-After deployment, Render will provide a URL like:
-`https://your-backend-name.onrender.com`
+After deployment, Railway will provide a URL like:
+`https://your-app-name-production.up.railway.app`
 
 ## Step 2: Deploy Frontend to Netlify
 
@@ -60,19 +58,11 @@ After deployment, Render will provide a URL like:
 1. Update `dashboard/frontend/src/config.js`:
    ```javascript
    production: {
-     apiUrl: 'https://your-backend-name.onrender.com' // Your actual Render URL
+     apiUrl: 'https://your-app-name-production.up.railway.app' // Your actual Railway URL
    }
    ```
 
-2. Update `dashboard/backend/server.js` CORS origins:
-   ```javascript
-   const allowedOrigins = [
-     'http://localhost:5173',
-     'http://localhost:3000',
-     'https://your-netlify-app.netlify.app', // Your actual Netlify URL
-     'https://your-custom-domain.com' // If you have a custom domain
-   ];
-   ```
+2. The backend CORS is already configured to accept requests from Netlify domains.
 
 ### 2.2 Deploy to Netlify
 
@@ -90,7 +80,7 @@ After deployment, Render will provide a URL like:
 If you want to use environment variables for the API URL:
 
 1. In Netlify site settings, go to "Environment variables"
-2. Add: `REACT_APP_API_URL=https://your-backend-name.onrender.com`
+2. Add: `REACT_APP_API_URL=https://your-app-name-production.up.railway.app`
 
 ## Step 3: Test Your Deployment
 
@@ -107,10 +97,11 @@ If you want to use environment variables for the API URL:
 3. Add your custom domain
 4. Update CORS origins in your backend
 
-### For Render:
-1. Go to your service settings in Render
-2. Navigate to "Custom Domains"
+### For Railway:
+1. Go to your project settings in Railway
+2. Navigate to "Domains"
 3. Add your custom domain
+4. Update frontend config with your custom domain
 
 ## Troubleshooting
 
@@ -124,7 +115,7 @@ If you want to use environment variables for the API URL:
 ### Debug Steps:
 
 1. Check browser console for frontend errors
-2. Check Render logs for backend errors
+2. Check Railway logs for backend errors
 3. Verify environment variables are set correctly
 4. Test API endpoints directly using tools like Postman
 
@@ -139,7 +130,7 @@ If you want to use environment variables for the API URL:
 ## Monitoring
 
 1. Set up logging in your backend
-2. Monitor Render service health
+2. Monitor Railway service health
 3. Set up Netlify form notifications if needed
 4. Consider setting up error tracking (Sentry, etc.)
 
@@ -150,8 +141,16 @@ If you want to use environment variables for the API URL:
 3. Keep dependencies updated
 4. Regularly backup your data
 
+## Why Railway + Netlify?
+
+✅ **No spin-down** - Railway keeps your backend running  
+✅ **Fast cold starts** - No 30-60 second delays  
+✅ **Generous free tier** - $5/month usage on Railway  
+✅ **Easy deployment** - Both platforms have simple GitHub integration  
+✅ **Custom domains** - Available on both platforms  
+
 ---
 
 **Your deployment is now complete!** 🎉
 
-Your frontend will be accessible at your Netlify URL, and it will communicate with your backend on Render. 
+Your frontend will be accessible at your Netlify URL, and it will communicate with your backend on Railway without any spin-down delays! 

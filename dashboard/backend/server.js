@@ -12,8 +12,11 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:5173', // Vite dev server
   'http://localhost:3000', // Alternative dev port
-  'https://reyziecrafts.netlify.app', // Replace with your actual Netlify URL
-  // 'https://your-custom-domain.com' // Replace with your custom domain
+  'https://reyziecrafts.netlify.app', // Your Netlify frontend URL
+  'https://*.netlify.app', // Allow all Netlify subdomains
+  'https://*.railway.app', // Allow all Railway subdomains
+  // Add your custom domain if you have one
+  // 'https://your-custom-domain.com'
 ];
 
 app.use(cors({
@@ -21,11 +24,17 @@ app.use(cors({
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
+    // Check exact matches first
     if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
+      return callback(null, true);
     }
+    
+    // Check wildcard patterns
+    if (origin.endsWith('.netlify.app') || origin.endsWith('.railway.app')) {
+      return callback(null, true);
+    }
+    
+    callback(new Error('Not allowed by CORS'));
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -447,10 +456,20 @@ app.get('/api/logs', authMiddleware, (req, res) => {
     res.json(logs);
 });
 
+// Health check endpoint
+app.get('/', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    message: 'Hymns Backend API is running',
+    timestamp: new Date().toISOString()
+  });
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something broke!' });
 });
 
-app.listen(5001, () => console.log('Server running on http://localhost:5001'));
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
