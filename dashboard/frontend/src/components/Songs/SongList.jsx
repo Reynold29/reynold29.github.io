@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiUrl } from '../../config';
 import './Songs.css';
 
 const SongList = ({ type }) => {
@@ -17,7 +18,7 @@ const SongList = ({ type }) => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5001/api/${type}`, {
+      const response = await fetch(`${apiUrl}/api/${type}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

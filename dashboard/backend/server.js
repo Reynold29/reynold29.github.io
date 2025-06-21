@@ -8,9 +8,25 @@ import bcrypt from 'bcryptjs';
 
 const app = express();
 
-// Configure CORS
+// Configure CORS for both development and production
+const allowedOrigins = [
+  'http://localhost:5173', // Vite dev server
+  'http://localhost:3000', // Alternative dev port
+  'https://reyziecrafts.netlify.app', // Replace with your actual Netlify URL
+  // 'https://your-custom-domain.com' // Replace with your custom domain
+];
+
 app.use(cors({
-  origin: 'http://localhost:5173', // Frontend URL
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true

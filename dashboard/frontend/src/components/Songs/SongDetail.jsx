@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { apiUrl } from '../../config';
 import './Songs.css';
 
 export default function SongDetail({ type }) {
@@ -17,7 +18,7 @@ export default function SongDetail({ type }) {
     const fetchSong = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:5001/api/${type}`, {
+        const response = await fetch(`${apiUrl}/api/${type}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -45,7 +46,7 @@ export default function SongDetail({ type }) {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5001/api/${type}/${number}`, {
+      const response = await fetch(`${apiUrl}/api/${type}/${number}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

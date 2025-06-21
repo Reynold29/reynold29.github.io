@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiUrl } from '../../config';
 import './Auth.css';
 
 const Login = () => {
@@ -19,7 +20,7 @@ const Login = () => {
 
   const verifyToken = async (token) => {
     try {
-      const response = await fetch('http://localhost:5001/verify-token', {
+      const response = await fetch(`${apiUrl}/verify-token`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -45,7 +46,7 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5001/login', {
+      const response = await fetch(`${apiUrl}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

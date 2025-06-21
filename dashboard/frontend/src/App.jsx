@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import Login from './components/Auth/Login'
 import SongList from './components/Songs/SongList'
 import SongDetail from './components/Songs/SongDetail'
+import { apiUrl } from './config'
 import './App.css'
 
 // Protected Route component
@@ -21,7 +22,7 @@ function ProtectedRoute({ children }) {
       }
 
       try {
-        const response = await fetch('http://localhost:5001/verify-token', {
+        const response = await fetch(`${apiUrl}/verify-token`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
