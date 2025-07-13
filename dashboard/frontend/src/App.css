@@ -81,12 +81,12 @@
 
 /* Dark Theme */
 [data-theme="dark"] {
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-tertiary: #334155;
-  --bg-gradient: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  --bg-card: #1e293b;
-  --bg-header: rgba(30, 41, 59, 0.95);
+  --bg-primary: #181a20;
+  --bg-secondary: #181a20;
+  --bg-tertiary: #181a20;
+  --bg-gradient: #181a20; /* Remove gradient, use solid */
+  --bg-card: #23272f; /* Lighter than background for contrast */
+  --bg-header: #23272f;
   --bg-overlay: rgba(0, 0, 0, 0.3);
   
   --text-primary: #f1f5f9;
@@ -94,8 +94,27 @@
   --text-muted: #94a3b8;
   --text-inverse: #0f172a;
   
-  --border-light: #334155;
+  --border-light: #23272f;
   --border-medium: #475569;
+}
+
+/* Home Icon background for dark mode only */
+[data-theme="dark"] .home-icon {
+  background: rgba(255,255,255,0.08);
+  border-radius: 50%;
+  padding: 0.7em;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.12);
+  transition: background 0.2s;
+}
+
+[data-theme="dark"] .home-box {
+  background: var(--bg-card);
+  border: 1.5px solid #23272f;
+}
+
+/* Remove gradient from body in dark mode */
+[data-theme="dark"] body {
+  background: var(--bg-primary) !important;
 }
 
 /* Base Styles */
@@ -261,6 +280,9 @@ body {
   transition: all var(--transition-normal);
   position: relative;
   z-index: 2;
+  background: none;
+  box-shadow: none;
+  padding: 0;
 }
 
 .home-title {
