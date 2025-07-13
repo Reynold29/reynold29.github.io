@@ -63,7 +63,7 @@ export default function SongDetail({ type }) {
   };
   const handleCancel = () => { setEditedSong(song); setIsEditing(false); };
   const handleLang = (l) => setLang(l);
-  const handleFont = (delta) => setFontSize(f => Math.max(14, Math.min(36, f + delta)));
+  const handleFont = (delta) => setFontSize(f => Math.max(12, Math.min(40, f + delta)));
 
   if (loading) return <div className="loading">Loading song...</div>;
   if (error) return <div className="error-message">{error}</div>;
@@ -73,35 +73,35 @@ export default function SongDetail({ type }) {
   const stanzas = (lang === 'english' ? song.lyrics : song.kannadaLyrics || '').split(/\n\s*\n/);
 
   return (
-    <div className="song-detail-dark" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: '100vh', justifyContent: 'center' }}>
-      <div className="song-detail-header" style={{ justifyContent: 'center', width: '100%' }}>
+    <div className="song-detail-dark song-detail-outer">
+      <div className="song-detail-header" style={{ justifyContent: 'center', width: '100%', marginBottom: '2rem' }}>
         <button className="back-btn" onClick={() => navigate(-1)}>&larr;</button>
         <span className="song-title" style={{ textAlign: 'center', width: '100%' }}>{song.title}</span>
       </div>
-      <div className="song-meta-row" style={{ justifyContent: 'center', width: '100%' }}>
+      <div className="song-meta-row" style={{ justifyContent: 'center', width: '100%', marginBottom: '1.5rem' }}>
         <span className="song-number">{type === 'hymns' ? 'Hymn' : 'Keerthane'} {song.number}</span>
         <div className="lang-toggle-group">
           <button className={`lang-toggle${lang === 'english' ? ' active' : ''}`} onClick={() => handleLang('english')}>English</button>
           <button className={`lang-toggle${lang === 'kannada' ? ' active' : ''}`} onClick={() => handleLang('kannada')}>ಕನ್ನಡ</button>
         </div>
       </div>
-      <div className="song-signature">{song.signature}</div>
-      <div className="font-controls">
-        <button onClick={() => handleFont(-2)} className="font-btn">-</button>
-        <span>Font</span>
-        <button onClick={() => handleFont(2)} className="font-btn">+</button>
+      <div className="song-signature" style={{ marginBottom: '1.5rem' }}>{song.signature}</div>
+      <div className="font-controls" style={{ marginBottom: '2rem' }}>
+        <button onClick={() => handleFont(-2)} className="font-btn" aria-label="Decrease font size">-</button>
+        <span style={{ margin: '0 1rem', fontWeight: 500 }}>Font</span>
+        <button onClick={() => handleFont(2)} className="font-btn" aria-label="Increase font size">+</button>
       </div>
-      <div className="lyrics-stanzas" style={{ fontSize: fontSize, width: '100%', maxWidth: 600 }}>
+      <div className="lyrics-stanzas" style={{ fontSize: fontSize, width: '100%', maxWidth: 700, transition: 'font-size 0.2s cubic-bezier(.4,2,.6,1)' }}>
         {stanzas.map((stanza, idx) => (
-          <div className="stanza" key={idx} style={{ flexDirection: 'column', alignItems: 'center', display: 'flex' }}>
-            <div className="stanza-number" style={{ marginBottom: 4}}>{idx + 1}.</div>
+          <div className="stanza" key={idx} style={{ flexDirection: 'column', alignItems: 'center', display: 'flex', marginBottom: 24, borderRadius: 24, boxShadow: 'var(--shadow-md)', background: 'var(--bg-secondary)', border: '1.5px solid var(--border-light)', padding: '2rem 1.5rem' }}>
+            <div className="stanza-number" style={{ marginBottom: 8, fontWeight: 700, color: 'var(--primary)' }}>{idx + 1}.</div>
             <div className="stanza-text">
               {stanza.trim().split('\n').map((line, i) => <div key={i}>{line}</div>)}
             </div>
           </div>
         ))}
       </div>
-      <div className="song-detail-actions">
+      <div className="song-detail-actions" style={{ marginTop: '2rem' }}>
         <button onClick={handleEdit} className="edit-button">Edit Song</button>
       </div>
       {isEditing && (

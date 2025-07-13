@@ -344,11 +344,17 @@
   color: var(--text-inverse);
   border: none;
   padding: var(--space-sm) var(--space-md);
-  border-radius: var(--border-radius-md);
+  border-radius: 50px;
   cursor: pointer;
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-lg);
   transition: all var(--transition-normal);
   box-shadow: var(--shadow-sm);
+  margin-right: var(--space-md);
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .back-btn:hover {
@@ -396,41 +402,53 @@
   background: var(--button-secondary);
   color: var(--text-inverse);
   border: none;
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--border-radius-md);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: 50px;
   cursor: pointer;
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
   transition: all var(--transition-normal);
   box-shadow: var(--shadow-sm);
+  font-weight: 600;
+  min-width: 80px;
 }
 
 .lang-toggle.active {
   background: var(--primary);
+  color: var(--text-inverse);
 }
 
 .song-signature {
   font-size: var(--font-size-sm);
   color: var(--text-muted);
   margin-top: var(--space-md);
+  margin-bottom: 1.5rem;
 }
 
 .font-controls {
   display: flex;
-  gap: var(--space-sm);
+  gap: var(--space-md);
   margin-top: var(--space-lg);
-  flex-wrap: wrap;
+  margin-bottom: var(--space-lg);
+  align-items: center;
+  justify-content: center;
 }
 
 .font-btn {
   background: var(--button-secondary);
   color: var(--text-inverse);
   border: none;
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--border-radius-md);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: 50px;
   cursor: pointer;
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-lg);
   transition: all var(--transition-normal);
   box-shadow: var(--shadow-sm);
+  font-weight: 700;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .font-btn:hover {
@@ -452,14 +470,16 @@
 
 .lyrics-stanzas {
   margin-top: var(--space-xl);
+  margin-bottom: 2rem;
 }
 
 .stanza {
-  margin-bottom: var(--space-lg);
-  padding: var(--space-lg);
+  margin-bottom: 2rem;
+  border-radius: 24px;
+  box-shadow: var(--shadow-md);
   background: var(--bg-secondary);
-  border-radius: var(--border-radius-lg);
-  border: 1px solid var(--border-light);
+  border: 1.5px solid var(--border-light);
+  padding: 2rem 1.5rem;
 }
 
 .stanza-number {
@@ -630,5 +650,30 @@
   }
   to {
     opacity: 1;
+  }
+} 
+
+.song-detail-outer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  justify-content: flex-start;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .stanza {
+    padding: 1.2rem 0.5rem;
+    border-radius: 16px;
+  }
+  .song-detail-outer {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .lyrics-stanzas {
+    padding: 0 0.5rem;
   }
 } 
