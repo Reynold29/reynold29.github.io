@@ -91,11 +91,11 @@ export default function SongDetail({ type }) {
         <span style={{ margin: '0 1rem', fontWeight: 500 }}>Font</span>
         <button onClick={() => handleFont(2)} className="font-btn" aria-label="Increase font size">+</button>
       </div>
-      <div className="lyrics-stanzas" style={{ fontSize: fontSize, width: '100%', maxWidth: 700, transition: 'font-size 0.2s cubic-bezier(.4,2,.6,1)' }}>
+      <div className="lyrics-stanzas" style={{ width: '100%', maxWidth: 700, transition: 'font-size 0.2s cubic-bezier(.4,2,.6,1)' }}>
         {stanzas.map((stanza, idx) => (
           <div className="stanza" key={idx} style={{ flexDirection: 'column', alignItems: 'center', display: 'flex', marginBottom: 24, borderRadius: 24, boxShadow: 'var(--shadow-md)', background: 'var(--bg-secondary)', border: '1.5px solid var(--border-light)', padding: '2rem 1.5rem' }}>
             <div className="stanza-number" style={{ marginBottom: 8, fontWeight: 700, color: 'var(--primary)' }}>{idx + 1}.</div>
-            <div className="stanza-text">
+            <div className="stanza-text" style={{ fontSize: fontSize, transition: 'font-size 0.2s cubic-bezier(.4,2,.6,1)' }}>
               {stanza.trim().split('\n').map((line, i) => <div key={i}>{line}</div>)}
             </div>
           </div>
