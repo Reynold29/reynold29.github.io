@@ -13,15 +13,17 @@ function useDarkMode() {
     if (saved) return saved === 'dark';
     return true; // Default to dark mode
   });
+  
   useEffect(() => {
     if (dark) {
-      document.body.classList.add('dark');
+      document.documentElement.setAttribute('data-theme', 'dark');
       localStorage.setItem('theme', 'dark');
     } else {
-      document.body.classList.remove('dark');
+      document.documentElement.setAttribute('data-theme', 'light');
       localStorage.setItem('theme', 'light');
     }
   }, [dark]);
+  
   return [dark, setDark];
 }
 
@@ -29,11 +31,22 @@ function Header({ user, onLogout, dark, setDark }) {
   return (
     <div className="header">
       <h1>Welcome, {user?.username || 'User'}!</h1>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-        <button onClick={() => setDark(d => !d)} className="theme-toggle" title="Toggle dark mode">
+      <div className="header-controls">
+        <button 
+          onClick={() => setDark(d => !d)} 
+          className="theme-toggle" 
+          title="Toggle dark mode"
+          aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
+        >
           {dark ? <FaSun /> : <FaMoon />}
         </button>
-        <button onClick={onLogout} className="logout-button">Logout</button>
+        <button 
+          onClick={onLogout} 
+          className="logout-button"
+          aria-label="Logout"
+        >
+          Logout
+        </button>
       </div>
     </div>
   );
@@ -43,11 +56,13 @@ function ProtectedLayout({ children }) {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   const [dark, setDark] = useDarkMode();
+  
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     navigate('/login');
   };
+  
   return (
     <div className="home-container">
       <Header user={user} onLogout={handleLogout} dark={dark} setDark={setDark} />
@@ -60,6 +75,7 @@ function ProtectedRoute({ children }) {
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
+  
   useEffect(() => {
     const verifyToken = async () => {
       const token = localStorage.getItem('token');
@@ -68,12 +84,14 @@ function ProtectedRoute({ children }) {
         navigate('/login');
         return;
       }
+      
       try {
         const response = await fetch(`${apiUrl}/verify-token`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
         });
+        
         if (response.ok) {
           setIsAuthenticated(true);
         } else {
@@ -88,33 +106,24 @@ function ProtectedRoute({ children }) {
         setLoading(false);
       }
     };
+    
     verifyToken();
   }, [navigate]);
+  
   if (loading) {
     return (
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        height: '100vh',
-        background: '#f5f5f5'
-      }}>
-        <div style={{ 
-          padding: '20px',
-          background: 'white',
-          borderRadius: '8px',
-          boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-        }}>
-          Verifying authentication...
-        </div>
+      <div className="loading">
+        Verifying authentication...
       </div>
     );
   }
+  
   return isAuthenticated ? children : null;
 }
 
 function Home() {
   const navigate = useNavigate();
+  
   return (
     <div>
       <div className="home-grid">
@@ -122,6 +131,14 @@ function Home() {
         <div 
           onClick={() => navigate('/hymns')}
           className="home-box"
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              navigate('/hymns');
+            }
+          }}
+          aria-label="Navigate to Hymns section"
         >
           <div className="home-icon">🎵</div>
           <h2 className="home-title">Hymns</h2>
@@ -129,10 +146,19 @@ function Home() {
             Browse and manage the collection of hymns
           </p>
         </div>
+        
         {/* Keerthane Box */}
         <div 
           onClick={() => navigate('/keerthanes')}
           className="home-box"
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              navigate('/keerthanes');
+            }
+          }}
+          aria-label="Navigate to Keerthane section"
         >
           <div className="home-icon">🎼</div>
           <h2 className="home-title">Keerthane</h2>

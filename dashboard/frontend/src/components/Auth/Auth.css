@@ -1,71 +1,98 @@
+/* Auth Container */
 .auth-container {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  padding: 1rem;
+  background: var(--bg-gradient);
+  padding: var(--space-md);
+  font-family: var(--font-family);
 }
 
+/* Auth Card */
 .auth-card {
-  background: white;
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: var(--bg-card);
+  padding: var(--space-2xl);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-xl);
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
+  border: 1px solid var(--border-light);
+  backdrop-filter: blur(10px);
+  transition: all var(--transition-normal);
+}
+
+.auth-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
 }
 
 .auth-card h2 {
   text-align: center;
-  color: #2c3e50;
-  margin-bottom: 2rem;
-  font-size: 1.8rem;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2xl);
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
 }
 
+/* Form Groups */
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-lg);
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 0.5rem;
-  color: #2c3e50;
-  font-weight: 500;
+  margin-bottom: var(--space-sm);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: var(--font-size-base);
 }
 
 .form-group input {
   width: 100%;
-  padding: 0.8rem;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
+  padding: var(--space-md) var(--space-lg);
+  border: 2px solid var(--border-light);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-base);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-sm);
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+  transform: translateY(-1px);
 }
 
+.form-group input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Auth Button */
 .auth-card button {
   width: 100%;
-  padding: 1rem;
-  background: #3498db;
-  color: white;
+  padding: var(--space-lg);
+  background: var(--button-primary);
+  color: var(--text-inverse);
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-base);
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 1rem;
+  transition: all var(--transition-normal);
+  margin-top: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
 }
 
 .auth-card button:hover {
-  background: #2980b9;
-  transform: translateY(-1px);
+  background: var(--button-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .auth-card button:active {
@@ -73,19 +100,24 @@
 }
 
 .auth-card button:disabled {
-  background: #bdc3c7;
+  background: var(--button-secondary);
   cursor: not-allowed;
   transform: none;
+  box-shadow: var(--shadow-sm);
 }
 
+/* Error Message */
 .error-message {
-  background: #fee;
-  color: #e74c3c;
-  padding: 0.8rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
+  background: var(--bg-card);
+  color: var(--error);
+  padding: var(--space-lg);
+  border-radius: var(--border-radius-lg);
+  margin-bottom: var(--space-lg);
+  font-size: var(--font-size-base);
   text-align: center;
+  border: 1px solid var(--error);
+  border-left: 4px solid var(--error);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Loading animation for button */
@@ -97,13 +129,13 @@
 .auth-card button:disabled::after {
   content: "";
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   top: 50%;
   left: 50%;
-  margin: -10px 0 0 -10px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: white;
+  margin: -12px 0 0 -12px;
+  border: 3px solid var(--border-light);
+  border-top-color: var(--text-inverse);
   border-radius: 50%;
   animation: button-loading-spinner 0.8s linear infinite;
 }
@@ -117,42 +149,79 @@
   }
 }
 
-body.dark .auth-container {
-  background: linear-gradient(135deg, #181A20 0%, #23272f 100%);
+/* Success Message */
+.success-message {
+  background: var(--bg-card);
+  color: var(--success);
+  padding: var(--space-lg);
+  border-radius: var(--border-radius-lg);
+  margin-bottom: var(--space-lg);
+  font-size: var(--font-size-base);
+  text-align: center;
+  border: 1px solid var(--success);
+  border-left: 4px solid var(--success);
+  box-shadow: var(--shadow-sm);
 }
 
-body.dark .auth-card {
-  background: #23272f;
-  color: #f1f1f1;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+/* Responsive Design */
+@media (max-width: 768px) {
+  .auth-container {
+    padding: var(--space-sm);
+  }
+  
+  .auth-card {
+    padding: var(--space-xl);
+    max-width: 100%;
+  }
+  
+  .auth-card h2 {
+    font-size: var(--font-size-2xl);
+  }
 }
 
-body.dark .auth-card h2,
-body.dark .form-group label {
-  color: #f1f1f1;
+@media (max-width: 480px) {
+  .auth-card {
+    padding: var(--space-lg);
+  }
+  
+  .auth-card h2 {
+    font-size: var(--font-size-xl);
+  }
+  
+  .form-group input {
+    padding: var(--space-md);
+  }
+  
+  .auth-card button {
+    padding: var(--space-md);
+  }
 }
 
-body.dark .form-group input {
-  background: #23272f;
-  color: #f1f1f1;
-  border: 2px solid #333a4d;
+/* Animation for card entrance */
+.auth-card {
+  animation: slideInUp 0.6s ease-out;
 }
 
-body.dark .form-group input:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-body.dark .auth-card button {
-  background: #2563eb;
-  color: #fff;
+/* Focus styles for accessibility */
+.auth-card button:focus,
+.form-group input:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
-body.dark .auth-card button:hover {
-  background: #1d4ed8;
-}
-
-body.dark .error-message {
-  background: #2c0b0e;
-  color: #ffb4b4;
+/* Remove focus outline for mouse users */
+.auth-card button:focus:not(:focus-visible),
+.form-group input:focus:not(:focus-visible) {
+  outline: none;
 } 
