@@ -11,6 +11,7 @@ const app = express();
 // Configure CORS for both development and production
 const allowedOrigins = [
   'http://localhost:5173', // Vite dev server
+  'http://localhost:4173', // Vite dev server
   'http://localhost:3000', // Alternative dev port
   'https://reyziecrafts.netlify.app', // Your Netlify frontend URL
   'https://*.netlify.app', // Allow all Netlify subdomains

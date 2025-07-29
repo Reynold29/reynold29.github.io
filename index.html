@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reynold's Projects</title>
+  <link rel="icon" href="hymns/assets/images/favicon.png">
+  <style>
+    :root {
+      --accent: #3b82f6;
+      --accent2: #22d3ee;
+      --bg-dark: #18181b;
+      --bg-light: #f4f4f5;
+      --card-dark: #23232a;
+      --card-light: #fff;
+      --text-dark: #f4f4f5;
+      --text-light: #18181b;
+      --shadow: 0 4px 24px rgba(0,0,0,0.12);
+      --glass: rgba(36, 41, 46, 0.7);
+      --border: rgba(59,130,246,0.15);
+    }
+    html { color-scheme: dark light; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-dark);
+      min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
+    }
+    html, body {
+      scroll-behavior: smooth;
+    }
+    .light-mode { background: var(--bg-light); color: var(--text-light); }
+    a { color: inherit; text-decoration: none; }
+    /* Hero Section */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      min-height: 70vh;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1rem 2rem 1rem;
+    }
+    .hero-badge {
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color: #fff;
+      font-size: 1rem;
+      padding: 0.4rem 1.1rem;
+      border-radius: 1.5rem;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+      box-shadow: 0 2px 12px rgba(59,130,246,0.10);
+      display: inline-block;
+    }
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+      color: #fff;
+      min-height: 3.5rem;
+    }
+    .hero-roles {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--accent);
+      min-height: 2.2rem;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.01em;
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+    }
+    .hero-roles-static {
+      margin-right: 0.18em;
+      display: inline-block;
+    }
+    .type-cursor {
+      display: inline-block;
+      color: var(--accent);
+      font-weight: 900;
+      font-size: 1.2em;
+      animation: blink 1s steps(1) infinite;
+      margin-left: 2px;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    .hero-desc {
+      font-size: 1.2rem;
+      opacity: 0.85;
+      margin-bottom: 2.2rem;
+      max-width: 600px;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2.2rem;
+    }
+    .btn {
+      background: var(--glass);
+      color: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 0.7rem;
+      padding: 0.8rem 1.6rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.25s cubic-bezier(.4,2,.3,1), border 0.2s, transform 0.18s cubic-bezier(.4,2,.3,1), box-shadow 0.18s cubic-bezier(.4,2,.3,1);
+      box-shadow: 0 2px 8px rgba(59,130,246,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn:hover {
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-color: var(--accent);
+      color: #fff;
+      transform: scale(1.06) translateY(-2px);
+      box-shadow: 0 6px 24px rgba(59,130,246,0.18);
+    }
+    .hero-socials {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 0.5rem;
+    }
+    .hero-socials a {
+      color: #fff;
+      font-size: 1.5rem;
+      opacity: 0.8;
+      transition: color 0.2s, opacity 0.2s;
+    }
+    .hero-socials a:hover { color: var(--accent); opacity: 1; }
+    .toggle-btn {
+      position: fixed;
+      top: 1.5rem;
+      right: 2rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.7rem;
+      color: var(--accent);
+      z-index: 100;
+    }
+    /* Section: Complex Things Made Simple */
+    .section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 1rem 2rem 1rem;
+    }
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      color: #fff;
+      letter-spacing: -1px;
+      text-shadow: 0 2px 12px rgba(59,130,246,0.10);
+    }
+    .section-title-accent {
+      color: var(--accent);
+      font-size: 2.2rem;
+      font-weight: 900;
+      margin-left: 0.5rem;
+    }
+    .section-desc {
+      font-size: 1.1rem;
+      opacity: 0.8;
+      margin-bottom: 2.2rem;
+    }
+    .features {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .feature-card {
+      background: var(--glass);
+      border-radius: 1.2rem;
+      box-shadow: var(--shadow);
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      min-width: 220px;
+      max-width: 260px;
+      flex: 1 1 220px;
+      color: #fff;
+      margin-bottom: 1.5rem;
+      border: 1.5px solid var(--border);
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card .feature-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+    .feature-card .feature-desc {
+      font-size: 1rem;
+      opacity: 0.85;
+    }
+    .feature-card .feature-bg {
+      position: absolute;
+      right: -30px;
+      bottom: -30px;
+      width: 90px;
+      height: 90px;
+      opacity: 0.08;
+      background: url('https://dummyimage.com/90x90/3b82f6/ffffff&text=BG') no-repeat center/cover;
+      z-index: 0;
+    }
+    /* Section: Featured Projects */
+    .projects-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1rem 2rem 1rem;
+    }
+    .projects-title {
+      font-size: 2.1rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      color: #fff;
+      letter-spacing: -1px;
+      text-align: center;
+    }
+    .projects-title .accent { color: var(--accent); }
+    .projects-section .section-desc {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .projects-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      align-items: center;
+    }
+    .project-card {
+      background: var(--glass);
+      border-radius: 1rem;
+      box-shadow: 0 2px 12px rgba(59,130,246,0.08);
+      padding: 1rem 1.1rem 1.1rem 1.1rem;
+      min-width: 220px;
+      max-width: 290px;
+      flex: 1 1 220px;
+      color: #fff;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+      transition: box-shadow 0.18s, transform 0.18s;
+    }
+    .project-card:hover {
+      box-shadow: 0 8px 32px rgba(59,130,246,0.13);
+      transform: translateY(-4px) scale(1.03);
+    }
+    .project-img {
+      width: 100%;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      margin-bottom: 0.7rem;
+      background: #232f47;
+    }
+    .project-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: var(--accent);
+    }
+    .project-desc {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-bottom: 1rem;
+    }
+    .project-tools {
+      font-size: 0.95rem;
+      opacity: 0.7;
+      margin-bottom: 1rem;
+    }
+    .project-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: auto;
+    }
+    .project-link-btn {
+      background: none;
+      border: 1.5px solid var(--accent);
+      color: var(--accent);
+      border-radius: 0.5rem;
+      padding: 0.5rem 1.1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.25s cubic-bezier(.4,2,.3,1), color 0.2s, transform 0.18s cubic-bezier(.4,2,.3,1), box-shadow 0.18s cubic-bezier(.4,2,.3,1);
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-link-btn:hover {
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color: #fff;
+      transform: scale(1.06) translateY(-2px);
+      box-shadow: 0 6px 24px rgba(59,130,246,0.18);
+    }
+    /* Footer */
+    footer {
+      background: #151518;
+      color: #b3b3b3;
+      padding: 2.5rem 1rem 1.2rem 1rem;
+      margin-top: 3rem;
+      border-top: 1.5px solid var(--border);
+    }
+    .footer-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .footer-brand {
+      flex: 1 1 220px;
+    }
+    .footer-brand .footer-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .footer-brand .footer-desc {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-bottom: 1rem;
+    }
+    .footer-socials {
+      display: flex;
+      gap: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .footer-socials a {
+      color: #fff;
+      font-size: 1.3rem;
+      opacity: 0.8;
+      transition: color 0.2s, opacity 0.2s;
+    }
+    .footer-socials a:hover { color: var(--accent); opacity: 1; }
+    .footer-links {
+      flex: 2 1 320px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5rem;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .footer-links-col {
+      min-width: 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .footer-links-col .footer-links-title {
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.3rem;
+      font-size: 1.05rem;
+    }
+    .footer-links-col a {
+      color: #b3b3b3;
+      text-decoration: none;
+      opacity: 0.85;
+      transition: color 0.2s, opacity 0.2s;
+    }
+    .footer-links-col a:hover { color: var(--accent); opacity: 1; }
+    .footer-copyright {
+      text-align: center;
+      font-size: 0.98rem;
+      opacity: 0.7;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 900px) {
+      .footer-content { flex-direction: column; gap: 1.5rem; }
+      .footer-links { gap: 1.5rem; }
+    }
+    @media (max-width: 600px) {
+      .hero-title { font-size: 2.1rem; }
+      .section-title, .section-title-accent, .projects-title { font-size: 1.3rem; }
+      .container, .section, .projects-section { padding: 1rem 0.5rem 2rem 0.5rem; }
+      .feature-card, .project-card { padding: 1.2rem 1rem 1rem 1rem; }
+    }
+    /* Navbar Styles */
+    .main-navbar {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      background: rgba(24, 24, 27, 0.22);
+      box-shadow: 0 6px 32px 0 rgba(0,0,0,0.16);
+      backdrop-filter: blur(28px) saturate(1.8);
+      border: 1.5px solid var(--border);
+      transition: background 0.2s, box-shadow 0.2s;
+      border-radius: 999px;
+      margin: 0 auto;
+      max-width: 620px;
+      width: 98vw;
+      margin-top: 1.2rem;
+      padding: 0.2rem 0;
+      display: flex;
+      justify-content: center;
+    }
+    .navbar-container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.2rem 0;
+    }
+    .navbar-links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 0 auto;
+      padding: 0;
+      justify-content: center;
+    }
+    .navbar-links li {
+      position: relative;
+    }
+    .navbar-links a {
+      color: #e5e7eb;
+      font-size: 1.08rem;
+      font-weight: 500;
+      padding: 0.4rem 1.1rem;
+      border-radius: 0.5rem;
+      transition: background 0.18s, color 0.18s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .navbar-links a.active, .navbar-links a:hover {
+      background: rgba(59,130,246,0.13);
+      color: var(--accent);
+      border-radius: 999px;
+      transition: background 0.18s, color 0.18s, border-radius 0.18s;
+    }
+    /* Navbar active link fix */
+    .navbar-links a.active {
+      background: rgba(59,130,246,0.13);
+      color: var(--accent);
+      border-radius: 999px;
+      transition: background 0.18s, color 0.18s, border-radius 0.18s;
+    }
+    @media (max-width: 900px) {
+      .main-navbar, .navbar-container { max-width: 98vw; padding-left: 0.5rem; padding-right: 0.5rem; }
+    }
+    @media (max-width: 600px) {
+      .main-navbar {
+        font-size: 0.97rem;
+        border-radius: 999px;
+        max-width: 98vw;
+        width: 98vw;
+        margin-left: 1vw;
+        margin-right: 1vw;
+        padding: 0.12rem 0;
+      }
+      .navbar-links {
+        gap: 0.3rem;
+        width: 100%;
+        justify-content: space-between;
+      }
+      .navbar-links a {
+        padding: 0.3rem 0.5rem;
+        font-size: 1rem;
+      }
+      .navbar-container {
+        padding: 0.4rem 0.2rem;
+      }
+    }
+    /* Add top padding to body for navbar */
+    body { padding-top: 90px; }
+    /* About Me Section */
+    .about-section {
+      max-width: 950px;
+      margin: 4rem auto 0 auto;
+      padding: 2.5rem 1rem 2rem 1rem;
+      color: #fff;
+      background: none;
+    }
+    .about-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .about-title {
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: #fff;
+      margin-bottom: 0.2rem;
+    }
+    .about-title-accent {
+      color: var(--accent);
+    }
+    .about-subtitle {
+      font-size: 1.1rem;
+      opacity: 0.7;
+      margin-bottom: 0.5rem;
+    }
+    .about-content {
+      display: flex;
+      gap: 2.5rem;
+      align-items: flex-start;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .about-photo {
+      flex: 0 0 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .polaroid {
+      background: #18181b;
+      border-radius: 1.2rem;
+      box-shadow: 0 8px 32px rgba(59,130,246,0.10);
+      padding: 1.2rem 1.2rem 2.2rem 1.2rem;
+      position: relative;
+      width: 210px;
+      text-align: center;
+      border: 2px solid rgba(59,130,246,0.10);
+      margin: 0 auto;
+    }
+    .polaroid-img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 0.7rem;
+      margin-bottom: 1.1rem;
+      box-shadow: 0 2px 12px rgba(59,130,246,0.10);
+    }
+    .polaroid-signature {
+      font-family: 'Pacifico', cursive, sans-serif;
+      font-size: 1.1rem;
+      color: #fff;
+      position: absolute;
+      left: 1.2rem;
+      bottom: 0.7rem;
+      opacity: 0.85;
+      letter-spacing: 1px;
+    }
+    .about-bio {
+      flex: 1 1 320px;
+      min-width: 260px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .about-name {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.2rem;
+      color: #fff;
+    }
+    .about-role {
+      font-size: 1.1rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+    }
+    .about-desc {
+      font-size: 1.08rem;
+      opacity: 0.92;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+    .about-stack {
+      display: flex;
+      gap: 1.2rem;
+      font-size: 2.1rem;
+      color: #fff;
+      opacity: 0.92;
+      margin-top: 0.5rem;
+    }
+    .about-stack i {
+      transition: color 0.18s, transform 0.18s;
+      cursor: pointer;
+    }
+    .about-stack i:hover {
+      color: var(--accent);
+      transform: scale(1.18) rotate(-8deg);
+    }
+    .about-stack-svg {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 0.5rem;
+      transition: transform 0.18s;
+    }
+    .about-stack-svg img {
+      transition: filter 0.18s, transform 0.18s;
+      filter: drop-shadow(0 1px 2px rgba(59,130,246,0.10));
+    }
+    .about-stack-svg:hover img {
+      filter: brightness(1.2) drop-shadow(0 2px 8px #42a5f5);
+      transform: scale(1.18) rotate(-8deg);
+    }
+    @media (max-width: 900px) {
+      .about-content { flex-direction: column; align-items: center; gap: 1.5rem; }
+      .about-photo { margin-bottom: 1.2rem; }
+    }
+    /* Hero badge pill smooth resize */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 1.6rem;
+      padding: 0.18rem 0.85rem;
+      border-radius: 1.1rem;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color: #000000;
+      font-size: 0.98rem;
+      font-weight: 600;
+      box-shadow: 0 2px 12px rgba(59,130,246,0.10);
+      transition: width 0.4s cubic-bezier(.4,2,.3,1), background 0.2s;
+      width: auto;
+      max-width: 100vw;
+      position: relative;
+    }
+    #badge-rotator {
+      transition: opacity 0.5s;
+      display: inline-block;
+      white-space: nowrap;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="main-navbar">
+    <div class="navbar-container">
+      <ul class="navbar-links">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="https://portfolio-reynold29.vercel.app/" target="_blank" rel="noopener">Portfolio</a></li>
+        <li><a href="#resume">Resume</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-badge" id="badge-pill"><span id="badge-rotator"></span></div>
+    <div class="hero-title"><span id="typewriter-main"></span></div>
+    <div class="hero-roles"><span class="hero-roles-static">I'm a&nbsp;</span><span id="typewriter-roles" style="font-weight: 600;"></span><span class="type-cursor">|</span></div>
+    <div class="hero-desc">I'm a developer who loves building things and share what I learn. I enjoy working with modern web technologies, Flutter -- buidling mobile apps, and making projects that help people. I'm a Tech-Support Engineer by day and a developer by night. Let's Connect and build something great together!</div>
+    <div class="hero-btns">
+      <a class="btn" href="#">Let's Connect <i class="fa fa-arrow-down"></i></a>
+      <a class="btn" href="#projects">My Projects</a>
+      <a class="btn" href="#about">More about me</a>
+    </div>
+    <div class="hero-socials">
+      <a href="https://github.com/Reynold29/" title="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/reynoldpreetham/" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://portfolio-reynold29.vercel.app/" title="Website"><i class="fa fa-globe"></i></a>
+      <a href="mailto:reynoldclare02@gmail.com" title="Mail"><i class="fa fa-envelope"></i></a>
+    </div>
+  </section>
+  <!-- Section: Featured Projects -->
+  <section class="projects-section" id="projects">
+    <div class="projects-title">Featured <span class="accent">Projects</span></div>
+    <div class="section-desc">A selection of projects that I've worked on</div>
+    <div class="projects-list">
+      <div class="project-card">
+        <img class="project-img" src="https://dummyimage.com/400x140/232f47/fff&text=Dashboard" alt="Dashboard Preview">
+        <div class="project-title">Dashboard</div>
+        <div class="project-desc">A modern dashboard app for managing and visualizing data. (Edit this description!)</div>
+        <div class="project-tools">Tools: Node.js, Express, React</div>
+        <div class="project-links">
+          <a class="project-link-btn" href="dashboard/frontend/index.html">View Project <i class="fa fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="project-card">
+        <img class="project-img" src="https://dummyimage.com/400x140/232f47/fff&text=Hymns" alt="Hymns Preview">
+        <div class="project-title">Hymns</div>
+        <div class="project-desc">A collection of hymns and spiritual songs with a beautiful UI. (Edit this description!)</div>
+        <div class="project-tools">Tools: HTML, CSS, JS</div>
+        <div class="project-links">
+          <a class="project-link-btn" href="hymns/index.html">View Project <i class="fa fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="project-card">
+        <img class="project-img" src="https://dummyimage.com/400x140/232f47/fff&text=LinkFree" alt="LinkFree Preview">
+        <div class="project-title">LinkFree</div>
+        <div class="project-desc">An open source alternative to LinkTree for sharing your links. (Edit this description!)</div>
+        <div class="project-tools">Tools: HTML, CSS, JS</div>
+        <div class="project-links">
+          <a class="project-link-btn" href="linkfree/index.html">View Project <i class="fa fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- About Me Section -->
+  <section class="about-section" id="about">
+    <div class="about-header">
+      <div class="about-title">About <span class="about-title-accent">Me</span></div>
+      <div class="about-subtitle">A story of growth and discovery</div>
+    </div>
+    <div class="about-content">
+      <div class="about-photo">
+        <div class="polaroid">
+          <img src="assets/Me.jpg" alt="Reynold's Photo" class="polaroid-img">
+          <div class="polaroid-signature">Reynold</div>
+        </div>
+      </div>
+      <div class="about-bio">
+        <div class="about-name">Reynold Preetham</div>
+        <div class="about-role">Full-stack and Flutter Developer</div>
+        <div class="about-desc">
+            Hello! You can call me <b>Reynold</b>. <br> I’m a passionate full-stack and Flutter developer, building both mobile and web apps that make a difference. <br>I love crafting beautiful, functional websites and applications, and I’m always exploring new ways to bring ideas to life with code. <br><br>By day, I work as a Tech Support Engineer, helping people solve problems and making technology more accessible. Outside of work, I’m a musician—I play both keys and guitar—and I enjoy expressing creativity through music. <br><br>I’m also a tech enthusiast who loves modding and customizing Android devices, especially experimenting with custom ROMs. When I’m not coding or tinkering with tech, you’ll probably find me gaming or learning something new! <br><br> Here are some of my favorite technologies:
+        </div>
+        <div class="about-stack">
+          <span class="about-stack-svg" title="Flutter">
+            <img src="https://cdn.simpleicons.org/flutter/fff" alt="Flutter" style="height:2.1rem;vertical-align:middle;" />
+          </span>
+          <span class="about-stack-svg" title="Node.js">
+            <img src="https://cdn.simpleicons.org/nodedotjs/fff" alt="Node.js" style="height:2.1rem;vertical-align:middle;" />
+          </span>
+          <span class="about-stack-svg" title="React">
+            <img src="https://cdn.simpleicons.org/react/fff" alt="React" style="height:2.1rem;vertical-align:middle;" />
+          </span>
+          <span class="about-stack-svg" title="JavaScript">
+            <img src="https://cdn.simpleicons.org/javascript/fff" alt="JavaScript" style="height:2.1rem;vertical-align:middle;" />
+          </span>
+          <span class="about-stack-svg" title="HTML5">
+            <img src="https://cdn.simpleicons.org/html5/fff" alt="HTML5" style="height:2.1rem;vertical-align:middle;" />
+          </span>
+          <span class="about-stack-svg" title="Git">
+            <img src="https://cdn.simpleicons.org/git/fff" alt="Git" style="height:2.1rem;vertical-align:middle;" />
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-title">Reynold Clare</div>
+        <div class="footer-desc">Let's make the world a better place together!</div>
+        <div class="footer-socials">
+            <a href="https://github.com/Reynold29/" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/reynoldpreetham/" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://portfolio-reynold29.vercel.app/" title="Website"><i class="fa fa-globe"></i></a>
+            <a href="mailto:reynoldclare02@gmail.com" title="Mail"><i class="fa fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-links-col">
+          <div class="footer-links-title">General</div>
+          <a href="#">Home</a>
+          <a href="#projects">Projects</a>
+          <a href="#about">About</a>
+        </div>
+        <div class="footer-links-col">
+          <div class="footer-links-title">Resources</div>
+        </div>
+        <div class="footer-links-col">
+          <div class="footer-links-title">The Website</div>
+          <!-- <a href="#">Attribution</a> -->
+          <!-- <a href="#">Statistics</a> -->
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      Copyright ©2025 Reynold Clare. All rights reserved.
+    </div>
+  </footer>
+  <script>
+    // Typewriter effect for hero title and roles
+    function typeWriterEffect(element, text, speed = 60, callback) {
+      let i = 0;
+      function type() {
+        if (i <= text.length) {
+          element.textContent = text.substring(0, i);
+          i++;
+          setTimeout(type, speed);
+        } else if (callback) {
+          callback();
+        }
+      }
+      type();
+    }
+
+    // Main title typewriter
+    const mainTitle = "I'm Reynold 👋🏼";
+    const mainTitleEl = document.getElementById('typewriter-main');
+    typeWriterEffect(mainTitleEl, mainTitle, 70);
+
+    // Roles typewriter
+    const roles = [
+      'Developer',
+      'Tech Support Engineer',
+      'Freelancer',
+      'Musician',
+      'Gamer'
+    ];
+    let roleIndex = 0;
+    let isDeleting = false;
+    let roleText = '';
+    const roleEl = document.getElementById('typewriter-roles');
+    function typeRole() {
+      const current = roles[roleIndex];
+      if (!isDeleting) {
+        roleText = current.substring(0, roleText.length + 1);
+      } else {
+        roleText = current.substring(0, roleText.length - 1);
+      }
+      // Capitalize first letter as it types
+      let displayText = roleText;
+      if (displayText.length > 0) {
+        displayText = displayText[0].toUpperCase() + displayText.slice(1);
+      }
+      roleEl.textContent = displayText;
+      let typeSpeed = isDeleting ? 40 : 80;
+      if (!isDeleting && roleText === current) {
+        typeSpeed = 1200;
+        isDeleting = true;
+      } else if (isDeleting && roleText === '') {
+        isDeleting = false;
+        roleIndex = (roleIndex + 1) % roles.length;
+        typeSpeed = 600;
+      }
+      setTimeout(typeRole, typeSpeed);
+    }
+    setTimeout(typeRole, 1200);
+
+    // Hero badge rotator
+    const badgePhrases = [
+      'Building Ideas Into Reality 🚀',
+      'Designing Solutions, One Pixel at a Time ✨',
+      'Creating Impactful Digital Experiences 🌐',
+      'Code. Create. Connect. 💡',
+      'Turning Coffee Into Code & Creativity ☕️💻',
+      'Empowering Innovation, Inspiring Change 🔥',
+      'Engineering the Future, Today 🛠️',
+      'Making the Web a Better Place 🌍',
+      'Where Imagination Meets Implementation 🧠⚡️',
+      'Crafting Code, Shaping Stories 📖'
+    ];
+    let badgeIndex = 0;
+    const badgeEl = document.getElementById('badge-rotator');
+    // Smooth pill resize for badge
+    const badgePill = document.getElementById('badge-pill');
+    function showBadgePhrase(idx) {
+      badgeEl.style.opacity = 0;
+      setTimeout(() => {
+        badgeEl.textContent = badgePhrases[idx];
+        // Create a temporary span to measure new width
+        const temp = document.createElement('span');
+        temp.style.visibility = 'hidden';
+        temp.style.position = 'absolute';
+        temp.style.whiteSpace = 'nowrap';
+        temp.style.fontSize = window.getComputedStyle(badgeEl).fontSize;
+        temp.style.fontWeight = window.getComputedStyle(badgeEl).fontWeight;
+        temp.textContent = badgePhrases[idx];
+        document.body.appendChild(temp);
+        const newWidth = temp.offsetWidth + 40; // 40px for padding
+        badgePill.style.width = newWidth + 'px';
+        document.body.removeChild(temp);
+        badgeEl.style.opacity = 1;
+      }, 350);
+    }
+    // Initialize pill width
+    function setInitialBadgeWidth() {
+      badgeEl.textContent = badgePhrases[badgeIndex];
+      const temp = document.createElement('span');
+      temp.style.visibility = 'hidden';
+      temp.style.position = 'absolute';
+      temp.style.whiteSpace = 'nowrap';
+      temp.style.fontSize = window.getComputedStyle(badgeEl).fontSize;
+      temp.style.fontWeight = window.getComputedStyle(badgeEl).fontWeight;
+      temp.textContent = badgePhrases[badgeIndex];
+      document.body.appendChild(temp);
+      const newWidth = temp.offsetWidth + 40;
+      badgePill.style.width = newWidth + 'px';
+      document.body.removeChild(temp);
+    }
+    setInitialBadgeWidth();
+    showBadgePhrase(badgeIndex);
+    setInterval(() => {
+      badgeIndex = (badgeIndex + 1) % badgePhrases.length;
+      showBadgePhrase(badgeIndex);
+    }, 2500);
+
+    // Navbar active link switching based on scroll/hash
+    const navbarLinks = document.querySelectorAll('.navbar-links a');
+    const sectionIds = ['#', '#projects', '#portfolio', '#resume', '#about'];
+    const sectionElements = [
+      document.body,
+      document.getElementById('projects'),
+      document.getElementById('portfolio'),
+      document.getElementById('resume'),
+      document.getElementById('about')
+    ];
+
+    function setActiveNavByHash() {
+      let hash = window.location.hash;
+      if (!hash || hash === '#') hash = '#';
+      navbarLinks.forEach(link => link.classList.remove('active'));
+      let found = false;
+      navbarLinks.forEach(link => {
+        if (link.getAttribute('href') === hash) {
+          link.classList.add('active');
+          found = true;
+        }
+      });
+      // If no hash matches, default to Home
+      if (!found) navbarLinks[0].classList.add('active');
+    }
+
+    // On click, update active class and hash
+    navbarLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        // For # links, prevent default scroll if section doesn't exist
+        const href = link.getAttribute('href');
+        if (href.startsWith('#')) {
+          const section = document.querySelector(href);
+          if (section) {
+            e.preventDefault();
+            window.location.hash = href;
+            section.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+        setActiveNavByHash();
+      });
+    });
+
+    // On hash change (back/forward navigation)
+    window.addEventListener('hashchange', setActiveNavByHash);
+    // On load
+    setActiveNavByHash();
+
+    // Optionally, update active link on scroll (for sections in view)
+    function setActiveNavOnScroll() {
+      let scrollPos = window.scrollY || window.pageYOffset;
+      let found = false;
+      for (let i = sectionElements.length - 1; i >= 0; i--) {
+        const el = sectionElements[i];
+        if (el && el.offsetTop - 120 <= scrollPos) {
+          navbarLinks.forEach(link => link.classList.remove('active'));
+          if (navbarLinks[i]) navbarLinks[i].classList.add('active');
+          found = true;
+          break;
+        }
+      }
+      if (!found) navbarLinks[0].classList.add('active');
+    }
+    window.addEventListener('scroll', setActiveNavOnScroll);
+  </script>
+</body>
+</html> 
