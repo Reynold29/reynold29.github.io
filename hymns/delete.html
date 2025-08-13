@@ -30,17 +30,27 @@
           <div class="col-12">
             <div class="card p-4 p-md-5 shadow-sm">
               <h2 class="mb-2">Request deletion of your data</h2>
-              <p class="text muted mb-4">Fill the reason below and send. This will open your email app with the details pre-filled.</p>
+              <p class="text muted mb-4">Please fill in all fields. Your request will be sent directly to us.</p>
 
-              <form id="deleteForm">
+              <form id="deleteForm" action="https://formspree.io/f/mwpqyypg" method="POST" novalidate>
+                <div class="mb-3">
+                  <label for="fullName" class="form-label">Full name</label>
+                  <input id="fullName" name="fullName" class="form-control" placeholder="Your full name" required />
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email address</label>
+                  <input id="email" name="email" type="email" class="form-control" placeholder="you@example.com" required />
+                </div>
                 <div class="mb-3">
                   <label for="reason" class="form-label">Reason for deletion</label>
-                  <textarea id="reason" class="form-control" rows="5" placeholder="Type your reason here..." required></textarea>
+                  <textarea id="reason" name="reason" class="form-control" rows="5" placeholder="Type your reason here..." required></textarea>
                 </div>
+                <input type="hidden" name="_subject" value="Request to delete my user data" />
+                <input type="hidden" name="_replyto" id="_replyto" value="" />
                 <button type="submit" class="main-btn">Send request</button>
               </form>
-
-              <p class="mt-3 small muted">This form does not store your input. It simply opens an email to send to us: <b>reyziecrafts@gmail.com</b>.</p>
+              <div id="status" class="mt-3 small"></div>
+              <p class="mt-3 small muted">This form sends directly to <b>reyziecrafts@gmail.com</b>. Nothing is stored on this website.</p>
             </div>
           </div>
         </div>
@@ -50,13 +60,50 @@
     <script>
       (function() {
         const form = document.getElementById('deleteForm');
-        form.addEventListener('submit', function(e) {
+        const statusEl = document.getElementById('status');
+        form.addEventListener('submit', async function(e) {
           e.preventDefault();
-          const reason = document.getElementById('reason').value.trim();
-          const subject = encodeURIComponent('Request to delete my user data');
-          const body = encodeURIComponent('Hello,\n\nI would like to request deletion of my user data associated with CSI Hymns Book.\n\nReason:\n' + reason + '\n\nThank you.');
-          const mailto = 'mailto:reyziecrafts@gmail.com?subject=' + subject + '&body=' + body;
-          window.location.href = mailto;
+          statusEl.textContent = '';
+          const submitBtn = form.querySelector('button[type="submit"]');
+
+          // Basic client-side validation
+          const fullName = document.getElementById('fullName');
+          const email = document.getElementById('email');
+          const reason = document.getElementById('reason');
+          if (!fullName.value.trim() || !email.value.trim() || !reason.value.trim()) {
+            statusEl.textContent = 'Please complete all required fields.';
+            return;
+          }
+          if (email.validity && !email.validity.valid) {
+            statusEl.textContent = 'Please enter a valid email address.';
+            return;
+          }
+
+          // Ensure reply-to is set for Formspree
+          const replyTo = document.getElementById('_replyto');
+          if (replyTo) replyTo.value = email.value.trim();
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Sending...';
+          try {
+            const data = new FormData(form);
+            const res = await fetch(form.action, {
+              method: 'POST',
+              body: data,
+              headers: { 'Accept': 'application/json' }
+            });
+            if (res.ok) {
+              form.reset();
+              statusEl.textContent = 'Request sent. We will get back to you.';
+            } else {
+              statusEl.textContent = 'Failed to send. Please try again later.';
+            }
+          } catch (err) {
+            statusEl.textContent = 'Failed to send. Please check your connection and try again.';
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send request';
+          }
         });
       })();
     </script>
