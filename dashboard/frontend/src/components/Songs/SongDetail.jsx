@@ -74,34 +74,34 @@ export default function SongDetail({ type }) {
 
   return (
     <div className="song-detail-dark song-detail-outer">
-      <div className="song-detail-header" style={{ justifyContent: 'center', width: '100%', marginBottom: '2rem' }}>
+      <div className="song-detail-header">
         <button className="back-btn" onClick={() => navigate(-1)}>&larr;</button>
-        <span className="song-title" style={{ textAlign: 'center', width: '100%' }}>{song.title}</span>
+        <span className="song-title">{song.title}</span>
       </div>
-      <div className="song-meta-row" style={{ justifyContent: 'center', width: '100%', marginBottom: '1.5rem' }}>
+      <div className="song-meta-row">
         <span className="song-number">{type === 'hymns' ? 'Hymn' : 'Keerthane'} {song.number}</span>
         <div className="lang-toggle-group">
           <button className={`lang-toggle${lang === 'english' ? ' active' : ''}`} onClick={() => handleLang('english')}>English</button>
           <button className={`lang-toggle${lang === 'kannada' ? ' active' : ''}`} onClick={() => handleLang('kannada')}>ಕನ್ನಡ</button>
         </div>
       </div>
-      <div className="song-signature" style={{ marginBottom: '1.5rem' }}>{song.signature}</div>
-      <div className="font-controls" style={{ marginBottom: '2rem' }}>
+      <div className="song-signature">{song.signature}</div>
+      <div className="font-controls">
         <button onClick={() => handleFont(-2)} className="font-btn" aria-label="Decrease font size">-</button>
         <span style={{ margin: '0 1rem', fontWeight: 500 }}>Font</span>
         <button onClick={() => handleFont(2)} className="font-btn" aria-label="Increase font size">+</button>
       </div>
-      <div className="lyrics-stanzas" style={{ width: '100%', maxWidth: 700, transition: 'font-size 0.2s cubic-bezier(.4,2,.6,1)' }}>
+      <div className="lyrics-stanzas">
         {stanzas.map((stanza, idx) => (
-          <div className="stanza" key={idx} style={{ flexDirection: 'column', alignItems: 'center', display: 'flex', marginBottom: 24, borderRadius: 24, boxShadow: 'var(--shadow-md)', background: 'var(--bg-secondary)', border: '1.5px solid var(--border-light)', padding: '2rem 1.5rem' }}>
-            <div className="stanza-number" style={{ marginBottom: 8, fontWeight: 700, color: 'var(--primary)' }}>{idx + 1}.</div>
-            <div className="stanza-text" style={{ fontSize: fontSize, transition: 'font-size 0.2s cubic-bezier(.4,2,.6,1)' }}>
+          <div className="stanza" key={idx}>
+            <div className="stanza-number">{idx + 1}.</div>
+            <div className="stanza-text" style={{ fontSize: fontSize }}>
               {stanza.trim().split('\n').map((line, i) => <div key={i}>{line}</div>)}
             </div>
           </div>
         ))}
       </div>
-      <div className="song-detail-actions" style={{ marginTop: '2rem' }}>
+      <div className="song-detail-actions">
         <button onClick={handleEdit} className="edit-button">Edit Song</button>
       </div>
       {isEditing && (

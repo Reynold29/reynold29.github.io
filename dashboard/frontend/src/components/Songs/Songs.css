@@ -327,8 +327,15 @@
   gap: var(--space-md);
   font-size: var(--font-size-xl);
   font-weight: 700;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-xl);
   color: var(--text-primary);
+  justify-content: center;
+  width: 100%;
+}
+
+.song-detail-header .song-title {
+  text-align: center;
+  width: 100%;
 }
 
 .song-title {
@@ -369,6 +376,8 @@
   gap: var(--space-lg);
   margin-bottom: var(--space-lg);
   flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
 }
 
 .song-number {
@@ -471,6 +480,10 @@
 .lyrics-stanzas {
   margin-top: var(--space-xl);
   margin-bottom: 2rem;
+  width: 100%;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .stanza {
@@ -480,6 +493,9 @@
   background: var(--bg-secondary);
   border: 1.5px solid var(--border-light);
   padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .stanza-number {
@@ -493,6 +509,7 @@
   line-height: 1.8;
   color: var(--text-primary);
   font-size: var(--font-size-base);
+  transition: font-size 0.2s cubic-bezier(.4,2,.6,1);
 }
 
 .song-detail-actions {
