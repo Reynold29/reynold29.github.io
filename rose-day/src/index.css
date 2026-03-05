@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Rose Day Romantic Palette */
+    --background: 36 100% 97%;
+    --foreground: 355 40% 20%;
+
+    --card: 351 78% 96%;
+    --card-foreground: 355 40% 20%;
+
+    --popover: 36 100% 97%;
+    --popover-foreground: 355 40% 20%;
+
+    --primary: 355 85% 41%;
+    --primary-foreground: 36 100% 97%;
+
+    --secondary: 351 100% 86%;
+    --secondary-foreground: 355 40% 25%;
+
+    --muted: 351 60% 92%;
+    --muted-foreground: 355 30% 45%;
+
+    --accent: 122 39% 49%;
+    --accent-foreground: 36 100% 97%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 351 40% 85%;
+    --input: 351 40% 90%;
+    --ring: 355 85% 50%;
+
+    --radius: 1rem;
+
+    /* Custom Rose Day Colors */
+    --rose-deep: 355 85% 41%;
+    --rose-soft: 351 100% 86%;
+    --rose-blush: 351 78% 92%;
+    --rose-glow: 351 100% 75%;
+    --leaf-green: 122 39% 49%;
+    --cream: 36 100% 97%;
+    --gold: 43 100% 55%;
+
+    /* Gradients */
+    --gradient-romantic: linear-gradient(135deg, hsl(351, 78%, 92%) 0%, hsl(36, 100%, 97%) 50%, hsl(351, 100%, 86%) 100%);
+    --gradient-rose: linear-gradient(180deg, hsl(355, 85%, 41%) 0%, hsl(355, 70%, 55%) 100%);
+    --gradient-petal: linear-gradient(145deg, hsl(351, 100%, 86%) 0%, hsl(355, 85%, 60%) 100%);
+    --gradient-hero: radial-gradient(ellipse at center, hsl(351, 78%, 95%) 0%, hsl(36, 100%, 97%) 50%, hsl(351, 60%, 92%) 100%);
+
+    /* Shadows */
+    --shadow-rose: 0 10px 40px -10px hsl(355 85% 41% / 0.3);
+    --shadow-glow: 0 0 30px hsl(351 100% 75% / 0.5);
+    --shadow-petal: 0 4px 20px hsl(355 85% 41% / 0.2);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 355 30% 8%;
+    --foreground: 351 78% 92%;
+
+    --card: 355 30% 12%;
+    --card-foreground: 351 78% 92%;
+
+    --popover: 355 30% 10%;
+    --popover-foreground: 351 78% 92%;
+
+    --primary: 351 100% 75%;
+    --primary-foreground: 355 30% 10%;
+
+    --secondary: 355 40% 25%;
+    --secondary-foreground: 351 78% 92%;
+
+    --muted: 355 30% 20%;
+    --muted-foreground: 351 50% 70%;
+
+    --accent: 122 39% 40%;
+    --accent-foreground: 36 100% 97%;
+
+    --border: 355 30% 25%;
+    --input: 355 30% 20%;
+    --ring: 351 100% 70%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Custom cursor only on devices with fine pointer (desktop); touch gets default */
+  @media (pointer: fine) {
+    body {
+      cursor: none;
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer utilities {
+  /* Custom cursor hide - only when fine pointer (desktop) so touch gets default cursor */
+  @media (pointer: fine) {
+    .cursor-none * {
+      cursor: none !important;
+    }
+  }
+
+  /* Romantic text gradient */
+  .text-romantic {
+    background: linear-gradient(135deg, hsl(var(--rose-deep)) 0%, hsl(var(--rose-soft)) 50%, hsl(var(--rose-deep)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glow effects */
+  .glow-rose {
+    box-shadow: 0 0 20px hsl(var(--rose-glow) / 0.6), 0 0 40px hsl(var(--rose-glow) / 0.4);
+  }
+
+  .glow-soft {
+    box-shadow: 0 0 15px hsl(var(--rose-soft) / 0.5);
+  }
+
+  /* Float animation */
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .float-delayed {
+    animation: float 6s ease-in-out infinite;
+    animation-delay: -3s;
+  }
+
+  /* Pulse glow */
+  .pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  /* Heartbeat */
+  .heartbeat {
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+
+  /* Rotate slow */
+  .rotate-slow {
+    animation: rotateSlow 20s linear infinite;
+  }
+
+  /* Shimmer effect */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--rose-blush)) 0%,
+      hsl(var(--cream)) 50%,
+      hsl(var(--rose-blush)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  /* Glass morphism */
+  .glass {
+    background: hsl(var(--cream) / 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--rose-soft) / 0.3);
+  }
+
+  /* Petal shape */
+  .petal-shape {
+    border-radius: 50% 0 50% 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(var(--rose-glow) / 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px hsl(var(--rose-glow) / 0.8);
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.1);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.1);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
+@keyframes rotateSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes petalFall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg) translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg) translateX(100px);
+    opacity: 0.3;
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--rose-blush));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--rose-deep));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--rose-soft));
+}
+
+/* Selection color */
+::selection {
+  background: hsl(var(--rose-soft));
+  color: hsl(var(--rose-deep));
+}
