@@ -1,0 +1,13 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "6854RXDB8K.com.reyzie.worshipcompanion",
+                "paths": [
+                    "/worshipcompanion/song*"
+                ]
+            }
+        ]
+    }
+}
