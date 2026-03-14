@@ -72,6 +72,10 @@
 
         const config = getAppConfig();
 
+        // ─── Debug Info (Hidden unless needed) ───
+        console.log('App Config:', config);
+        console.log('Platform Info:', navigator.userAgent);
+
         // Dynamically update UI
         document.getElementById('android-btn').href = config.android;
         document.getElementById('ios-btn').href = config.ios;
@@ -85,19 +89,23 @@
         };
 
         function redirect() {
-            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            const userAgent = (navigator.userAgent || navigator.vendor || window.opera).toLowerCase();
             const loadingState = document.getElementById('loading-state');
             const choiceState = document.getElementById('choice-state');
 
             // 1. Android Detection
-            if (/android/i.test(userAgent)) {
-                window.location.href = config.android;
+            if (userAgent.indexOf("android") > -1) {
+                // Some Android browsers block immediate redirects, so we use a small timeout
+                setTimeout(() => {
+                    window.location.replace(config.android);
+                }, 800);
                 return;
             }
 
             // 2. iOS Detection (iPhone, iPad, iPod)
-            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                window.location.href = config.ios;
+            const isIOS = /ipad|iphone|ipod/.test(userAgent) && !window.MSStream;
+            if (isIOS) {
+                window.location.replace(config.ios);
                 return;
             }
 
