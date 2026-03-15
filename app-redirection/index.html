@@ -72,19 +72,19 @@
 
         const config = getAppConfig();
 
-        // ─── Debug Info (Hidden unless needed) ───
-        console.log('App Config:', config);
-        console.log('Platform Info:', navigator.userAgent);
-
+        // ─── Debug Info ───
+        console.log('App Config Loaded:', config.name);
+        
         // Dynamically update UI
         document.getElementById('android-btn').href = config.android;
         document.getElementById('ios-btn').href = config.ios;
         document.querySelector('.app-icon img').src = config.logo;
         document.querySelectorAll('strong').forEach(el => el.textContent = config.name);
         
-        // Handle logo fallback for hymns if hymns_logo.png doesn't exist yet
+        // Handle logo fallback
         const logoImg = document.querySelector('.app-icon img');
         logoImg.onerror = function() {
+            console.log('Logo failed to load, using default.');
             this.src = "worship_logo.png";
         };
 
@@ -93,27 +93,37 @@
             const loadingState = document.getElementById('loading-state');
             const choiceState = document.getElementById('choice-state');
 
+            console.log('Detecting platform:', userAgent);
+
+            let targetUrl = null;
+
             // 1. Android Detection
             if (userAgent.indexOf("android") > -1) {
-                // Some Android browsers block immediate redirects, so we use a small timeout
+                targetUrl = config.android;
+            } 
+            // 2. iOS Detection
+            else if (/ipad|iphone|ipod/.test(userAgent) && !window.MSStream) {
+                targetUrl = config.ios;
+            }
+
+            if (targetUrl) {
+                console.log('Redirecting to:', targetUrl);
+                // Try immediate redirect
+                window.location.replace(targetUrl);
+                
+                // Fallback: If still on page after 2s, show choice
                 setTimeout(() => {
-                    window.location.replace(config.android);
-                }, 800);
-                return;
-            }
-
-            // 2. iOS Detection (iPhone, iPad, iPod)
-            const isIOS = /ipad|iphone|ipod/.test(userAgent) && !window.MSStream;
-            if (isIOS) {
-                window.location.replace(config.ios);
-                return;
-            }
-
-            // 3. Fallback for Desktop or unknown
-            setTimeout(() => {
+                    if (!document.hidden) {
+                        loadingState.classList.add('hidden');
+                        choiceState.classList.remove('hidden');
+                    }
+                }, 2500);
+            } else {
+                // Desktop or unknown
+                console.log('Unknown platform, showing choice.');
                 loadingState.classList.add('hidden');
                 choiceState.classList.remove('hidden');
-            }, 1200);
+            }
         }
 
         // Execute on load
