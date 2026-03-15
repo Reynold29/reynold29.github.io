@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worship Companion | Open in App Store</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://portfolio-reynold29.vercel.app/favicon.ico">
+    <meta name="description" content="Open Worship Companion in your device's app store.">
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="container">
+        <div class="glass-card">
+            <!-- App Icon with PNG -->
+            <div class="app-icon">
+                <img src="worship_logo.png" alt="Worship Companion Logo">
+            </div>
+
+            <div id="loading-state">
+                <div class="loader"></div>
+                <h1>Redirecting...</h1>
+                <p>Establishing a secure connection to the store for <strong>Worship Companion</strong>.</p>
+            </div>
+
+            <div id="choice-state" class="hidden">
+                <h1 id="choice-title">Choose Your Store</h1>
+                <p id="choice-desc">We couldn't automatically redirect you. Please select your device's app store below.</p>
+                <div class="store-buttons">
+                    <a href="#" class="btn btn-primary" id="android-btn">
+                        <img src="google_play_logo.svg" alt="Google Play Icon" style="width: 20px; height: 20px;">
+                        Google Play Store
+                    </a>
+                    <a href="#" class="btn btn-secondary" id="ios-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.1 2.48-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.36 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                        </svg>
+                        Apple App Store
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * App Configuration Data
+         */
+        const APPS = {
+            'worship': {
+                name: "Worship Companion",
+                android: "https://play.google.com/store/apps/details?id=com.reyzie.worshipcompanion",
+                ios: "https://apps.apple.com/in/app/worship-companion/id6759990066",
+                logo: "worship_logo.png"
+            },
+            'hymns': {
+                name: "CSI Hymns Book",
+                android: "https://play.google.com/store/apps/details?id=com.reyzie.hymns",
+                ios: "https://apps.apple.com/us/app/csi-hymns-book/id6759966582",
+                logo: "hymns_logo.png" // Fallback to worship_logo.png if not found
+            }
+        };
+
+        function getAppConfig() {
+            const params = new URLSearchParams(window.location.search);
+            const appKey = params.get('app')?.toLowerCase() || 'worship';
+            return APPS[appKey] || APPS['worship'];
+        }
+
+        const config = getAppConfig();
+
+        // ─── Debug Info ───
+        console.log('App Config Loaded:', config.name);
+        
+        // Dynamically update UI
+        document.getElementById('android-btn').href = config.android;
+        document.getElementById('ios-btn').href = config.ios;
+        document.querySelector('.app-icon img').src = config.logo;
+        document.querySelectorAll('strong').forEach(el => el.textContent = config.name);
+        
+        // Handle logo fallback
+        const logoImg = document.querySelector('.app-icon img');
+        logoImg.onerror = function() {
+            console.log('Logo failed to load, using default.');
+            this.src = "worship_logo.png";
+        };
+
+        function redirect() {
+            const userAgent = (navigator.userAgent || navigator.vendor || window.opera).toLowerCase();
+            const loadingState = document.getElementById('loading-state');
+            const choiceState = document.getElementById('choice-state');
+
+            console.log('Detecting platform:', userAgent);
+
+            let targetUrl = null;
+
+            // 1. Android Detection
+            if (userAgent.indexOf("android") > -1) {
+                targetUrl = config.android;
+            } 
+            // 2. iOS Detection
+            else if (/ipad|iphone|ipod/.test(userAgent) && !window.MSStream) {
+                targetUrl = config.ios;
+            }
+
+            if (targetUrl) {
+                console.log('Redirecting to:', targetUrl);
+                // Try immediate redirect
+                window.location.replace(targetUrl);
+                
+                // Fallback: If still on page after 2s, show choice
+                setTimeout(() => {
+                    if (!document.hidden) {
+                        loadingState.classList.add('hidden');
+                        choiceState.classList.remove('hidden');
+                    }
+                }, 2500);
+            } else {
+                // Desktop or unknown
+                console.log('Unknown platform, showing choice.');
+                loadingState.classList.add('hidden');
+                choiceState.classList.remove('hidden');
+            }
+        }
+
+        // Execute on load
+        window.addEventListener('load', redirect);
+    </script>
+</body>
+</html>
