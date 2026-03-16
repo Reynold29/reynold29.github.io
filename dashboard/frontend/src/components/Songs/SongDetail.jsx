@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { apiUrl } from '../../config';
+import { FaArrowLeft, FaPlus, FaMinus, FaEdit, FaCheck, FaTimes } from 'react-icons/fa';
 import './Songs.css';
 
 export default function SongDetail({ type }) {
@@ -75,7 +76,9 @@ export default function SongDetail({ type }) {
   return (
     <div className="song-detail-dark song-detail-outer">
       <div className="song-detail-header">
-        <button className="back-btn" onClick={() => navigate(-1)}>&larr;</button>
+        <button className="back-btn" onClick={() => navigate(-1)} aria-label="Go back">
+          <FaArrowLeft />
+        </button>
         <span className="song-title">{song.title}</span>
       </div>
       <div className="song-meta-row">
@@ -87,9 +90,13 @@ export default function SongDetail({ type }) {
       </div>
       <div className="song-signature">{song.signature}</div>
       <div className="font-controls">
-        <button onClick={() => handleFont(-2)} className="font-btn" aria-label="Decrease font size">-</button>
-        <span style={{ margin: '0 1rem', fontWeight: 500 }}>Font</span>
-        <button onClick={() => handleFont(2)} className="font-btn" aria-label="Increase font size">+</button>
+        <button onClick={() => handleFont(-2)} className="font-btn" aria-label="Decrease font size">
+          <FaMinus />
+        </button>
+        <span style={{ margin: '0 1rem', fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Font</span>
+        <button onClick={() => handleFont(2)} className="font-btn" aria-label="Increase font size">
+          <FaPlus />
+        </button>
       </div>
       <div className="lyrics-stanzas">
         {stanzas.map((stanza, idx) => (
@@ -102,7 +109,10 @@ export default function SongDetail({ type }) {
         ))}
       </div>
       <div className="song-detail-actions">
-        <button onClick={handleEdit} className="edit-button">Edit Song</button>
+        <button onClick={handleEdit} className="edit-button">
+          <FaEdit style={{ marginRight: '8px' }} />
+          Edit Song
+        </button>
       </div>
       {isEditing && (
         <div className="edit-form">
@@ -123,8 +133,14 @@ export default function SongDetail({ type }) {
             <textarea value={editedSong.kannadaLyrics} onChange={e => setEditedSong({ ...editedSong, kannadaLyrics: e.target.value })} rows="8" />
           </div>
           <div className="button-group">
-            <button onClick={handleSave} className="edit-button">Save Changes</button>
-            <button onClick={handleCancel} className="cancel-button">Cancel</button>
+            <button onClick={handleSave} className="edit-button">
+              <FaCheck style={{ marginRight: '8px' }} />
+              Save Changes
+            </button>
+            <button onClick={handleCancel} className="cancel-button">
+              <FaTimes style={{ marginRight: '8px' }} />
+              Cancel
+            </button>
           </div>
         </div>
       )}

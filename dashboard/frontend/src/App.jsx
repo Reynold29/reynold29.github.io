@@ -5,7 +5,7 @@ import SongList from './components/Songs/SongList'
 import SongDetail from './components/Songs/SongDetail'
 import { apiUrl } from './config'
 import './App.css'
-import { FaMoon, FaSun } from 'react-icons/fa'
+import { FaMoon, FaSun, FaMusic, FaMicrophone, FaSignOutAlt } from 'react-icons/fa'
 
 function useDarkMode() {
   const [dark, setDark] = useState(() => {
@@ -45,6 +45,7 @@ function Header({ user, onLogout, dark, setDark }) {
           className="logout-button"
           aria-label="Logout"
         >
+          <FaSignOutAlt style={{ marginRight: '8px' }} />
           Logout
         </button>
       </div>
@@ -140,7 +141,9 @@ function Home() {
           }}
           aria-label="Navigate to Hymns section"
         >
-          <div className="home-icon">🎵</div>
+          <div className="home-icon">
+            <FaMusic />
+          </div>
           <h2 className="home-title">Hymns</h2>
           <p className="home-description">
             Browse and manage the collection of hymns
@@ -160,10 +163,12 @@ function Home() {
           }}
           aria-label="Navigate to Keerthane section"
         >
-          <div className="home-icon">🎼</div>
+          <div className="home-icon">
+            <FaMicrophone />
+          </div>
           <h2 className="home-title">Keerthane</h2>
           <p className="home-description">
-            Browse and manage the collection of keerthane
+            Browse and manage the collection of keerthanes
           </p>
         </div>
       </div>
