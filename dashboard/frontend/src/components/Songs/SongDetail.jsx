@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { apiUrl } from '../../config';
-import { FaArrowLeft, FaPlus, FaMinus, FaEdit, FaCheck, FaTimes } from 'react-icons/fa';
+import { FaArrowLeft, FaPlus, FaMinus, FaEdit, FaCheck, FaTimes, FaCheckCircle } from 'react-icons/fa';
 import './Songs.css';
 
 export default function SongDetail({ type }) {
