@@ -368,7 +368,7 @@ app.put('/api/hymns/:number', authMiddleware, async (req, res) => {
       return res.status(404).json({ error: 'Hymn not found' });
     }
 
-    data[hymnIndex] = { ...data[hymnIndex], ...updates };
+    data[hymnIndex] = { ...data[hymnIndex], ...updates, reviewed: true };
 
     // Update on GitHub and local file as array
     await updateOnGitHub(HYMNS_PATH, data, user);
@@ -412,7 +412,7 @@ app.put('/api/keerthane/:number', authMiddleware, async (req, res) => {
       return res.status(404).json({ error: 'Keerthane not found' });
     }
 
-    data[keerthaneIndex] = { ...data[keerthaneIndex], ...updates };
+    data[keerthaneIndex] = { ...data[keerthaneIndex], ...updates, reviewed: true };
 
     // Update on GitHub and local file as array
     await updateOnGitHub(KEERTHANE_PATH, data, user);

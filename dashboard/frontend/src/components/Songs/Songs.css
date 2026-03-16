@@ -42,6 +42,32 @@
   max-width: 600px;
   min-width: 280px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.reviewed-chip {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 2;
+}
+
+.reviewed-chip svg {
+  font-size: 0.75rem;
 }
 
 .search-input {
@@ -540,4 +566,53 @@
     padding: var(--space-xl);
     border-radius: var(--border-radius-xl);
   }
+}
+
+/* Filter Group Styles */
+.filter-container {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.filter-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(8px);
+  box-shadow: var(--glass-shadow);
+}
+
+.filter-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.filter-btn.active.reviewed {
+  background: rgba(34, 197, 94, 0.15);
+  border-color: #22c55e;
+  color: #22c55e;
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.1);
+}
+
+.filter-btn.active.not-reviewed {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: #ef4444;
+  color: #ef4444;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.1);
 }

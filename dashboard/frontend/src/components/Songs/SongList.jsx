@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiUrl } from '../../config';
+import { FaCheckCircle, FaFilter, FaTimesCircle } from 'react-icons/fa';
 import './Songs.css';
 
 const SongList = ({ type }) => {
@@ -9,6 +10,8 @@ const SongList = ({ type }) => {
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredSongs, setFilteredSongs] = useState([]);
+  const [filterReviewed, setFilterReviewed] = useState(false);
+  const [filterNotReviewed, setFilterNotReviewed] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,15 +21,24 @@ const SongList = ({ type }) => {
   useEffect(() => {
     // Debounced search filtering
     const timeoutId = setTimeout(() => {
-      const filtered = songs.filter(song => 
-        song.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        song.number.toString().includes(searchTerm)
-      );
+      const filtered = songs.filter(song => {
+        const matchesSearch = song.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                            song.number.toString().includes(searchTerm);
+        
+        if (!filterReviewed && !filterNotReviewed) return matchesSearch;
+        
+        const isReviewed = song.reviewed === true;
+        if (filterReviewed && filterNotReviewed) return matchesSearch;
+        if (filterReviewed) return matchesSearch && isReviewed;
+        if (filterNotReviewed) return matchesSearch && !isReviewed;
+        
+        return matchesSearch;
+      });
       setFilteredSongs(filtered);
     }, 300);
 
     return () => clearTimeout(timeoutId);
-  }, [searchTerm, songs]);
+  }, [searchTerm, songs, filterReviewed, filterNotReviewed]);
 
   const fetchSongs = async () => {
     try {
@@ -111,8 +123,22 @@ const SongList = ({ type }) => {
             value={searchTerm}
             onChange={handleSearch}
             className="search-input"
-            aria-label="Search songs"
           />
+        </div>
+        
+        <div className="filter-container">
+          <button 
+            className={`filter-btn reviewed ${filterReviewed ? 'active' : ''}`}
+            onClick={() => setFilterReviewed(!filterReviewed)}
+          >
+            <FaCheckCircle /> Reviewed
+          </button>
+          <button 
+            className={`filter-btn not-reviewed ${filterNotReviewed ? 'active' : ''}`}
+            onClick={() => setFilterNotReviewed(!filterNotReviewed)}
+          >
+            <FaTimesCircle /> Non-Reviewed
+          </button>
         </div>
       </div>
 
@@ -128,6 +154,11 @@ const SongList = ({ type }) => {
             aria-label={`Song ${song.number}: ${song.title}`}
             style={{ animationDelay: `${index * 0.1}s` }}
           >
+            {song.reviewed && (
+              <div className="reviewed-chip">
+                <FaCheckCircle /> Reviewed
+              </div>
+            )}
             <div className="song-number">{song.number}</div>
             <div className="song-title">{song.title}</div>
           </div>

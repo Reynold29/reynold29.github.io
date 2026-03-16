@@ -81,6 +81,13 @@ export default function SongDetail({ type }) {
         </button>
         <span className="song-title">{song.title}</span>
       </div>
+      {song.reviewed && (
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 'var(--space-md)' }}>
+          <div className="reviewed-chip" style={{ position: 'static' }}>
+            <FaCheckCircle /> Reviewed & Verified
+          </div>
+        </div>
+      )}
       <div className="song-meta-row">
         <span className="song-number">{type === 'hymns' ? 'Hymn' : 'Keerthane'} {song.number}</span>
         <div className="lang-toggle-group">
