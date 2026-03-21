@@ -23,6 +23,7 @@ export default function SongDetail({ type }) {
           ? `${apiUrl}/api/worship/song/${category}/${id}`
           : `${apiUrl}/api/${type}`;
           
+        const token = localStorage.getItem('token');
         const response = await fetch(fetchUrl, {
           headers: {
             'Authorization': `Bearer ${token}`

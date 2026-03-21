@@ -411,25 +411,29 @@ body {
 }
 
 .logo-container {
-  width: 160px;
-  height: 160px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: var(--space-xl);
-  border-radius: 50%;
-  background: white;
-  border: 4px solid var(--glass-border);
-  box-shadow: var(--shadow-md);
-  padding: var(--space-md);
-  transition: all var(--transition-normal);
+  width: 170px !important;
+  height: 170px !important;
+  min-width: 170px !important;
+  min-height: 170px !important;
+  aspect-ratio: 1 / 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: var(--space-xl) !important;
+  border-radius: 500px !important; /* Extremely high value to ensure perfect circle */
+  background: white !important;
+  border: 5px solid var(--primary) !important;
+  overflow: hidden !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.1) !important;
+  padding: 10px !important;
+  transition: all var(--transition-normal) !important;
 }
 
 .home-logo-img {
-  max-width: 90%;
-  max-height: 90%;
-  object-fit: contain;
-  transition: transform var(--transition-normal);
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  border-radius: 500px !important;
 }
 
 .logo-card:hover .logo-container {
