@@ -544,28 +544,31 @@ app.put('/api/worship/song/:category/:id', authMiddleware, async (req, res) => {
   try {
     if (!supabase) return res.status(503).json({ error: 'Supabase not configured' });
 
-    // Clean up updates object to remove any fields that shouldn't be updated directly 
-    // or are not in the table schema if necessary.
-    // We'll keep it simple for now as requested.
-    const { updated_at, ...updateData } = updates;
+    // Clean up updates object: remove audit fields and id to avoid potential conflicts
+    const { id: song_id, created_at, updated_at, ...updateData } = updates;
     updateData.updated_at = new Date().toISOString();
 
     let query;
-    if (category.toLowerCase() === 'english') {
-      query = supabase.from('english_data').update(updateData).eq('id', id).select().single();
-    } else if (category.toLowerCase() === 'kannada') {
-      query = supabase.from('kannada_data').update(updateData).eq('id', id).select().single();
+    const categoryLower = category.toLowerCase();
+    if (categoryLower === 'english') {
+      query = supabase.from('english_data').update(updateData).eq('id', parseInt(id)).select();
+    } else if (categoryLower === 'kannada') {
+      query = supabase.from('kannada_data').update(updateData).eq('id', parseInt(id)).select();
     } else {
-      query = supabase.from('other_data').update(updateData).eq('id', id).select().single();
+      query = supabase.from('other_data').update(updateData).eq('id', id).select();
     }
 
     const { data, error } = await query;
     if (error) throw error;
+    if (!data || data.length === 0) {
+      return res.status(404).json({ error: 'Song not found or no changes made' });
+    }
 
+    const updatedSong = data[0];
     // Log the edit
-    logEdit(user, id, data.title, `worship-${category}`);
+    logEdit(user, id, updatedSong.title, `worship-${category}`);
 
-    res.json(data);
+    res.json(updatedSong);
   } catch (error) {
     console.error(`Error updating ${category} song ${id}:`, error);
     res.status(500).json({ error: error.message });

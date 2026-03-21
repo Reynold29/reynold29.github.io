@@ -38,8 +38,8 @@ export default function SongDetail({ type }) {
         if (type === 'worship') {
           foundSong = data;
         } else {
-          const songList = Array.isArray(data) ? data : (type === 'hymns' ? (data.hymns || data) : (data.keerthane || data));
-          foundSong = songList.find(s => s.number === parseInt(songId));
+          const songList = Array.isArray(data) ? data : (data.hymns || data.keerthane || data || []);
+          foundSong = Array.isArray(songList) ? songList.find(s => (s.number?.toString() === songId?.toString()) || (s.id?.toString() === songId?.toString())) : null;
         }
 
         if (foundSong) {
