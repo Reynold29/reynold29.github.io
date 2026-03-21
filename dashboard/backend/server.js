@@ -566,13 +566,14 @@ app.put('/api/worship/song/:category/:id', authMiddleware, async (req, res) => {
     let query;
     const categoryLower = category.toLowerCase();
     
-    if (categoryLower === 'english') {
-      delete updateData.category; // english_data doesn't have category column
-      query = supabase.from('english_data').update(updateData).eq('id', id).select();
-    } else if (categoryLower === 'kannada') {
-      delete updateData.category; // kannada_data doesn't have category column
-      query = supabase.from('kannada_data').update(updateData).eq('id', id).select();
+    if (categoryLower === 'english' || categoryLower === 'kannada') {
+      const { category: song_cat, ...finalUpdateData } = updateData;
+      const tableName = categoryLower === 'english' ? 'english_data' : 'kannada_data';
+      const numericId = Number(id);
+      console.log(`[SUPABASE UPDATE] Using numeric ID ${numericId} for ${tableName}`);
+      query = supabase.from(tableName).update(finalUpdateData).eq('id', numericId).select();
     } else {
+      console.log(`[SUPABASE UPDATE] Using string ID ${id} for other_data`);
       query = supabase.from('other_data').update(updateData).eq('id', id).select();
     }
 
@@ -587,7 +588,7 @@ app.put('/api/worship/song/:category/:id', authMiddleware, async (req, res) => {
       console.warn(`[SUPABASE WARN]: No rows updated. Status: ${status} ${statusText}`);
       return res.status(404).json({ 
         error: 'Song not found or no changes made', 
-        debug: { category, id, status, statusText }
+        debug: { category, id, status, statusText, updateDataKeys: Object.keys(updateData) }
       });
     }
 

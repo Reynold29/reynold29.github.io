@@ -132,24 +132,24 @@ function Home() {
       <div 
         onClick={() => navigate('/hymns-app')}
         className="home-box logo-card"
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}
       >
-        <img 
-          src={hymnsLogo} 
-          alt="Hymns App" 
-          style={{ 
-            width: '160px', 
-            height: '160px', 
-            borderRadius: '50%', 
-            objectFit: 'contain', 
-            backgroundColor: 'white', 
-            border: '5px solid var(--primary)',
-            display: 'block',
-            margin: '0 auto 20px auto',
-            boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
-            padding: '12px'
-          }}
-        />
+        <div style={{ 
+          width: '160px', 
+          height: '160px', 
+          borderRadius: '50%', 
+          overflow: 'hidden', 
+          border: '5px solid var(--primary)', 
+          background: 'white', 
+          marginBottom: '20px', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
+          flexShrink: 0
+        }}>
+          <img src={hymnsLogo} alt="Hymns App" style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
+        </div>
         <h2 className="home-title">Hymns App</h2>
         <p className="home-description">
           Browse and manage the collection of hymns and keerthanes
@@ -159,24 +159,24 @@ function Home() {
       <div 
         onClick={() => navigate('/worship-companion')}
         className="home-box logo-card"
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}
       >
-        <img 
-          src={worshipLogo} 
-          alt="Worship Companion" 
-          style={{ 
-            width: '160px', 
-            height: '160px', 
-            borderRadius: '50%', 
-            objectFit: 'contain', 
-            backgroundColor: 'white', 
-            border: '5px solid var(--primary)',
-            display: 'block',
-            margin: '0 auto 20px auto',
-            boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
-            padding: '12px'
-          }}
-        />
+        <div style={{ 
+          width: '160px', 
+          height: '160px', 
+          borderRadius: '50%', 
+          overflow: 'hidden', 
+          border: '5px solid var(--primary)', 
+          background: 'white', 
+          marginBottom: '20px', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
+          flexShrink: 0
+        }}>
+          <img src={worshipLogo} alt="Worship Companion" style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
+        </div>
         <h2 className="home-title">Worship Companion</h2>
         <p className="home-description">
           Browse and manage worship songs in various languages
