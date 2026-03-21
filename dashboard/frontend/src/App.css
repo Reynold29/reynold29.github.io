@@ -410,30 +410,23 @@ body {
   padding: var(--space-xl);
 }
 
-.logo-container {
-  width: 170px !important;
-  height: 170px !important;
-  min-width: 170px !important;
-  min-height: 170px !important;
-  aspect-ratio: 1 / 1 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  margin-bottom: var(--space-xl) !important;
-  border-radius: 500px !important; /* Extremely high value to ensure perfect circle */
-  background: white !important;
+.home-logo-circle {
+  width: 160px !important;
+  height: 160px !important;
+  border-radius: 50% !important;
+  object-fit: contain !important;
+  background-color: white !important;
   border: 5px solid var(--primary) !important;
-  overflow: hidden !important;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.1) !important;
-  padding: 10px !important;
-  transition: all var(--transition-normal) !important;
+  display: block !important;
+  margin: 0 auto var(--space-xl) auto !important;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+  padding: 12px !important;
+  transition: transform var(--transition-normal) !important;
 }
 
-.home-logo-img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: contain !important;
-  border-radius: 500px !important;
+.logo-card:hover .home-logo-circle {
+  transform: scale(1.08) rotate(2deg);
+  border-color: var(--secondary);
 }
 
 .logo-card:hover .logo-container {

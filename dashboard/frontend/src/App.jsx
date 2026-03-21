@@ -141,9 +141,7 @@ function Home() {
         }}
         aria-label="Navigate to Hymns App section"
       >
-        <div className="logo-container">
-          <img src={hymnsLogo} alt="Hymns App" className="home-logo-img" />
-        </div>
+        <img src={hymnsLogo} alt="Hymns App" className="home-logo-circle" />
         <h2 className="home-title">Hymns App</h2>
         <p className="home-description">
           Browse and manage the collection of hymns and keerthanes
@@ -162,9 +160,7 @@ function Home() {
         }}
         aria-label="Navigate to Worship Companion section"
       >
-        <div className="logo-container">
-          <img src={worshipLogo} alt="Worship Companion" className="home-logo-img" />
-        </div>
+        <img src={worshipLogo} alt="Worship Companion" className="home-logo-circle" />
         <h2 className="home-title">Worship Companion</h2>
         <p className="home-description">
           Browse and manage worship songs in various languages

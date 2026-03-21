@@ -548,12 +548,16 @@ app.put('/api/worship/song/:category/:id', authMiddleware, async (req, res) => {
     const { id: song_id, created_at, updated_at, ...updateData } = updates;
     updateData.updated_at = new Date().toISOString();
 
+    console.log(`Updating ${category} song ${id} with:`, updateData);
+    
     let query;
     const categoryLower = category.toLowerCase();
-    if (categoryLower === 'english') {
-      query = supabase.from('english_data').update(updateData).eq('id', parseInt(id)).select();
-    } else if (categoryLower === 'kannada') {
-      query = supabase.from('kannada_data').update(updateData).eq('id', parseInt(id)).select();
+    
+    // For English and Kannada tables, ensure 'category' is not in the update payload
+    if (categoryLower === 'english' || categoryLower === 'kannada') {
+      const { category: song_cat, ...finalUpdateData } = updateData;
+      const tableName = categoryLower === 'english' ? 'english_data' : 'kannada_data';
+      query = supabase.from(tableName).update(finalUpdateData).eq('id', id).select();
     } else {
       query = supabase.from('other_data').update(updateData).eq('id', id).select();
     }
