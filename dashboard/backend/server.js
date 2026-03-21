@@ -69,7 +69,8 @@ const logFile = './edit_logs.json';
 // Supabase configuration
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_ANON_KEY;
-const supabase = (SUPABASE_URL && SUPABASE_KEY) ? createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+const isSupabaseValid = SUPABASE_URL && SUPABASE_URL.startsWith('http') && SUPABASE_KEY;
+const supabase = isSupabaseValid ? createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
 // GitHub configuration
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN; // You'll need to set this
@@ -308,6 +309,7 @@ app.get('/api/hymns', authMiddleware, async (req, res) => {
       }
       res.json(localData);
     } catch (localError) {
+      console.error('Failed to read local hymns:', localError);
       res.status(500).json({ error: 'Failed to fetch hymns' });
     }
   }
@@ -340,6 +342,7 @@ app.get('/api/keerthane', authMiddleware, async (req, res) => {
       }
       res.json(localData);
     } catch (localError) {
+      console.error('Failed to read local keerthane:', localError);
       res.status(500).json({ error: 'Failed to fetch keerthane' });
     }
   }

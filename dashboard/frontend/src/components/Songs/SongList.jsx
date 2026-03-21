@@ -59,7 +59,8 @@ const SongList = ({ type }) => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to fetch songs');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `Failed to fetch songs (${response.status})`);
       }
 
       const data = await response.json();

@@ -28,7 +28,10 @@ export default function SongDetail({ type }) {
             'Authorization': `Bearer ${token}`
           }
         });
-        if (!response.ok) throw new Error('Failed to fetch song');
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.error || `Failed to fetch song (${response.status})`);
+        }
         const data = await response.json();
         
         let foundSong;

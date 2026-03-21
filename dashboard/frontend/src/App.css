@@ -394,3 +394,51 @@ body {
   font-weight: 500;
   margin: var(--space-lg) 0;
 }
+
+/* Home Grid Main (2 Cards) */
+.home-grid-main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--space-2xl);
+  padding: var(--space-md) 0;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.logo-card {
+  min-height: 380px;
+  padding: var(--space-xl);
+}
+
+.logo-container {
+  width: 100%;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-lg);
+  border-radius: var(--border-radius-xl);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+}
+
+.home-logo-img {
+  max-width: 70%;
+  max-height: 70%;
+  object-fit: contain;
+  transition: transform var(--transition-normal);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+
+.logo-card:hover .home-logo-img {
+  transform: scale(1.1) rotate(2deg);
+}
+
+.menu-container {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
