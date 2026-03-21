@@ -544,34 +544,55 @@ app.put('/api/worship/song/:category/:id', authMiddleware, async (req, res) => {
   try {
     if (!supabase) return res.status(503).json({ error: 'Supabase not configured' });
 
-    // Clean up updates object: remove audit fields and id to avoid potential conflicts
-    const { id: song_id, created_at, updated_at, ...updateData } = updates;
+    // Strict field filtering for Supabase
+    const allowedFields = [
+      'title', 'lyrics', 'chords', 'category', 'author_name', 'genre', 
+      'key_signature', 'bpm', 'youtube_link', 'language', 'english_title', 
+      'trans_lyrics', 'reviewed', 'signature', 'kannadaLyrics'
+    ];
+    
+    const updateData = {};
+    Object.keys(updates).forEach(key => {
+      if (allowedFields.includes(key) && updates[key] !== undefined) {
+        updateData[key] = updates[key];
+      }
+    });
+
     updateData.updated_at = new Date().toISOString();
 
-    console.log(`Updating ${category} song ${id} with:`, updateData);
-    
+    console.log(`[SUPABASE UPDATE] Table: ${category}, ID: ${id}`);
+    console.log('[SUPABASE UPDATE] Payload:', JSON.stringify(updateData, null, 2));
+
     let query;
     const categoryLower = category.toLowerCase();
     
-    // For English and Kannada tables, ensure 'category' is not in the update payload
-    if (categoryLower === 'english' || categoryLower === 'kannada') {
-      const { category: song_cat, ...finalUpdateData } = updateData;
-      const tableName = categoryLower === 'english' ? 'english_data' : 'kannada_data';
-      query = supabase.from(tableName).update(finalUpdateData).eq('id', id).select();
+    if (categoryLower === 'english') {
+      delete updateData.category; // english_data doesn't have category column
+      query = supabase.from('english_data').update(updateData).eq('id', id).select();
+    } else if (categoryLower === 'kannada') {
+      delete updateData.category; // kannada_data doesn't have category column
+      query = supabase.from('kannada_data').update(updateData).eq('id', id).select();
     } else {
       query = supabase.from('other_data').update(updateData).eq('id', id).select();
     }
 
-    const { data, error } = await query;
-    if (error) throw error;
+    const { data, error, status, statusText } = await query;
+    
+    if (error) {
+      console.error('[SUPABASE ERROR]:', error);
+      return res.status(400).json({ error: error.message, details: error.details });
+    }
+
     if (!data || data.length === 0) {
-      return res.status(404).json({ error: 'Song not found or no changes made' });
+      console.warn(`[SUPABASE WARN]: No rows updated. Status: ${status} ${statusText}`);
+      return res.status(404).json({ 
+        error: 'Song not found or no changes made', 
+        debug: { category, id, status, statusText }
+      });
     }
 
     const updatedSong = data[0];
-    // Log the edit
     logEdit(user, id, updatedSong.title, `worship-${category}`);
-
     res.json(updatedSong);
   } catch (error) {
     console.error(`Error updating ${category} song ${id}:`, error);

@@ -132,16 +132,24 @@ function Home() {
       <div 
         onClick={() => navigate('/hymns-app')}
         className="home-box logo-card"
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            navigate('/hymns-app');
-          }
-        }}
-        aria-label="Navigate to Hymns App section"
+        style={{ cursor: 'pointer' }}
       >
-        <img src={hymnsLogo} alt="Hymns App" className="home-logo-circle" />
+        <img 
+          src={hymnsLogo} 
+          alt="Hymns App" 
+          style={{ 
+            width: '160px', 
+            height: '160px', 
+            borderRadius: '50%', 
+            objectFit: 'contain', 
+            backgroundColor: 'white', 
+            border: '5px solid var(--primary)',
+            display: 'block',
+            margin: '0 auto 20px auto',
+            boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
+            padding: '12px'
+          }}
+        />
         <h2 className="home-title">Hymns App</h2>
         <p className="home-description">
           Browse and manage the collection of hymns and keerthanes
@@ -151,16 +159,24 @@ function Home() {
       <div 
         onClick={() => navigate('/worship-companion')}
         className="home-box logo-card"
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            navigate('/worship-companion');
-          }
-        }}
-        aria-label="Navigate to Worship Companion section"
+        style={{ cursor: 'pointer' }}
       >
-        <img src={worshipLogo} alt="Worship Companion" className="home-logo-circle" />
+        <img 
+          src={worshipLogo} 
+          alt="Worship Companion" 
+          style={{ 
+            width: '160px', 
+            height: '160px', 
+            borderRadius: '50%', 
+            objectFit: 'contain', 
+            backgroundColor: 'white', 
+            border: '5px solid var(--primary)',
+            display: 'block',
+            margin: '0 auto 20px auto',
+            boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
+            padding: '12px'
+          }}
+        />
         <h2 className="home-title">Worship Companion</h2>
         <p className="home-description">
           Browse and manage worship songs in various languages

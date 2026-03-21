@@ -64,6 +64,9 @@ export default function SongDetail({ type }) {
       const updateUrl = type === 'worship'
         ? `${apiUrl}/api/worship/song/${category}/${id}`
         : `${apiUrl}/api/${type}/${songId}`;
+      
+      console.log(`[DEBUG] Updating song at: ${updateUrl}`);
+      console.log(`[DEBUG] Edited Song ID: ${editedSong?.id}, Type: ${typeof editedSong?.id}`);
 
       const response = await fetch(updateUrl, {
         method: 'PUT',
@@ -73,11 +76,14 @@ export default function SongDetail({ type }) {
         },
         body: JSON.stringify(editedSong)
       });
-      if (!response.ok) throw new Error('Failed to update song');
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(data.error || `Failed to update song (${response.status})`);
+      }
       setSong(editedSong);
       setIsEditing(false);
     } catch (err) {
-      setError('Failed to update song. Please try again.');
+      setError(err.message || 'Failed to update song. Please try again.');
     }
   };
   const handleCancel = () => { setEditedSong(song); setIsEditing(false); };
