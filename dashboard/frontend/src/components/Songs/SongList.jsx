@@ -58,12 +58,11 @@ const SongList = ({ type }) => {
         }
       });
 
+      const data = await response.json().catch(() => ({}));
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || `Failed to fetch songs (${response.status})`);
+        throw new Error(data.error || `Failed to fetch songs (${response.status})`);
       }
 
-      const data = await response.json();
       const songsData = Array.isArray(data) ? data : (data.hymns || data.keerthane || []);
       setSongs(songsData);
       setFilteredSongs(songsData);

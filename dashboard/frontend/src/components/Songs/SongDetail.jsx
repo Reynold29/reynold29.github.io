@@ -28,11 +28,10 @@ export default function SongDetail({ type }) {
             'Authorization': `Bearer ${token}`
           }
         });
+        const data = await response.json().catch(() => ({}));
         if (!response.ok) {
-          const errorData = await response.json().catch(() => ({}));
-          throw new Error(errorData.error || `Failed to fetch song (${response.status})`);
+          throw new Error(data.error || `Failed to fetch song (${response.status})`);
         }
-        const data = await response.json();
         
         let foundSong;
         if (type === 'worship') {
