@@ -5,6 +5,7 @@ import fs from 'fs';
 import { Octokit } from '@octokit/rest';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import { createClient } from '@supabase/supabase-js';
 
 const app = express();
 
@@ -64,6 +65,11 @@ let activeSessions = {};
 const hymnsFile = './hymns_data.json';
 const keerthaneFile = './keerthane_data.json';
 const logFile = './edit_logs.json';
+
+// Supabase configuration
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_KEY = process.env.SUPABASE_ANON_KEY;
+const supabase = (SUPABASE_URL && SUPABASE_KEY) ? createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
 // GitHub configuration
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN; // You'll need to set this
@@ -455,6 +461,112 @@ function logEdit(user, number, title, type) {
 app.get('/api/logs', authMiddleware, (req, res) => {
     const logs = fs.existsSync(logFile) ? JSON.parse(fs.readFileSync(logFile, 'utf-8')) : [];
     res.json(logs);
+});
+
+// Worship Companion Endpoints
+app.get('/api/worship/languages', authMiddleware, async (req, res) => {
+  try {
+    if (!supabase) return res.status(503).json({ error: 'Supabase not configured' });
+
+    // Fetch unique categories from other_data
+    const { data: otherData, error } = await supabase
+      .from('other_data')
+      .select('category');
+
+    if (error) throw error;
+
+    const otherLangs = [...new Set(otherData.map(item => item.category))];
+    const allLangs = [...new Set(['English', 'Kannada', ...otherLangs])];
+    
+    res.json(allLangs);
+  } catch (error) {
+    console.error('Error fetching languages:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/worship/songs/:category', authMiddleware, async (req, res) => {
+  const { category } = req.params;
+  try {
+    if (!supabase) return res.status(503).json({ error: 'Supabase not configured' });
+
+    let query;
+    if (category.toLowerCase() === 'english') {
+      query = supabase.from('english_data').select('*');
+    } else if (category.toLowerCase() === 'kannada') {
+      query = supabase.from('kannada_data').select('*');
+    } else {
+      query = supabase.from('other_data').select('*').eq('category', category);
+    }
+
+    const { data, error } = await query.order('title', { ascending: true });
+    if (error) throw error;
+
+    res.json(data);
+  } catch (error) {
+    console.error(`Error fetching ${category} songs:`, error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/worship/song/:category/:id', authMiddleware, async (req, res) => {
+  const { category, id } = req.params;
+  try {
+    if (!supabase) return res.status(503).json({ error: 'Supabase not configured' });
+
+    let query;
+    if (category.toLowerCase() === 'english') {
+      query = supabase.from('english_data').select('*').eq('id', id).single();
+    } else if (category.toLowerCase() === 'kannada') {
+      query = supabase.from('kannada_data').select('*').eq('id', id).single();
+    } else {
+      query = supabase.from('other_data').select('*').eq('id', id).single();
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    res.json(data);
+  } catch (error) {
+    console.error(`Error fetching ${category} song ${id}:`, error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.put('/api/worship/song/:category/:id', authMiddleware, async (req, res) => {
+  const { category, id } = req.params;
+  const updates = req.body;
+  const user = req.user.username;
+
+  try {
+    if (!supabase) return res.status(503).json({ error: 'Supabase not configured' });
+
+    // Clean up updates object to remove any fields that shouldn't be updated directly 
+    // or are not in the table schema if necessary.
+    // We'll keep it simple for now as requested.
+    const { updated_at, ...updateData } = updates;
+    updateData.updated_at = new Date().toISOString();
+
+    let query;
+    if (category.toLowerCase() === 'english') {
+      query = supabase.from('english_data').update(updateData).eq('id', id).select().single();
+    } else if (category.toLowerCase() === 'kannada') {
+      query = supabase.from('kannada_data').update(updateData).eq('id', id).select().single();
+    } else {
+      query = supabase.from('other_data').update(updateData).eq('id', id).select().single();
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    // Log the edit
+    logEdit(user, id, data.title, `worship-${category}`);
+
+    res.json(data);
+  } catch (error) {
+    console.error(`Error updating ${category} song ${id}:`, error);
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // Health check endpoint

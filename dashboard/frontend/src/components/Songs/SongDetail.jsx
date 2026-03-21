@@ -5,7 +5,8 @@ import { FaArrowLeft, FaPlus, FaMinus, FaEdit, FaCheck, FaTimes, FaCheckCircle }
 import './Songs.css';
 
 export default function SongDetail({ type }) {
-  const { number } = useParams();
+  const { number, category, id } = useParams();
+  const songId = id || number;
   const navigate = useNavigate();
   const [song, setSong] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -18,16 +19,26 @@ export default function SongDetail({ type }) {
   useEffect(() => {
     const fetchSong = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`${apiUrl}/api/${type}`, {
+        const fetchUrl = type === 'worship'
+          ? `${apiUrl}/api/worship/song/${category}/${id}`
+          : `${apiUrl}/api/${type}`;
+          
+        const response = await fetch(fetchUrl, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
         });
         if (!response.ok) throw new Error('Failed to fetch song');
         const data = await response.json();
-        const songList = Array.isArray(data) ? data : (type === 'hymns' ? (data.hymns || data) : (data.keerthane || data));
-        const foundSong = songList.find(s => s.number === parseInt(number));
+        
+        let foundSong;
+        if (type === 'worship') {
+          foundSong = data;
+        } else {
+          const songList = Array.isArray(data) ? data : (type === 'hymns' ? (data.hymns || data) : (data.keerthane || data));
+          foundSong = songList.find(s => s.number === parseInt(songId));
+        }
+
         if (foundSong) {
           setSong(foundSong);
           setEditedSong(foundSong);
@@ -41,13 +52,17 @@ export default function SongDetail({ type }) {
       }
     };
     fetchSong();
-  }, [type, number]);
+  }, [type, songId, category]);
 
   const handleEdit = () => setIsEditing(true);
   const handleSave = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${apiUrl}/api/${type}/${number}`, {
+      const updateUrl = type === 'worship'
+        ? `${apiUrl}/api/worship/song/${category}/${id}`
+        : `${apiUrl}/api/${type}/${songId}`;
+
+      const response = await fetch(updateUrl, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +86,15 @@ export default function SongDetail({ type }) {
   if (!song) return <div className="error-message">Song not found</div>;
 
   // Split lyrics into stanzas
-  const stanzas = (lang === 'english' ? song.lyrics : song.kannadaLyrics || '').split(/\n\s*\n/);
+  const getLyrics = () => {
+    if (type === 'worship') {
+      return lang === 'english' ? (song.lyrics || '') : (song.trans_lyrics || song.lyrics || '');
+    }
+    return lang === 'english' ? song.lyrics : (song.kannadaLyrics || '');
+  };
+
+  const lyricsToSplit = getLyrics();
+  const stanzas = lyricsToSplit.split(/\n\s*\n/);
 
   return (
     <div className="song-detail-dark song-detail-outer">
@@ -89,13 +112,35 @@ export default function SongDetail({ type }) {
         </div>
       )}
       <div className="song-meta-row">
-        <span className="song-number">{type === 'hymns' ? 'Hymn' : 'Keerthane'} {song.number}</span>
+        <span className="song-number">
+          {type === 'worship' ? category : (type === 'hymns' ? 'Hymn' : 'Keerthane')} {song.number || song.id}
+        </span>
         <div className="lang-toggle-group">
-          <button className={`lang-toggle${lang === 'english' ? ' active' : ''}`} onClick={() => handleLang('english')}>English</button>
-          <button className={`lang-toggle${lang === 'kannada' ? ' active' : ''}`} onClick={() => handleLang('kannada')}>ಕನ್ನಡ</button>
+          <button className={`lang-toggle${lang === 'english' ? ' active' : ''}`} onClick={() => handleLang('english')}>
+            {type === 'worship' ? 'Original' : 'English'}
+          </button>
+          <button className={`lang-toggle${lang === 'kannada' ? ' active' : ''}`} onClick={() => handleLang('kannada')}>
+            {type === 'worship' ? 'Translation' : 'ಕನ್ನಡ'}
+          </button>
         </div>
       </div>
-      <div className="song-signature">{song.signature}</div>
+      {(song.signature || song.key_signature || song.bpm) && (
+        <div className="song-signature">
+          {song.signature || `${song.key_signature || ''} ${song.bpm ? `| ${song.bpm} BPM` : ''}`}
+        </div>
+      )}
+      {song.author_name && <div className="song-author">By {song.author_name}</div>}
+      {song.chords && (
+        <div className="chords-display">
+          <h3>Chords</h3>
+          <pre>{song.chords}</pre>
+        </div>
+      )}
+      {song.youtube_link && (
+        <div className="youtube-link">
+          <a href={song.youtube_link} target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+        </div>
+      )}
       <div className="font-controls">
         <button onClick={() => handleFont(-2)} className="font-btn" aria-label="Decrease font size">
           <FaMinus />
@@ -127,17 +172,53 @@ export default function SongDetail({ type }) {
             <label>Title</label>
             <input type="text" value={editedSong.title} onChange={e => setEditedSong({ ...editedSong, title: e.target.value })} />
           </div>
+          {type === 'worship' && (
+            <>
+              <div className="form-group">
+                <label>English Title</label>
+                <input type="text" value={editedSong.english_title || ''} onChange={e => setEditedSong({ ...editedSong, english_title: e.target.value })} />
+              </div>
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Key Signature</label>
+                  <input type="text" value={editedSong.key_signature || ''} onChange={e => setEditedSong({ ...editedSong, key_signature: e.target.value })} />
+                </div>
+                <div className="form-group">
+                  <label>BPM</label>
+                  <input type="number" value={editedSong.bpm || ''} onChange={e => setEditedSong({ ...editedSong, bpm: e.target.value })} />
+                </div>
+              </div>
+              <div className="form-group">
+                <label>Author Name</label>
+                <input type="text" value={editedSong.author_name || ''} onChange={e => setEditedSong({ ...editedSong, author_name: e.target.value })} />
+              </div>
+              <div className="form-group">
+                <label>YouTube Link</label>
+                <input type="text" value={editedSong.youtube_link || ''} onChange={e => setEditedSong({ ...editedSong, youtube_link: e.target.value })} />
+              </div>
+              <div className="form-group">
+                <label>Chords</label>
+                <textarea value={editedSong.chords || ''} onChange={e => setEditedSong({ ...editedSong, chords: e.target.value })} rows="4" />
+              </div>
+            </>
+          )}
+          {type !== 'worship' && (
+            <div className="form-group">
+              <label>Signature</label>
+              <input type="text" value={editedSong.signature} onChange={e => setEditedSong({ ...editedSong, signature: e.target.value })} />
+            </div>
+          )}
           <div className="form-group">
-            <label>Signature</label>
-            <input type="text" value={editedSong.signature} onChange={e => setEditedSong({ ...editedSong, signature: e.target.value })} />
-          </div>
-          <div className="form-group">
-            <label>English Lyrics</label>
+            <label>{type === 'worship' ? 'Lyrics (Original)' : 'English Lyrics'}</label>
             <textarea value={editedSong.lyrics} onChange={e => setEditedSong({ ...editedSong, lyrics: e.target.value })} rows="8" />
           </div>
           <div className="form-group">
-            <label>Kannada Lyrics</label>
-            <textarea value={editedSong.kannadaLyrics} onChange={e => setEditedSong({ ...editedSong, kannadaLyrics: e.target.value })} rows="8" />
+            <label>{type === 'worship' ? 'Translated Lyrics' : 'Kannada Lyrics'}</label>
+            <textarea 
+              value={type === 'worship' ? (editedSong.trans_lyrics || '') : (editedSong.kannadaLyrics || '')} 
+              onChange={e => setEditedSong(type === 'worship' ? { ...editedSong, trans_lyrics: e.target.value } : { ...editedSong, kannadaLyrics: e.target.value })} 
+              rows="8" 
+            />
           </div>
           <div className="button-group">
             <button onClick={handleSave} className="edit-button">

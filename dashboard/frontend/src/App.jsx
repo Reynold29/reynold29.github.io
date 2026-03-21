@@ -124,54 +124,117 @@ function ProtectedRoute({ children }) {
 
 function Home() {
   const navigate = useNavigate();
+  const [worshipLangs, setWorshipLangs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchLangs = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${apiUrl}/api/worship/languages`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setWorshipLangs(data);
+        }
+      } catch (error) {
+        console.error('Error fetching worship languages:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchLangs();
+  }, []);
   
   return (
-    <div>
-      <div className="home-grid">
-        {/* Hymns Box */}
-        <div 
-          onClick={() => navigate('/hymns')}
-          className="home-box"
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              navigate('/hymns');
-            }
-          }}
-          aria-label="Navigate to Hymns section"
-        >
-          <div className="home-icon">
-            <FaMusic />
+    <div className="home-sections">
+      {/* Hymns App Section */}
+      <section className="dashboard-section">
+        <h2 className="section-title">Hymns App</h2>
+        <div className="home-grid">
+          <div 
+            onClick={() => navigate('/hymns')}
+            className="home-box"
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                navigate('/hymns');
+              }
+            }}
+            aria-label="Navigate to Hymns section"
+          >
+            <div className="home-icon">
+              <FaMusic />
+            </div>
+            <h2 className="home-title">Hymns</h2>
+            <p className="home-description">
+              Browse and manage the collection of hymns
+            </p>
           </div>
-          <h2 className="home-title">Hymns</h2>
-          <p className="home-description">
-            Browse and manage the collection of hymns
-          </p>
-        </div>
-        
-        {/* Keerthane Box */}
-        <div 
-          onClick={() => navigate('/keerthanes')}
-          className="home-box"
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              navigate('/keerthanes');
-            }
-          }}
-          aria-label="Navigate to Keerthane section"
-        >
-          <div className="home-icon">
-            <FaMicrophone />
+          
+          <div 
+            onClick={() => navigate('/keerthanes')}
+            className="home-box"
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                navigate('/keerthanes');
+              }
+            }}
+            aria-label="Navigate to Keerthane section"
+          >
+            <div className="home-icon">
+              <FaMicrophone />
+            </div>
+            <h2 className="home-title">Keerthane</h2>
+            <p className="home-description">
+              Browse and manage the collection of keerthanes
+            </p>
           </div>
-          <h2 className="home-title">Keerthane</h2>
-          <p className="home-description">
-            Browse and manage the collection of keerthanes
-          </p>
         </div>
-      </div>
+      </section>
+
+      {/* Worship Companion Section */}
+      <section className="dashboard-section">
+        <h2 className="section-title">Worship Companion</h2>
+        {loading ? (
+          <div className="loading-small">Loading languages...</div>
+        ) : (
+          <div className="home-grid">
+            {worshipLangs.map((lang) => (
+              <div 
+                key={lang}
+                onClick={() => navigate(`/worship/${lang.toLowerCase()}`)}
+                className="home-box language-box"
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    navigate(`/worship/${lang.toLowerCase()}`);
+                  }
+                }}
+                aria-label={`Navigate to ${lang} section`}
+              >
+                <div className="home-icon">
+                  <FaMusic />
+                </div>
+                <h2 className="home-title">{lang}</h2>
+                <p className="home-description">
+                  Manage {lang} worship songs
+                </p>
+              </div>
+            ))}
+            {worshipLangs.length === 0 && (
+              <p className="no-data">No languages found in Worship Companion.</p>
+            )}
+          </div>
+        )}
+      </section>
     </div>
   );
 }
@@ -227,6 +290,26 @@ export default function App() {
             <ProtectedRoute>
               <ProtectedLayout>
                 <SongDetail type="keerthane" />
+              </ProtectedLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/worship/:category"
+          element={
+            <ProtectedRoute>
+              <ProtectedLayout>
+                <SongList type="worship" />
+              </ProtectedLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/worship/:category/:id"
+          element={
+            <ProtectedRoute>
+              <ProtectedLayout>
+                <SongDetail type="worship" />
               </ProtectedLayout>
             </ProtectedRoute>
           }

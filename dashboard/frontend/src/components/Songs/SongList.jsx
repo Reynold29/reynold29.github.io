@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiUrl } from '../../config';
 import { FaCheckCircle, FaFilter, FaTimesCircle } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
 import './Songs.css';
 
 const SongList = ({ type }) => {
+  const { category } = useParams();
   const [songs, setSongs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -16,14 +18,15 @@ const SongList = ({ type }) => {
 
   useEffect(() => {
     fetchSongs();
-  }, [type]);
+  }, [type, category]);
 
   useEffect(() => {
     // Debounced search filtering
     const timeoutId = setTimeout(() => {
       const filtered = songs.filter(song => {
+        const songId = song.number || song.id || '';
         const matchesSearch = song.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            song.number.toString().includes(searchTerm);
+                            songId.toString().includes(searchTerm);
         
         if (!filterReviewed && !filterNotReviewed) return matchesSearch;
         
@@ -45,7 +48,11 @@ const SongList = ({ type }) => {
       setLoading(true);
       setError('');
       const token = localStorage.getItem('token');
-      const response = await fetch(`${apiUrl}/api/${type}`, {
+      const fetchUrl = type === 'worship' 
+        ? `${apiUrl}/api/worship/songs/${category}`
+        : `${apiUrl}/api/${type}`;
+        
+      const response = await fetch(fetchUrl, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -70,14 +77,18 @@ const SongList = ({ type }) => {
     setSearchTerm(e.target.value);
   };
 
-  const handleCardClick = (songNumber) => {
-    navigate(`/${type === 'hymns' ? 'hymns' : 'keerthanes'}/${songNumber}`);
+  const handleCardClick = (songId) => {
+    if (type === 'worship') {
+      navigate(`/worship/${category}/${songId}`);
+    } else {
+      navigate(`/${type === 'hymns' ? 'hymns' : 'keerthanes'}/${songId}`);
+    }
   };
 
-  const handleKeyDown = (e, songNumber) => {
+  const handleKeyDown = (e, songId) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      handleCardClick(songNumber);
+      handleCardClick(songId);
     }
   };
 
@@ -115,7 +126,7 @@ const SongList = ({ type }) => {
   return (
     <div className="songs-container">
       <div className="songs-header">
-        <h1>{type === 'hymns' ? 'Hymns' : 'Keerthanes'}</h1>
+        <h1>{type === 'worship' ? category.charAt(0).toUpperCase() + category.slice(1) : (type === 'hymns' ? 'Hymns' : 'Keerthanes')}</h1>
         <div className="search-container">
           <input
             type="text"
@@ -143,26 +154,29 @@ const SongList = ({ type }) => {
       </div>
 
       <div className="songs-grid">
-        {filteredSongs.map((song, index) => (
-          <div
-            key={song.number}
-            className="song-card"
-            onClick={() => handleCardClick(song.number)}
-            onKeyDown={(e) => handleKeyDown(e, song.number)}
-            role="button"
-            tabIndex={0}
-            aria-label={`Song ${song.number}: ${song.title}`}
-            style={{ animationDelay: `${index * 0.1}s` }}
-          >
-            {song.reviewed && (
-              <div className="reviewed-chip">
-                <FaCheckCircle /> Reviewed
-              </div>
-            )}
-            <div className="song-number">{song.number}</div>
-            <div className="song-title">{song.title}</div>
-          </div>
-        ))}
+        {filteredSongs.map((song, index) => {
+          const songId = song.number || song.id;
+          return (
+            <div
+              key={songId}
+              className="song-card"
+              onClick={() => handleCardClick(songId)}
+              onKeyDown={(e) => handleKeyDown(e, songId)}
+              role="button"
+              tabIndex={0}
+              aria-label={`Song ${songId}: ${song.title}`}
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              {song.reviewed && (
+                <div className="reviewed-chip">
+                  <FaCheckCircle /> Reviewed
+                </div>
+              )}
+              <div className="song-number">{songId}</div>
+              <div className="song-title">{song.title}</div>
+            </div>
+          );
+        })}
       </div>
 
       {filteredSongs.length === 0 && searchTerm && (
