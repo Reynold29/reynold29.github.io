@@ -560,9 +560,7 @@ app.put('/api/worship/song/:category/:id', authMiddleware, async (req, res) => {
 
     updateData.updated_at = new Date().toISOString();
 
-    console.log(`[SUPABASE UPDATE] Table: ${category}, ID: ${id}`);
-    console.log('[SUPABASE UPDATE] Payload:', JSON.stringify(updateData, null, 2));
-
+    const categoryLower = category.toLowerCase();
     const tableName = (categoryLower === 'english') ? 'english_data' : (categoryLower === 'kannada' ? 'kannada_data' : 'other_data');
     console.log(`[SUPABASE] Targeted table: ${tableName}, ID: ${id}`);
     
@@ -588,6 +586,8 @@ app.put('/api/worship/song/:category/:id', authMiddleware, async (req, res) => {
         console.log(`[SUPABASE] Using numeric ID ${numericId} for update`);
       }
     }
+
+    console.log(`[SUPABASE] Final Update Payload for ${tableName}:`, JSON.stringify(finalUpdateData, null, 2));
 
     // 3. Attempt Update
     const { data, error, status, statusText } = await supabase

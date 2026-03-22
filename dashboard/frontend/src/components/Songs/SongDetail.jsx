@@ -68,13 +68,32 @@ export default function SongDetail({ type }) {
       console.log(`[DEBUG] Updating song at: ${updateUrl}`);
       console.log(`[DEBUG] Edited Song ID: ${editedSong?.id}, Type: ${typeof editedSong?.id}`);
 
+      // Only send fields that have actually changed
+      const diff = {};
+      const allowedFields = [
+        'title', 'lyrics', 'chords', 'category', 'author_name', 'genre', 
+        'key_signature', 'bpm', 'youtube_link', 'language', 'english_title', 
+        'trans_lyrics', 'reviewed', 'signature', 'kannadaLyrics'
+      ];
+      
+      allowedFields.forEach(key => {
+        if (editedSong[key] !== song[key]) {
+          diff[key] = editedSong[key];
+        }
+      });
+
+      if (Object.keys(diff).length === 0) {
+        setIsEditing(false);
+        return;
+      }
+
       const response = await fetch(updateUrl, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(editedSong)
+        body: JSON.stringify(diff)
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
