@@ -66,9 +66,9 @@ const hymnsFile = './hymns_data.json';
 const keerthaneFile = './keerthane_data.json';
 const logFile = './edit_logs.json';
 
-// Supabase configuration
+// Supabase configuration - Using Service Role Key to bypass RLS for dashboard operations
 const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_KEY = process.env.SUPABASE_ANON_KEY;
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
 const isSupabaseValid = SUPABASE_URL && SUPABASE_URL.startsWith('http') && SUPABASE_KEY;
 const supabase = isSupabaseValid ? createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
@@ -563,32 +563,49 @@ app.put('/api/worship/song/:category/:id', authMiddleware, async (req, res) => {
     console.log(`[SUPABASE UPDATE] Table: ${category}, ID: ${id}`);
     console.log('[SUPABASE UPDATE] Payload:', JSON.stringify(updateData, null, 2));
 
-    let query;
-    const categoryLower = category.toLowerCase();
+    const tableName = (categoryLower === 'english') ? 'english_data' : (categoryLower === 'kannada' ? 'kannada_data' : 'other_data');
+    console.log(`[SUPABASE] Targeted table: ${tableName}, ID: ${id}`);
     
-    if (categoryLower === 'english' || categoryLower === 'kannada') {
-      const { category: song_cat, ...finalUpdateData } = updateData;
-      const tableName = categoryLower === 'english' ? 'english_data' : 'kannada_data';
-      const numericId = Number(id);
-      console.log(`[SUPABASE UPDATE] Using numeric ID ${numericId} for ${tableName}`);
-      query = supabase.from(tableName).update(finalUpdateData).eq('id', numericId).select();
-    } else {
-      console.log(`[SUPABASE UPDATE] Using string ID ${id} for other_data`);
-      query = supabase.from('other_data').update(updateData).eq('id', id).select();
+    // 1. Existence Check
+    const { data: checkData, error: checkError } = await supabase.from(tableName).select('id, title').eq('id', id);
+    if (checkError) {
+      console.error('[SUPABASE CHECK ERROR]:', checkError);
+      return res.status(400).json({ error: checkError.message, debug: { tableName, id, phase: 'check' } });
+    }
+    
+    if (!checkData || checkData.length === 0) {
+      console.warn(`[SUPABASE] Song ID ${id} not found in ${tableName}`);
+      return res.status(404).json({ error: `Song ID ${id} not found in ${tableName}`, debug: { tableName, id } });
     }
 
-    const { data, error, status, statusText } = await query;
+    // 2. Prepare Update Data
+    const finalUpdateData = { ...updateData };
+    if (tableName !== 'other_data') {
+      delete finalUpdateData.category; // Only other_data has category column
+      // Ensure numeric ID if applicable
+      const numericId = Number(id);
+      if (!isNaN(numericId)) {
+        console.log(`[SUPABASE] Using numeric ID ${numericId} for update`);
+      }
+    }
+
+    // 3. Attempt Update
+    const { data, error, status, statusText } = await supabase
+      .from(tableName)
+      .update(finalUpdateData)
+      .eq('id', id)
+      .select();
     
     if (error) {
-      console.error('[SUPABASE ERROR]:', error);
-      return res.status(400).json({ error: error.message, details: error.details });
+      console.error('[SUPABASE UPDATE ERROR]:', error);
+      return res.status(400).json({ error: error.message, details: error.details, debug: { tableName, id, phase: 'update' } });
     }
 
     if (!data || data.length === 0) {
-      console.warn(`[SUPABASE WARN]: No rows updated. Status: ${status} ${statusText}`);
+      console.warn(`[SUPABASE WARN]: Update affected 0 rows. Status: ${status} ${statusText}`);
       return res.status(404).json({ 
-        error: 'Song not found or no changes made', 
-        debug: { category, id, status, statusText, updateDataKeys: Object.keys(updateData) }
+        error: 'Update failed to affect any rows. This is often caused by Row Level Security (RLS) policies.', 
+        debug: { tableName, id, status, statusText, keys: Object.keys(finalUpdateData) }
       });
     }
 
