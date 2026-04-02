@@ -1,13 +1,15 @@
 [
     {
         "relation": [
-            "delegate_permission/common.handle_all_urls"
+            "delegate_permission/common.handle_all_urls",
+            "delegate_permission/common.get_login_creds"
         ],
         "target": {
             "namespace": "android_app",
             "package_name": "com.reyzie.worshipcompanion",
             "sha256_cert_fingerprints": [
-                "A9:9E:B9:7E:C2:CB:D5:D6:D6:2D:AA:5A:45:68:85:F5:62:A8:99:E3:41:1B:1C:39:79:FC:DD:0A:2B:E1:22:8C"
+                "A9:9E:B9:7E:C2:CB:D5:D6:D6:2D:AA:5A:45:68:85:F5:62:A8:99:E3:41:1B:1C:39:79:FC:DD:0A:2B:E1:22:8C",
+                "FD:07:1B:9A:95:45:0E:23:54:70:80:A7:5B:2F:CD:F8:A6:E8:D2:B4:B2:B6:28:05:7C:89:19:24:04:01:E4:E6"
             ]
         }
     }
