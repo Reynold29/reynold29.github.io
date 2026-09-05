@@ -5,7 +5,9 @@
             {
                 "appID": "6854RXDB8K.com.reyzie.worshipcompanion",
                 "paths": [
-                    "/worshipcompanion/song*"
+                    "/worshipcompanion/song*",
+                    "/worshipcompanion/lyrics*",
+                    "/worshipcompanion/playlist*"
                 ]
             }
         ]

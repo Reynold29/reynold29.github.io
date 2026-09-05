@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Worship Companion — Lyrics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../shared.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../config.js"></script>
+  <script src="../shared.js"></script>
+</head>
+<body>
+  <main class="page">
+    <div class="brand">Worship Companion</div>
+    <div id="content" class="status">Opening lyrics…</div>
+  </main>
+  <div class="download-bar"><div class="download-inner" id="storeBar"></div></div>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const lang = (params.get("l") || "english").toLowerCase();
+    const id = params.get("id");
+    const content = document.getElementById("content");
+    storeButtons(document.getElementById("storeBar"));
+
+    if (!id) {
+      content.className = "error";
+      content.textContent = "This link is missing a song id.";
+    } else {
+      const client = createClient();
+      const table = tableForLang(lang);
+      let channel;
+
+      function render(song) {
+        if (!song) {
+          content.className = "error";
+          content.textContent = "Song not found.";
+          return;
+        }
+        const author = song.author_name && song.author_name !== "UNKNOWN" ? song.author_name : "";
+        content.className = "";
+        content.innerHTML = `
+          <h1>${escapeHtml(song.title || "Untitled")}</h1>
+          <div class="meta">${author ? "Author: " + escapeHtml(author) : ""}${song.key_signature ? " · Key: " + escapeHtml(song.key_signature) : ""}</div>
+          <div class="card">${escapeHtml(song.lyrics || "")}</div>
+        `;
+        document.title = (song.title || "Song") + " — Worship Companion";
+      }
+
+      function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, (c) => ({
+          "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+        }[c]));
+      }
+
+      const load = debounce(async () => {
+        const { data, error } = await client.from(table).select("id,title,author_name,key_signature,lyrics").eq("id", id).maybeSingle();
+        if (error) {
+          content.className = "error";
+          content.textContent = "Could not load this song.";
+          return;
+        }
+        render(data);
+      }, 400);
+
+      function startLive() {
+        channel = subscribeFiltered(client, "song-" + id, table, "id=eq." + id, load);
+      }
+
+      load();
+      startLive();
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          if (channel) client.removeChannel(channel);
+          channel = null;
+        } else {
+          load();
+          startLive();
+        }
+      });
+    }
+  </script>
+</body>
+</html>
