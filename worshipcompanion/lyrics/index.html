@@ -23,6 +23,7 @@
     const id = params.get("id");
     const content = document.getElementById("content");
     storeButtons(document.getElementById("storeBar"));
+    tryOpenApp();
 
     if (!id) {
       content.className = "error";
@@ -54,7 +55,7 @@
         }[c]));
       }
 
-      const load = debounce(async () => {
+      async function fetchSong() {
         const { data, error } = await client.from(table).select("id,title,author_name,key_signature,lyrics").eq("id", id).maybeSingle();
         if (error) {
           content.className = "error";
@@ -62,20 +63,22 @@
           return;
         }
         render(data);
-      }, 400);
+      }
+
+      const load = debounce(fetchSong, 400);
 
       function startLive() {
         channel = subscribeFiltered(client, "song-" + id, table, "id=eq." + id, load);
       }
 
-      load();
+      fetchSong();
       startLive();
       document.addEventListener("visibilitychange", () => {
         if (document.hidden) {
           if (channel) client.removeChannel(channel);
           channel = null;
         } else {
-          load();
+          fetchSong();
           startLive();
         }
       });

@@ -21,6 +21,7 @@
     const id = new URLSearchParams(location.search).get("id");
     const content = document.getElementById("content");
     storeButtons(document.getElementById("storeBar"));
+    tryOpenApp();
 
     function escapeHtml(s) {
       return String(s).replace(/[&<>"']/g, (c) => ({

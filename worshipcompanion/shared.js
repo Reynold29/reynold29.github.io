@@ -36,6 +36,20 @@ function storeButtons(container) {
   `;
 }
 
+/** Try the installed app; if missing, stay on this page (Android intent fallback). */
+function tryOpenApp() {
+  if (!/Android/i.test(navigator.userAgent || "")) return;
+  const fallback = location.href;
+  const hostAndPath =
+    location.host + location.pathname + location.search + location.hash;
+  location.href =
+    "intent://" +
+    hostAndPath +
+    "#Intent;scheme=https;package=com.reyzie.worshipcompanion;S.browser_fallback_url=" +
+    encodeURIComponent(fallback) +
+    ";end";
+}
+
 function subscribeFiltered(client, channelName, table, filter, onChange) {
   const channel = client
     .channel(channelName)
