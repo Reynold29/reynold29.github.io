@@ -140,6 +140,91 @@ function showToast(message) {
 }
 
 /**
+ * Builds the custom scheme URL (worshipcompanion://...) for the current song or playlist.
+ */
+function getCustomSchemeUrl() {
+  const params = new URLSearchParams(location.search);
+  const path = (location.pathname || "").toLowerCase();
+
+  let customPath = "lyrics";
+  let customQuery = "";
+  if (path.includes("/playlist")) {
+    customPath = "playlist";
+    const id = params.get("id") || "";
+    customQuery = "id=" + encodeURIComponent(id);
+  } else {
+    const lang = (params.get("l") || "english").toLowerCase();
+    const id = params.get("id") || "";
+    customQuery = "l=" + encodeURIComponent(lang) + "&id=" + encodeURIComponent(id);
+  }
+
+  return `worshipcompanion://${customPath}?${customQuery}`;
+}
+
+let openAppPending = false;
+
+/**
+ * Robust, crash-proof app open handler.
+ * - Prevents rapid multi-tap collisions that crash Safari
+ * - Allows native iOS link traversal so Safari prompts cleanly
+ * - Never force-redirects away with setTimeout, preserving user context
+ */
+function handleOpenAppClick(e) {
+  if (openAppPending) {
+    if (e) e.preventDefault();
+    return;
+  }
+  openAppPending = true;
+  setTimeout(() => { openAppPending = false; }, 2200);
+
+  const ua = navigator.userAgent || "";
+  const isAndroid = /Android/i.test(ua);
+  const isIOS = /iPad|iPhone|iPod/.test(ua);
+  const customUrl = getCustomSchemeUrl();
+  const storeUrl = getStoreUrl();
+
+  if (isAndroid) {
+    if (e) e.preventDefault();
+    const params = new URLSearchParams(location.search);
+    const path = (location.pathname || "").toLowerCase();
+    let customPath = path.includes("/playlist") ? "playlist" : "lyrics";
+    let customQuery = path.includes("/playlist")
+      ? "id=" + encodeURIComponent(params.get("id") || "")
+      : "l=" + encodeURIComponent((params.get("l") || "english").toLowerCase()) + "&id=" + encodeURIComponent(params.get("id") || "");
+
+    const intentUrl = `intent://${customPath}?${customQuery}#Intent;scheme=worshipcompanion;package=com.reyzie.worshipcompanion;S.browser_fallback_url=${encodeURIComponent(storeUrl)};end`;
+    location.href = intentUrl;
+    return;
+  }
+
+  if (isIOS) {
+    // CRITICAL: Do not call e.preventDefault(). The direct anchor tag click triggers Safari's
+    // native "Open in 'Worship Companion'?" prompt cleanly.
+    // NEVER schedule a setTimeout to force-redirect to storeUrl, because that
+    // interrupts the system prompt and crashes WebKit if tapped multiple times.
+    showToast("Opening Worship Companion…");
+
+    setTimeout(() => {
+      if (!document.hidden) {
+        showToast("Don't have the app yet? Tap 'Get iOS App' above to download.");
+        const getBtn = document.getElementById("getAppBtn");
+        if (getBtn) {
+          getBtn.classList.add("btn-highlight-pulse");
+          setTimeout(() => getBtn.classList.remove("btn-highlight-pulse"), 3500);
+        }
+      }
+    }, 2800);
+    return;
+  }
+
+  // Desktop
+  if (e) e.preventDefault();
+  showToast("Scan the QR code with your phone to open in app");
+  const shareBtn = document.getElementById("shareQrBtn") || document.getElementById("sharePlaylistQrBtn");
+  if (shareBtn) shareBtn.click();
+}
+
+/**
  * Renders the top app banner with dual actions: "Open App" & "Get App".
  * Accommodates users both with and without the app installed!
  */
@@ -147,8 +232,10 @@ function renderOpenAppBanner(container) {
   if (!container) return;
   const logoSrc = getAppLogoUrl();
   const storeUrl = getStoreUrl();
+  const customUrl = getCustomSchemeUrl();
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  const storeLabel = isIOS ? "Get iOS App" : "Install";
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  const storeLabel = isIOS ? "Get iOS App" : (isAndroid ? "Get Android App" : "Get App");
 
   container.innerHTML = `
     <div class="app-launch">
@@ -162,18 +249,20 @@ function renderOpenAppBanner(container) {
         </div>
       </div>
       <div class="app-launch-actions">
-        <button type="button" class="btn tonal" id="openAppBtn">Open App</button>
+        <a href="${customUrl}" class="btn tonal" id="openAppBtn">Open App</a>
         <a href="${storeUrl}" class="btn" id="getAppBtn" target="_blank" rel="noopener noreferrer">${storeLabel}</a>
       </div>
     </div>
   `;
 
+  // Update native Apple Smart App Banner for iOS Safari
+  if (isIOS) {
+    upsertMeta("name", "apple-itunes-app", `app-id=6759990066, app-argument=${customUrl}`);
+  }
+
   const openBtn = document.getElementById("openAppBtn");
   if (openBtn) {
-    openBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      tryOpenApp({ userInitiated: true });
-    });
+    openBtn.addEventListener("click", handleOpenAppClick);
   }
 }
 
@@ -181,9 +270,10 @@ function renderOpenAppBanner(container) {
  * Renders store buttons in the bottom download bar.
  */
 function storeButtons(container) {
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const ua = navigator.userAgent || "";
+  const isIOS = /iPad|iPhone|iPod/.test(ua);
   const url = isIOS ? window.WC_CONFIG.appStoreUrl : window.WC_CONFIG.playStoreUrl;
-  const label = isIOS ? "Get iOS App" : "Get Android App";
+  const label = isIOS ? "Get iOS App on App Store" : "Get Android App on Google Play";
   container.innerHTML = `
     <p>Get Worship Companion for chords, transpose, and offline lyrics.</p>
     <a class="btn" href="${url}" target="_blank" rel="noopener noreferrer">
@@ -194,64 +284,10 @@ function storeButtons(container) {
 }
 
 /**
- * Open the installed app upon explicit user interaction, with seamless store fallback.
- * Eliminates single-attempt locks so multiple taps work reliably.
+ * Open the installed app upon explicit user interaction.
  */
 function tryOpenApp(options = {}) {
-  const { userInitiated = false } = options;
-  if (!userInitiated) return;
-
-  const ua = navigator.userAgent || "";
-  const isAndroid = /Android/i.test(ua);
-  const isIOS = /iPad|iPhone|iPod/.test(ua);
-  const params = new URLSearchParams(location.search);
-  const path = location.pathname.toLowerCase();
-  const storeUrl = getStoreUrl();
-
-  let customPath = "lyrics";
-  let customQuery = "";
-  if (path.includes("/playlist")) {
-    customPath = "playlist";
-    customQuery = "id=" + encodeURIComponent(params.get("id") || "");
-  } else {
-    const lang = encodeURIComponent((params.get("l") || "english").toLowerCase());
-    const id = encodeURIComponent(params.get("id") || "");
-    customQuery = "l=" + lang + "&id=" + id;
-  }
-
-  const customUrl = `worshipcompanion://${customPath}?${customQuery}`;
-
-  if (isAndroid) {
-    // Android intent with automatic fallback to Play Store
-    const intentUrl = `intent://${customPath}?${customQuery}#Intent;scheme=worshipcompanion;package=com.reyzie.worshipcompanion;S.browser_fallback_url=${encodeURIComponent(storeUrl)};end`;
-    location.href = intentUrl;
-    return;
-  }
-
-  if (isIOS) {
-    const clickTime = Date.now();
-    showToast("Opening Worship Companion…");
-    location.href = customUrl;
-
-    // If Safari doesn't blur or switch away within 1500ms, app is not installed
-    setTimeout(() => {
-      if (document.hidden) return;
-      if (Date.now() - clickTime < 2500) {
-        showToast("App not installed? Redirecting to App Store…");
-        setTimeout(() => {
-          if (!document.hidden) {
-            window.location.href = storeUrl;
-          }
-        }, 600);
-      }
-    }, 1500);
-    return;
-  }
-
-  // Desktop: open QR modal so they can scan it with their phone
-  showToast("Scan the QR code with your phone to open in app");
-  const shareBtn = document.getElementById("shareQrBtn") || document.getElementById("sharePlaylistQrBtn");
-  if (shareBtn) shareBtn.click();
+  handleOpenAppClick(null);
 }
 
 /**
