@@ -57,7 +57,6 @@ html[data-theme="light"] {
 html {
   background-color: var(--bg);
   height: 100%;
-  scroll-behavior: smooth;
 }
 
 html, body {
@@ -99,14 +98,14 @@ body {
 .brand-badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.82rem;
+  gap: 10px;
+  font-size: 0.84rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--text-muted);
   text-decoration: none;
-  padding: 6px 12px 6px 8px;
+  padding: 6px 14px 6px 8px;
   background: color-mix(in srgb, var(--card) 75%, transparent);
   border: 1px solid var(--border);
   border-radius: var(--radius-full);
@@ -120,22 +119,14 @@ body {
   color: var(--text);
 }
 
-.brand-icon {
-  width: 20px;
-  height: 20px;
+.brand-logo-img {
+  width: 24px;
+  height: 24px;
   border-radius: 6px;
-  background: var(--accent-gradient);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
+  object-fit: cover;
+  display: block;
   flex-shrink: 0;
-}
-
-.brand-icon svg {
-  width: 12px;
-  height: 12px;
-  fill: currentColor;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .brand {
@@ -167,25 +158,26 @@ body {
 .app-launch-content {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   min-width: 0;
 }
 
 .app-launch-icon {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 9px;
-  background: color-mix(in srgb, var(--accent) 15%, transparent);
-  color: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  overflow: hidden;
 }
 
-.app-launch-icon svg {
-  width: 18px;
-  height: 18px;
+.app-launch-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 9px;
 }
 
 .app-launch p {
@@ -207,6 +199,8 @@ body {
 .song-hero {
   margin-bottom: 20px;
   padding: 6px 2px;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .song-badges {
@@ -229,6 +223,7 @@ body {
   border: 1px solid var(--border);
   background: color-mix(in srgb, var(--card) 80%, transparent);
   color: var(--text-muted);
+  white-space: nowrap;
 }
 
 .pill-badge.accent {
@@ -248,16 +243,18 @@ html[data-theme="light"] .pill-badge.key-badge {
 }
 
 h1.song-title {
-  font-size: clamp(1.6rem, 5.5vw, 2.25rem);
+  font-size: clamp(1.5rem, 5.2vw, 2.25rem);
   font-weight: 800;
-  line-height: 1.22;
+  line-height: 1.25;
   letter-spacing: -0.02em;
-  margin: 0 0 6px;
+  margin: 0 0 8px;
   color: var(--text);
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .song-subtitle {
-  font-size: 1.02rem;
+  font-size: 0.98rem;
   color: var(--text-muted);
   margin: 0 0 14px;
   font-weight: 500;
@@ -265,6 +262,8 @@ h1.song-title {
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .song-subtitle-artist {
@@ -280,7 +279,7 @@ h1.song-title {
   border: 1px solid var(--border);
   border-radius: var(--radius-full);
   padding: 3px;
-  margin-top: 4px;
+  margin-top: 6px;
   box-shadow: var(--shadow-sm);
 }
 
@@ -291,7 +290,7 @@ h1.song-title {
   font-family: inherit;
   font-size: 0.8rem;
   font-weight: 600;
-  padding: 5px 14px;
+  padding: 6px 14px;
   border-radius: var(--radius-full);
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -483,7 +482,8 @@ h1.song-title {
 }
 
 /* -------------------------------------------------------------
-   Search & List (Shared / Playlist)
+   Search & List (Playlist & Shared List)
+   Robust truncation so author never collides with chips!
 ------------------------------------------------------------- */
 .search-wrap {
   margin: 0 0 16px;
@@ -555,17 +555,18 @@ h1.song-title {
 
 .row {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   text-decoration: none;
   color: inherit;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 14px 16px;
+  padding: 13px 16px;
   box-shadow: var(--shadow-sm);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
 }
 
 .row:hover {
@@ -577,28 +578,37 @@ h1.song-title {
 
 .row-main {
   min-width: 0;
+  overflow: hidden;
 }
 
+.row-title,
+.row-main strong,
 .row strong {
   display: block;
-  font-size: 1rem;
+  font-size: 0.98rem;
   font-weight: 600;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 100%;
   color: var(--text);
 }
 
-.row span {
+.row-author,
+.row-main span,
+.row span:not(.chip) {
+  display: block;
   color: var(--text-muted);
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .chip {
+  flex-shrink: 0;
   font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -607,6 +617,7 @@ h1.song-title {
   padding: 4px 10px;
   color: var(--accent);
   background: color-mix(in srgb, var(--accent) 12%, transparent);
+  white-space: nowrap;
 }
 
 .status, .error {
@@ -747,25 +758,59 @@ h1.song-title {
   line-height: 1.35;
 }
 
-/* White QR container with high-contrast framing */
+/* White QR container with high-contrast framing and center logo badge */
 .qr-canvas-box {
   display: inline-flex;
+  position: relative;
   align-items: center;
   justify-content: center;
   background: #ffffff;
   padding: 16px;
-  border-radius: 22px;
-  box-shadow: 0 12px 30px rgba(11, 61, 145, 0.16);
+  border-radius: 24px;
+  box-shadow: 0 12px 32px rgba(11, 61, 145, 0.16);
   margin-bottom: 16px;
-  position: relative;
 }
 
-.qr-canvas-box img,
-.qr-canvas-box canvas {
+.qr-inner-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-inner-wrap img,
+.qr-inner-wrap canvas {
   display: block;
   max-width: 100%;
   height: auto;
   border-radius: 6px;
+}
+
+/* App logo in the middle of the QR code */
+.qr-center-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  background: #ffffff;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.qr-center-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
 }
 
 .qr-caption {
@@ -776,6 +821,7 @@ h1.song-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding: 0 4px;
 }
 
 .qr-detail {
@@ -785,6 +831,7 @@ h1.song-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding: 0 4px;
 }
 
 .qr-url-pill {
@@ -889,17 +936,17 @@ h1.song-title {
   .card.lyrics-card {
     padding: 20px 16px;
   }
+  .row {
+    padding: 12px 14px;
+    gap: 10px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
   body {
     background-attachment: scroll;

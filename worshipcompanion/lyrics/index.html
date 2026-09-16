@@ -37,9 +37,7 @@
   <main class="page">
     <div class="brand-nav">
       <a href="../" class="brand-badge">
-        <span class="brand-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-        </span>
+        <img src="../app_logo.png" class="brand-logo-img" alt="Worship Companion Logo" />
         <span>Worship Companion</span>
       </a>
     </div>
@@ -73,7 +71,9 @@
       const client = createClient();
       const table = tableForLang(lang);
       let channel;
-      let autoScrollTimer = null;
+      let autoScrollRaf = null;
+      let lastScrollTimestamp = 0;
+      const scrollSpeedPxSec = 45; // 45px per second gives comfortable reading pace
       let fontPx = Number(localStorage.getItem("wc_lyrics_font_px") || 17);
       let lightTheme = localStorage.getItem("wc_web_theme") === "light";
       let currentScript = "original"; // "original" | "trans"
@@ -104,8 +104,9 @@
       }
 
       function stopAutoScroll() {
-        if (autoScrollTimer) clearInterval(autoScrollTimer);
-        autoScrollTimer = null;
+        if (autoScrollRaf) cancelAnimationFrame(autoScrollRaf);
+        autoScrollRaf = null;
+        lastScrollTimestamp = 0;
         const autoBtn = document.getElementById("autoScrollToggle");
         if (autoBtn) {
           autoBtn.classList.remove("active");
@@ -116,9 +117,29 @@
         }
       }
 
+      function autoScrollStep(timestamp) {
+        if (!autoScrollRaf) return;
+        if (!lastScrollTimestamp) lastScrollTimestamp = timestamp;
+        const deltaSeconds = (timestamp - lastScrollTimestamp) / 1000;
+        lastScrollTimestamp = timestamp;
+
+        const scrollEl = document.scrollingElement || document.documentElement || document.body;
+        const maxScroll = scrollEl.scrollHeight - window.innerHeight - 2;
+
+        if (scrollEl.scrollTop >= maxScroll) {
+          stopAutoScroll();
+          return;
+        }
+
+        const step = Math.max(0.4, scrollSpeedPxSec * deltaSeconds);
+        scrollEl.scrollTop += step;
+
+        autoScrollRaf = requestAnimationFrame(autoScrollStep);
+      }
+
       function toggleAutoScroll() {
         const autoBtn = document.getElementById("autoScrollToggle");
-        if (autoScrollTimer) {
+        if (autoScrollRaf) {
           stopAutoScroll();
           return;
         }
@@ -133,12 +154,8 @@
             <span>Stop Scroll</span>
           `;
         }
-        autoScrollTimer = setInterval(() => {
-          window.scrollBy({ top: 1.2, left: 0, behavior: "auto" });
-          const nearBottom =
-            window.innerHeight + window.scrollY >= document.body.scrollHeight - 4;
-          if (nearBottom) stopAutoScroll();
-        }, 22);
+        lastScrollTimestamp = 0;
+        autoScrollRaf = requestAnimationFrame(autoScrollStep);
       }
 
       function updateFont(nextPx) {

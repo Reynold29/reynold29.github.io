@@ -37,9 +37,7 @@
   <main class="page">
     <div class="brand-nav">
       <a href="../" class="brand-badge">
-        <span class="brand-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-        </span>
+        <img src="../app_logo.png" class="brand-logo-img" alt="Worship Companion Logo" />
         <span>Worship Companion</span>
       </a>
     </div>
@@ -150,14 +148,14 @@
         list.innerHTML = filtered.map((s) => s.href
           ? `<a class="row" href="${s.href}">
               <div class="row-main">
-                <strong>${escapeHtml(s.title)}</strong>
-                <span>${escapeHtml(s.author || "Unknown artist")}</span>
+                <strong class="row-title">${escapeHtml(s.title)}</strong>
+                <span class="row-author">${escapeHtml(s.author || "Unknown artist")}</span>
               </div>
               <span class="chip">${langChip(s.lang)}</span>
             </a>`
           : `<div class="row">
               <div class="row-main">
-                <strong>${escapeHtml(s.title)}</strong>
+                <strong class="row-title">${escapeHtml(s.title)}</strong>
               </div>
               <span class="chip">--</span>
             </div>`

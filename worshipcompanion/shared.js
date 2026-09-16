@@ -48,6 +48,14 @@ function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
+function getAppLogoUrl() {
+  const path = (location.pathname || "").toLowerCase();
+  if (path.includes("/lyrics") || path.includes("/playlist") || path.includes("/song")) {
+    return "../app_logo.png";
+  }
+  return "app_logo.png";
+}
+
 function upsertMeta(attr, key, content) {
   if (!content) return;
   let el = document.head.querySelector(`meta[${attr}="${key}"]`);
@@ -127,19 +135,16 @@ function showToast(message) {
 }
 
 /**
- * Renders the top app banner with rich styling.
+ * Renders the top app banner with rich styling and app logo.
  */
 function renderOpenAppBanner(container) {
   if (!container) return;
+  const logoSrc = getAppLogoUrl();
   container.innerHTML = `
     <div class="app-launch">
       <div class="app-launch-content">
         <div class="app-launch-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 18V5l12-2v13"></path>
-            <circle cx="6" cy="18" r="3"></circle>
-            <circle cx="18" cy="16" r="3"></circle>
-          </svg>
+          <img src="${logoSrc}" alt="Worship Companion" />
         </div>
         <p>Open in app for chords, transpose, playlists, and offline lyrics.</p>
       </div>
@@ -215,10 +220,12 @@ function tryOpenApp(options = {}) {
 }
 
 /**
- * Displays an interactive Share QR modal matching the native app dialog.
+ * Displays an interactive Share QR modal with center app logo, matching native app.
  */
 function openShareQrModal({ title, subtitle, url, caption, detail }) {
   let backdrop = document.getElementById("shareQrBackdrop");
+  const logoSrc = getAppLogoUrl();
+
   if (!backdrop) {
     backdrop = document.createElement("div");
     backdrop.id = "shareQrBackdrop";
@@ -232,7 +239,12 @@ function openShareQrModal({ title, subtitle, url, caption, detail }) {
           <h2 class="qr-modal-title" id="qrModalTitle"></h2>
           <p class="qr-modal-subtitle" id="qrModalSubtitle"></p>
         </div>
-        <div class="qr-canvas-box" id="qrContainer"></div>
+        <div class="qr-canvas-box">
+          <div class="qr-inner-wrap" id="qrContainer"></div>
+          <div class="qr-center-logo">
+            <img src="${logoSrc}" alt="App Logo" />
+          </div>
+        </div>
         <div class="qr-caption" id="qrCaption"></div>
         <div class="qr-detail" id="qrDetail"></div>
         <div class="qr-url-pill" id="qrUrlPill"></div>
@@ -296,7 +308,7 @@ function openShareQrModal({ title, subtitle, url, caption, detail }) {
       height: 200,
       colorDark: "#0b3d91",
       colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.M,
+      correctLevel: QRCode.CorrectLevel.H, // 30% error correction allows the center logo badge cleanly!
     });
   } else {
     qrContainer.innerHTML = `<div style="padding: 24px 12px; color: #444; font-size: 0.85rem;">Scan URL below</div>`;
