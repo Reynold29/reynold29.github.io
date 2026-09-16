@@ -138,7 +138,7 @@ body {
 }
 
 /* -------------------------------------------------------------
-   App Launch Banner
+   App Launch Banner (Dual: Open App + Install / Get App)
 ------------------------------------------------------------- */
 .app-launch {
   display: flex;
@@ -160,17 +160,19 @@ body {
   align-items: center;
   gap: 12px;
   min-width: 0;
+  flex: 1;
 }
 
 .app-launch-icon {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 9px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .app-launch-icon img {
@@ -180,17 +182,41 @@ body {
   border-radius: 9px;
 }
 
-.app-launch p {
-  margin: 0;
-  font-size: 0.86rem;
-  color: var(--text-muted);
-  line-height: 1.4;
+.app-launch-text {
+  min-width: 0;
 }
 
-.app-launch .btn {
-  padding: 8px 14px;
-  font-size: 0.84rem;
+.app-launch-text strong {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-launch-text p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.app-launch-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   flex-shrink: 0;
+}
+
+.app-launch-actions .btn,
+.app-launch-actions .btn.tonal {
+  padding: 8px 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: var(--radius-full);
 }
 
 /* -------------------------------------------------------------
@@ -929,6 +955,23 @@ h1.song-title {
   }
   .app-launch {
     flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px 14px;
+  }
+  .app-launch-content {
+    flex-basis: 100%;
+  }
+  .app-launch-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .app-launch-actions .btn,
+  .app-launch-actions .btn.tonal {
+    width: 100%;
+    text-align: center;
+    padding: 9px 12px;
   }
   .toolbar {
     padding: 6px 8px;

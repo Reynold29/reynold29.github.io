@@ -56,6 +56,11 @@ function getAppLogoUrl() {
   return "app_logo.png";
 }
 
+function getStoreUrl() {
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  return isIOS ? window.WC_CONFIG.appStoreUrl : window.WC_CONFIG.playStoreUrl;
+}
+
 function upsertMeta(attr, key, content) {
   if (!content) return;
   let el = document.head.querySelector(`meta[${attr}="${key}"]`);
@@ -131,29 +136,41 @@ function showToast(message) {
   clearTimeout(toast._timer);
   toast._timer = setTimeout(() => {
     toast.classList.remove("show");
-  }, 2200);
+  }, 2400);
 }
 
 /**
- * Renders the top app banner with rich styling and app logo.
+ * Renders the top app banner with dual actions: "Open App" & "Get App".
+ * Accommodates users both with and without the app installed!
  */
 function renderOpenAppBanner(container) {
   if (!container) return;
   const logoSrc = getAppLogoUrl();
+  const storeUrl = getStoreUrl();
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const storeLabel = isIOS ? "Get iOS App" : "Install";
+
   container.innerHTML = `
     <div class="app-launch">
       <div class="app-launch-content">
         <div class="app-launch-icon">
           <img src="${logoSrc}" alt="Worship Companion" />
         </div>
-        <p>Open in app for chords, transpose, playlists, and offline lyrics.</p>
+        <div class="app-launch-text">
+          <strong>Worship Companion</strong>
+          <p>Chords, transpose & offline lyrics</p>
+        </div>
       </div>
-      <a href="#" class="btn tonal" id="openAppBtn">Open In App</a>
+      <div class="app-launch-actions">
+        <button type="button" class="btn tonal" id="openAppBtn">Open App</button>
+        <a href="${storeUrl}" class="btn" id="getAppBtn" target="_blank" rel="noopener noreferrer">${storeLabel}</a>
+      </div>
     </div>
   `;
-  const btn = document.getElementById("openAppBtn");
-  if (btn) {
-    btn.addEventListener("click", (e) => {
+
+  const openBtn = document.getElementById("openAppBtn");
+  if (openBtn) {
+    openBtn.addEventListener("click", (e) => {
       e.preventDefault();
       tryOpenApp({ userInitiated: true });
     });
@@ -177,46 +194,64 @@ function storeButtons(container) {
 }
 
 /**
- * Open the installed app upon explicit user interaction.
+ * Open the installed app upon explicit user interaction, with seamless store fallback.
+ * Eliminates single-attempt locks so multiple taps work reliably.
  */
 function tryOpenApp(options = {}) {
   const { userInitiated = false } = options;
   if (!userInitiated) return;
-
-  try {
-    if (sessionStorage.getItem("wc_open_app_attempted") === "1") return;
-    sessionStorage.setItem("wc_open_app_attempted", "1");
-  } catch (_) {}
 
   const ua = navigator.userAgent || "";
   const isAndroid = /Android/i.test(ua);
   const isIOS = /iPad|iPhone|iPod/.test(ua);
   const params = new URLSearchParams(location.search);
   const path = location.pathname.toLowerCase();
+  const storeUrl = getStoreUrl();
 
-  let customUrl = "worshipcompanion://lyrics";
+  let customPath = "lyrics";
+  let customQuery = "";
   if (path.includes("/playlist")) {
-    customUrl =
-      "worshipcompanion://playlist?id=" + encodeURIComponent(params.get("id") || "");
+    customPath = "playlist";
+    customQuery = "id=" + encodeURIComponent(params.get("id") || "");
   } else {
     const lang = encodeURIComponent((params.get("l") || "english").toLowerCase());
     const id = encodeURIComponent(params.get("id") || "");
-    customUrl = "worshipcompanion://lyrics?l=" + lang + "&id=" + id;
+    customQuery = "l=" + lang + "&id=" + id;
   }
 
-  if (isAndroid || isIOS) {
-    const started = Date.now();
-    location.href = customUrl;
-    setTimeout(() => {
-      if (document.hidden) return;
-      if (Date.now() - started < 2200) {
-        try {
-          sessionStorage.removeItem("wc_open_app_attempted");
-        } catch (_) {}
-      }
-    }, 1800);
+  const customUrl = `worshipcompanion://${customPath}?${customQuery}`;
+
+  if (isAndroid) {
+    // Android intent with automatic fallback to Play Store
+    const intentUrl = `intent://${customPath}?${customQuery}#Intent;scheme=worshipcompanion;package=com.reyzie.worshipcompanion;S.browser_fallback_url=${encodeURIComponent(storeUrl)};end`;
+    location.href = intentUrl;
     return;
   }
+
+  if (isIOS) {
+    const clickTime = Date.now();
+    showToast("Opening Worship Companion…");
+    location.href = customUrl;
+
+    // If Safari doesn't blur or switch away within 1500ms, app is not installed
+    setTimeout(() => {
+      if (document.hidden) return;
+      if (Date.now() - clickTime < 2500) {
+        showToast("App not installed? Redirecting to App Store…");
+        setTimeout(() => {
+          if (!document.hidden) {
+            window.location.href = storeUrl;
+          }
+        }, 600);
+      }
+    }, 1500);
+    return;
+  }
+
+  // Desktop: open QR modal so they can scan it with their phone
+  showToast("Scan the QR code with your phone to open in app");
+  const shareBtn = document.getElementById("shareQrBtn") || document.getElementById("sharePlaylistQrBtn");
+  if (shareBtn) shareBtn.click();
 }
 
 /**
