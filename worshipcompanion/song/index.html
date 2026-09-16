@@ -175,6 +175,9 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has("id")) {
+            window.location.replace("../lyrics/" + window.location.search);
+        }
         const deepLink = window.location.href;
 
         function redirect() {
