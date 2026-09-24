@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — SX Companion</title>
+  <meta name="description" content="Privacy Policy for SX Companion. Learn how we handle your data with zero tracking and 100% offline local processing.">
+  <meta name="theme-color" content="#0b0d11">
+  <link rel="canonical" href="https://projects.reyziehomelab.com/sx-companion/privacy.html">
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://projects.reyziehomelab.com/sx-companion/privacy.html">
+  <meta property="og:title" content="Privacy Policy — SX Companion">
+  <meta property="og:description" content="Privacy Policy for SX Companion. Zero tracking, zero telemetry, 100% offline processing.">
+  <meta property="og:image" content="https://projects.reyziehomelab.com/sx-companion/assets/hero_stage_setup.jpg">
+
+  <link rel="icon" type="image/png" href="assets/icon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand">
+        <img src="assets/icon.png" alt="SX Companion Logo" class="brand-icon">
+        <div class="brand-name">
+          <span class="brand-title">SX Companion</span>
+          <span class="brand-badge">Yamaha Arranger Suite</span>
+        </div>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="index.html#features" class="nav-link">Features</a></li>
+        <li><a href="index.html#airsync" class="nav-link">Air Sync</a></li>
+        <li><a href="index.html#hardware" class="nav-link">Compatibility</a></li>
+        <li><a href="terms.html" class="nav-link">Terms &amp; Conditions</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="index.html" class="btn btn-outline">&larr; Back to App</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="legal-page">
+    <div class="container">
+      <div class="legal-header">
+        <span class="section-tag">Legal &amp; Privacy</span>
+        <h1>Privacy Policy</h1>
+        <div class="legal-meta">Last Updated: September 25, 2026 &bull; Effective Immediately</div>
+      </div>
+
+      <div class="legal-content">
+        <div class="legal-notice-box">
+          <strong>Summary:</strong> SX Companion is built with a privacy-first ethos. We do not collect, store, sell, or transmit any personal information, telemetry, or analytics. Everything happens locally on your device and between your connected hardware.
+        </div>
+
+        <h2>1. Overview</h2>
+        <p>
+          This Privacy Policy explains how <strong>SX Companion</strong> ("we", "our", or "the app"), developed by Reynold (Reyzie), treats information when you use our mobile application on Android and iOS devices.
+        </p>
+
+        <h2>2. Information We Do NOT Collect</h2>
+        <p>We believe in absolute data minimization. When you use SX Companion:</p>
+        <ul>
+          <li>We <strong>do not</strong> require you to create an account, log in, or provide an email address.</li>
+          <li>We <strong>do not</strong> collect location data or GPS coordinates.</li>
+          <li>We <strong>do not</strong> collect device identifiers for advertising (IDFA, GAID).</li>
+          <li>We <strong>do not</strong> include third-party advertising SDKs, marketing trackers, or analytical telemetry libraries.</li>
+          <li>We <strong>do not</strong> record or transmit the musical content, notes, SysEx messages, or audio produced by your keyboard.</li>
+        </ul>
+
+        <h2>3. Device Permissions &amp; How They Are Used</h2>
+        <p>SX Companion requests only the minimal permissions necessary to communicate with your musical keyboard and establish local Air Sync connections:</p>
+
+        <h3>USB &amp; MIDI Host Access (<code>android.hardware.usb.host</code>)</h3>
+        <p>
+          Used exclusively to communicate with the Yamaha PSR-SX keyboard over a physical USB cable attached to the <code>[USB TO HOST]</code> port. MIDI messages (such as style selection, chord triggers, tempo, and voice switches) are transmitted directly between your mobile device and the instrument.
+        </p>
+
+        <h3>Local Network &amp; Wi-Fi Multicast (<code>ACCESS_NETWORK_STATE</code>, <code>CHANGE_WIFI_MULTICAST_STATE</code>)</h3>
+        <p>
+          Used exclusively by the <strong>Air Sync</strong> feature to discover other peer devices on your phone's personal hotspot or local stage network via UDP broadcast and establish a direct peer-to-peer TCP connection. No data is sent over the wider internet.
+        </p>
+
+        <h3>Foreground Service (<code>FOREGROUND_SERVICE_CONNECTED_DEVICE</code>)</h3>
+        <p>
+          On Android, when you host an Air Sync session, the app runs a lightweight foreground service. This keeps the Wi-Fi radio and CPU awake so the musical connection does not disconnect when your phone screen turns off or locks during a live rehearsal or performance.
+        </p>
+
+        <h3>Local Storage &amp; Documents</h3>
+        <p>
+          Used to save, load, and export your personal song presets, setlist configurations, and custom style mappings locally on your device.
+        </p>
+
+        <h2>4. Data Storage &amp; Security</h2>
+        <p>
+          All app preferences, presets, and setlists are saved exclusively in your device's local application storage sandbox. We do not operate external cloud database servers. If you delete the app, your locally stored data is removed unless you have exported a JSON backup to your own files or cloud drive.
+        </p>
+
+        <h2>5. Children's Privacy</h2>
+        <p>
+          SX Companion does not collect personal data from anyone, including children under the age of 13.
+        </p>
+
+        <h2>6. Third-Party Links &amp; Stores</h2>
+        <p>
+          The app is distributed through official application marketplaces (Google Play Store, Apple App Store / TestFlight). Those platforms operate under their own independent privacy policies for app installation and crash diagnostics.
+        </p>
+
+        <h2>7. Changes to This Privacy Policy</h2>
+        <p>
+          We may update our Privacy Policy periodically if new features require changes. Any updates will be reflected on this page with an updated "Last Updated" timestamp.
+        </p>
+
+        <h2>8. Contact &amp; Questions</h2>
+        <p>
+          If you have questions regarding this Privacy Policy or the security of SX Companion, please contact us:
+        </p>
+        <ul>
+          <li>GitHub Repository: <a href="https://github.com/Reynold29/sx-companion" target="_blank" rel="noopener noreferrer">github.com/Reynold29/sx-companion</a></li>
+          <li>Developer Website: <a href="https://projects.reyziehomelab.com" target="_blank" rel="noopener noreferrer">projects.reyziehomelab.com</a></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 SX Companion &bull; Developed by Reynold (Reyzie)</div>
+        <div><a href="terms.html">Terms &amp; Conditions</a> &bull; <a href="privacy.html">Privacy Policy</a></div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

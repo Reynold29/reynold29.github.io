@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SX Companion — Arranger Control & Air Sync for Yamaha PSR-SX</title>
+  <meta name="description" content="The ultimate live performance companion for Yamaha PSR-SX keyboards. Instant USB-MIDI control, chord charts, song presets, and wireless Air Sync remote control.">
+  <meta name="theme-color" content="#0b0d11">
+
+  <link rel="canonical" href="https://projects.reyziehomelab.com/sx-companion/">
+
+  <!-- OpenGraph / Social Cards -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://projects.reyziehomelab.com/sx-companion/">
+  <meta property="og:title" content="SX Companion — Arranger Control & Air Sync for Yamaha PSR-SX">
+  <meta property="og:description" content="Instant USB-MIDI arranger control, chord charts, song presets, and wireless hotspot Air Sync for Yamaha PSR-SX700 & SX900 keyboards.">
+  <meta property="og:image" content="https://projects.reyziehomelab.com/sx-companion/assets/hero_stage_setup.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/icon.png">
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand">
+        <img src="assets/icon.png" alt="SX Companion Logo" class="brand-icon">
+        <div class="brand-name">
+          <span class="brand-title">SX Companion</span>
+          <span class="brand-badge">Yamaha Arranger Suite</span>
+        </div>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#airsync" class="nav-link">Air Sync</a></li>
+        <li><a href="#simulator" class="nav-link">Live Demo</a></li>
+        <li><a href="#hardware" class="nav-link">Compatibility</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+        <li><a href="privacy.html" class="nav-link">Privacy</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#alpha" class="btn btn-accent">Join Alpha</a>
+        <button class="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-pill">
+            <span class="status-dot"></span>
+            <span>Version 1.0 Alpha &bull; Android &amp; iOS</span>
+          </div>
+          <h1 class="hero-title">
+            Your Yamaha PSR-SX.<br>
+            <span class="highlight">Untethered &amp; Elevated.</span>
+          </h1>
+          <p class="hero-description">
+            The tactile stage companion engineered for Yamaha PSR-SX workstation keyboards. Take direct command of styles, section transitions, voices, and chord charts via low-latency USB-MIDI — or control everything wirelessly from your iPad with Air Sync.
+          </p>
+
+          <div class="hero-actions" id="alpha">
+            <a href="https://github.com/Reynold29/sx-companion" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+              GitHub Project
+            </a>
+            <a href="#airsync" class="btn btn-outline">
+              Learn Air Sync
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="hero-specs">
+            <div class="spec-item">
+              <span class="spec-value">0 ms</span>
+              <span class="spec-label">USB Latency</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-value">100%</span>
+              <span class="spec-label">Offline &amp; Private</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-value">PSR-SX</span>
+              <span class="spec-label">700 / 900 / 600</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-media">
+          <div class="hero-image-card">
+            <img src="assets/hero_stage_setup.jpg" alt="Yamaha Arranger Keyboard with SX Companion on Stage" width="1280" height="720">
+            <div class="hero-image-overlay">
+              <div class="live-indicator">
+                <span class="dot"></span>
+                <span>STAGE READY &bull; PSR-SX700</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Connection Strip -->
+    <section class="connection-strip">
+      <div class="container connection-grid">
+        <div class="connection-item">
+          <div class="connection-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/>
+              <rect x="2" y="14" width="20" height="8" rx="2" ry="2"/>
+              <line x1="6" y1="6" x2="6.01" y2="6"/>
+              <line x1="6" y1="18" x2="6.01" y2="18"/>
+            </svg>
+          </div>
+          <div class="connection-info">
+            <h4>[USB TO HOST] Direct Link</h4>
+            <p>Standard USB-B to USB-C/Lightning cable</p>
+          </div>
+        </div>
+
+        <div class="connection-item">
+          <div class="connection-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+              <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+              <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+              <line x1="12" y1="20" x2="12.01" y2="20"/>
+            </svg>
+          </div>
+          <div class="connection-info">
+            <h4>Air Sync Hotspot Bridge</h4>
+            <p>Peer-to-peer Wi-Fi with 4-digit code</p>
+          </div>
+        </div>
+
+        <div class="connection-item">
+          <div class="connection-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </div>
+          <div class="connection-info">
+            <h4>Screen-Off Background Host</h4>
+            <p>Persistent foreground service never drops</p>
+          </div>
+        </div>
+
+        <div class="connection-item">
+          <div class="connection-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <div class="connection-info">
+            <h4>Zero Data Collection</h4>
+            <p>100% private, offline, no accounts required</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Air Sync Section -->
+    <section class="section section-darker" id="airsync">
+      <div class="container">
+        <div class="air-sync-panel">
+          <div class="air-sync-grid">
+            <div>
+              <span class="section-tag">Wireless Stage Architecture</span>
+              <h2 class="section-title">Leave your phone at the keyboard. Control from your iPad.</h2>
+              <p class="section-subtitle" style="margin-bottom: 24px;">
+                Traditional MIDI cables force you to stay inches from your instrument's front panel. <strong>Air Sync</strong> bridges your keyboard's USB port across a local phone hotspot to a tablet anywhere on stage.
+              </p>
+
+              <div class="air-sync-features">
+                <div class="air-feature">
+                  <div class="air-feature-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  </div>
+                  <div class="air-feature-text">
+                    <h4>No Venue Wi-Fi Needed</h4>
+                    <p>Simply turn on your phone's Personal Hotspot. Your iPad connects directly with a quick 4-digit PIN.</p>
+                  </div>
+                </div>
+
+                <div class="air-feature">
+                  <div class="air-feature-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  </div>
+                  <div class="air-feature-text">
+                    <h4>Rock-Solid Screen-Off Reliability</h4>
+                    <p>Native foreground service keeps the Wi-Fi radio and CPU awake even when your phone locks in your pocket.</p>
+                  </div>
+                </div>
+
+                <div class="air-feature">
+                  <div class="air-feature-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  </div>
+                  <div class="air-feature-text">
+                    <h4>Zero Cloud Delay</h4>
+                    <p>Direct peer-to-peer TCP stream with <code>tcpNoDelay</code> delivers immediate section transitions and chord detection.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Architecture Diagram -->
+            <div class="network-diagram">
+              <div class="diagram-node">
+                <div class="node-main">
+                  <div class="node-icon">🎹</div>
+                  <div>
+                    <div class="node-title">Yamaha PSR-SX Keyboard</div>
+                    <div class="node-subtitle">[USB TO HOST] port &bull; Arranger Engine</div>
+                  </div>
+                </div>
+                <span class="node-badge">Hardware</span>
+              </div>
+
+              <div class="diagram-link">
+                <span class="link-badge">
+                  <span class="pulse-light"></span>
+                  Direct USB OTG Cable (0ms)
+                </span>
+              </div>
+
+              <div class="diagram-node">
+                <div class="node-main">
+                  <div class="node-icon">📱</div>
+                  <div>
+                    <div class="node-title">Host Device (Phone)</div>
+                    <div class="node-subtitle">Foreground Service &bull; Hotspot broadcast</div>
+                  </div>
+                </div>
+                <span class="node-badge host">Host Role</span>
+              </div>
+
+              <div class="diagram-link">
+                <span class="link-badge">
+                  <span class="pulse-light"></span>
+                  Hotspot LAN &bull; 4-Digit PIN Link
+                </span>
+              </div>
+
+              <div class="diagram-node">
+                <div class="node-main">
+                  <div class="node-icon">📋</div>
+                  <div>
+                    <div class="node-title">Remote Controller (iPad / Tablet)</div>
+                    <div class="node-subtitle">Stage Stand &bull; Arranger Dashboard &amp; Chords</div>
+                  </div>
+                </div>
+                <span class="node-badge client">Remote Client</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Arranger Simulator -->
+    <section class="section" id="simulator">
+      <div class="container">
+        <div style="text-align: center; max-width: 680px; margin: 0 auto 32px;">
+          <span class="section-tag">Interactive Preview</span>
+          <h2 class="section-title">Tactile Arranger Control</h2>
+          <p class="section-subtitle" style="margin: 0 auto;">
+            Experience the responsive hardware-inspired control panel. Click any section button below to trigger simulated arranger transitions and chord changes.
+          </p>
+        </div>
+
+        <div class="simulator-container">
+          <div class="simulator-header">
+            <div class="sim-display">
+              <div class="sim-lcd">
+                <span class="sim-lcd-label">Current Section</span>
+                <span class="sim-lcd-value" id="lcdSection">Main A</span>
+              </div>
+              <div class="sim-lcd">
+                <span class="sim-lcd-label">Live Chord</span>
+                <span class="sim-lcd-value" id="lcdChord">C</span>
+              </div>
+              <div class="sim-lcd">
+                <span class="sim-lcd-label">Tempo (BPM)</span>
+                <span class="sim-lcd-value" id="lcdTempo">128</span>
+              </div>
+            </div>
+
+            <div>
+              <button class="hw-btn" id="tapTempoBtn" title="Click rhythmically to set tempo">
+                <span class="led"></span>
+                <span>TAP TEMPO</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="sim-section-controls">
+            <div class="sim-control-group">
+              <span class="sim-group-label">Intros &amp; Main Variations</span>
+              <div class="sim-buttons-row">
+                <button class="hw-btn intro" data-section="intro" data-label="Intro">
+                  <span class="led"></span>
+                  <span>INTRO</span>
+                </button>
+                <button class="hw-btn active" data-section="main-a" data-label="Main A">
+                  <span class="led"></span>
+                  <span>MAIN A</span>
+                </button>
+                <button class="hw-btn" data-section="main-b" data-label="Main B">
+                  <span class="led"></span>
+                  <span>MAIN B</span>
+                </button>
+                <button class="hw-btn" data-section="main-c" data-label="Main C">
+                  <span class="led"></span>
+                  <span>MAIN C</span>
+                </button>
+                <button class="hw-btn" data-section="main-d" data-label="Main D">
+                  <span class="led"></span>
+                  <span>MAIN D</span>
+                </button>
+                <button class="hw-btn break" data-section="break" data-label="Break">
+                  <span class="led"></span>
+                  <span>BREAK</span>
+                </button>
+                <button class="hw-btn ending" data-section="ending" data-label="Ending">
+                  <span class="led"></span>
+                  <span>ENDING</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Features Grid -->
+    <section class="section section-darker" id="features">
+      <div class="container">
+        <div style="max-width: 650px;">
+          <span class="section-tag">Engineered for Musicians</span>
+          <h2 class="section-title">Everything you need on stage. Nothing you don't.</h2>
+          <p class="section-subtitle">
+            Designed from the ground up for keyboardists who perform live, lead worship, or play in touring bands with Yamaha arranger workstations.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+            </div>
+            <h3>Instant Arranger Control</h3>
+            <p>
+              Large, tactile touch targets for Main A–D variations, Intro, Ending, Break, and Auto Fill. Never fumble for small buttons on your keyboard during a fast chorus transition.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18V5l12-2v13"/>
+                <circle cx="6" cy="18" r="3"/>
+                <circle cx="18" cy="16" r="3"/>
+              </svg>
+            </div>
+            <h3>Real-Time Chord Detection</h3>
+            <p>
+              Plays in sync with your lower-manual chord fingerings. Instant real-time SysEx readout verifies current harmony, root notes, and chart chord symbols without latency.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+              </svg>
+            </div>
+            <h3>Song Presets &amp; Setlists</h3>
+            <p>
+              Recall complete song registrations with 1 tap. Pre-load your styles, voice splits, tempo, and key transpose for every track in your Sunday service or gig setlist.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </div>
+            <h3>Voice &amp; Style Catalog</h3>
+            <p>
+              Browse and search the entire factory voice and style library categorized by genre and instrument bank. Send Program Change and Bank Select messages instantly.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+              </svg>
+            </div>
+            <h3>Stage-Tested High Contrast</h3>
+            <p>
+              Clean dark aesthetics engineered for dimly lit stages and bright daylight outdoor events. Clear typography and distinct LED indicators ensure zero squinting.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h3>Private &amp; Offline</h3>
+            <p>
+              No mandatory cloud sign-ups, subscriptions, or analytics pings. Your setup runs entirely offline over local USB-MIDI and personal local Wi-Fi.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hardware Compatibility -->
+    <section class="section" id="hardware">
+      <div class="container">
+        <div style="max-width: 650px;">
+          <span class="section-tag">Compatibility</span>
+          <h2 class="section-title">Supported Instruments</h2>
+          <p class="section-subtitle">
+            SX Companion utilizes standard Yamaha SysEx arranger specifications.
+          </p>
+        </div>
+
+        <div class="hardware-grid">
+          <div class="hardware-card">
+            <span class="hw-badge-primary">Tested &bull; Flagship</span>
+            <h3>Yamaha PSR-SX700</h3>
+            <p>Fully supported across all style sections, voice banks, and USB-MIDI SysEx commands.</p>
+            <ul>
+              <li>Direct [USB TO HOST]</li>
+              <li>Arranger Sections A–D</li>
+              <li>Intro / Ending / Fill / Break</li>
+              <li>SysEx Tempo &amp; Chord Readout</li>
+            </ul>
+          </div>
+
+          <div class="hardware-card">
+            <span class="hw-badge-primary">Tested &bull; Supported</span>
+            <h3>Yamaha PSR-SX900</h3>
+            <p>Full support for arranger controls, chords, and multi-part voice selection.</p>
+            <ul>
+              <li>Direct [USB TO HOST]</li>
+              <li>Complete Section Control</li>
+              <li>Chord &amp; Style Switching</li>
+              <li>Air Sync Hotspot Bridging</li>
+            </ul>
+          </div>
+
+          <div class="hardware-card">
+            <span class="hw-badge-secondary">Compatible</span>
+            <h3>Yamaha PSR-SX600</h3>
+            <p>Compatible with core arranger section triggers and USB-MIDI chord reception.</p>
+            <ul>
+              <li>Standard USB-MIDI</li>
+              <li>Main Arranger Sections</li>
+              <li>Chord Tracking</li>
+            </ul>
+          </div>
+
+          <div class="hardware-card">
+            <span class="hw-badge-secondary">Compatible</span>
+            <h3>Genos &amp; Tyros Series</h3>
+            <p>Compatible with standard Yamaha Arranger SysEx control protocol.</p>
+            <ul>
+              <li>Genos 1 / Genos 2</li>
+              <li>Tyros 5</li>
+              <li>Arranger SysEx Control</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section section-darker" id="faq">
+      <div class="container">
+        <div style="text-align: center; max-width: 650px; margin: 0 auto 40px;">
+          <span class="section-tag">Common Questions</span>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>How do I connect my phone to the Yamaha keyboard?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>Connect a standard USB cable (Type-B to USB-C or Lightning OTG adapter) directly between your phone and the <strong>[USB TO HOST]</strong> port on the back of your Yamaha keyboard. In SX Companion, tap <em>Connect Keyboard</em> — no drivers are required.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Does Air Sync require an external Wi-Fi router or internet?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>No! Air Sync works anywhere, even in outdoor venues or churches without Wi-Fi. Simply turn on the <strong>Personal Hotspot</strong> on your phone (Host). Then connect your iPad (Remote) to that hotspot and enter the 4-digit PIN displayed on the host. Internet is never needed.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Does Air Sync disconnect when the phone screen turns off?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>No. SX Companion includes a native Android Foreground Service holding high-performance Wi-Fi and Wake locks. The phone maintains the connection reliably in the background while locked in your pocket or next to the keyboard.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Is SX Companion free to test?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>Yes. SX Companion is currently available in open Alpha for testers via Google Play and Apple TestFlight. Feedback from keyboardists and live performers directly shapes development.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Are custom song presets and setlists saved locally?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>Yes, all your presets, song charts, and setlists are stored securely on your device's local storage. You can export and backup your setlists at any time as JSON files.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>SX Companion</h3>
+          <p>
+            The dedicated performance companion for Yamaha arranger workstation keyboards. Control styles, chords, and voices untethered on stage.
+          </p>
+          <p class="trademark-notice">
+            Yamaha, PSR-SX, PSR-SX700, PSR-SX900, Genos, and Tyros are registered trademarks of Yamaha Corporation. SX Companion is an independent third-party tool developed by Reynold (Reyzie) and is not affiliated with, endorsed by, or sponsored by Yamaha Corporation.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#airsync">Air Sync Wireless</a></li>
+            <li><a href="#simulator">Live Simulator</a></li>
+            <li><a href="#hardware">Supported Keyboards</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Legal &amp; Source</h4>
+          <ul class="footer-links">
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms &amp; Conditions</a></li>
+            <li><a href="https://github.com/Reynold29/sx-companion" target="_blank" rel="noopener noreferrer">GitHub Repository</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 SX Companion &bull; Developed by Reynold (Reyzie)</div>
+        <div>Built for live musicians and arranger keyboardists.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
