@@ -2,435 +2,590 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Worship Companion - Your Modern Lyrics Book</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Worship Companion — Modern Songbook &amp; Chord Stage Utility</title>
+  <meta name="description"
+    content="The ultimate digital lyrics and chord transposer app for worship teams. Over 2,000+ Kannada, English, and multi-language hymns with 100% offline access.">
+  <meta name="theme-color" content="#070a12">
 
-    <!-- Meta Tags -->
-    <meta name="description"
-        content="A simple, robust, feature-rich lyrics book application made for worship. Available on Android, iOS, Windows, Mac, and Web.">
+  <link rel="canonical" href="https://projects.reyziehomelab.com/worshipcompanion/">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap"
-        rel="stylesheet">
+  <!-- OpenGraph / Social Cards -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://projects.reyziehomelab.com/worshipcompanion/">
+  <meta property="og:title" content="Worship Companion — Modern Songbook &amp; Stage Utility">
+  <meta property="og:description"
+    content="Over 2,000+ Kannada, English, and multi-language songs. Live chord transposition, hands-free auto-scroll, setlist planning, and 100% offline access.">
+  <meta property="og:image" content="assets/banner.png">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/app_icon.png">
 
-    <style>
-        :root {
-            --bg-deep: #0a0b1e;
-            --bg-accent: #16183d;
-            --text-primary: #ffffff;
-            --text-secondary: #b0b3c1;
-            --accent-gold: #d4af37;
-            --accent-blue: #4a90e2;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --glass-blur: blur(16px);
-            --gradient-primary: linear-gradient(135deg, #4a90e2 0%, #9013fe 100%);
-            --shadow-premium: 0 10px 40px 0 rgba(0, 0, 0, 0.5);
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-deep);
-            color: var(--text-secondary);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* Navbar */
-        nav {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 1000px;
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border);
-            border-radius: 100px;
-            padding: 12px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            box-shadow: var(--shadow-premium);
-        }
-
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            color: var(--text-primary);
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-        }
-
-        .logo i {
-            color: var(--accent-blue);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-blue);
-        }
-
-        /* Hero */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 120px 20px 60px;
-            background: radial-gradient(circle at 50% 50%, rgba(74, 144, 226, 0.1) 0%, rgba(10, 11, 30, 0) 70%);
-        }
-
-        .hero-content {
-            max-width: 900px;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            color: var(--text-primary);
-            line-height: 1.1;
-            margin-bottom: 20px;
-            letter-spacing: -0.02em;
-        }
-
-        .hero p {
-            font-size: clamp(1rem, 3vw, 1.25rem);
-            max-width: 600px;
-            margin: 0 auto 40px;
-            opacity: 0.9;
-        }
-
-        .hero-banner {
-            width: 100%;
-            max-width: 800px;
-            margin-top: 50px;
-            border-radius: 20px;
-            box-shadow: var(--shadow-premium);
-            border: 1px solid var(--glass-border);
-            transform: perspective(1000px) rotateX(10deg);
-            transition: var(--transition);
-        }
-
-        .hero-banner:hover {
-            transform: perspective(1000px) rotateX(0deg) scale(1.02);
-        }
-
-        /* Buttons */
-        .btn-primary {
-            display: inline-block;
-            padding: 16px 40px;
-            background: var(--gradient-primary);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 100px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 20px rgba(74, 144, 226, 0.4);
-            transition: var(--transition);
-            border: none;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(74, 144, 226, 0.6);
-        }
-
-        /* Features */
-        .features {
-            padding: 100px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: var(--text-primary);
-            margin-bottom: 15px;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            padding: 40px;
-            border-radius: 24px;
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-blue);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--accent-blue);
-        }
-
-        .feature-card h3 {
-            color: var(--text-primary);
-            font-size: 1.4rem;
-        }
-
-        /* Downloads */
-        .downloads {
-            padding: 100px 20px;
-            background: var(--bg-accent);
-            text-align: center;
-        }
-
-        .download-grid {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .download-item {
-            background: var(--bg-deep);
-            border: 1px solid var(--glass-border);
-            padding: 30px;
-            border-radius: 20px;
-            width: 250px;
-            transition: var(--transition);
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .download-item:hover {
-            border-color: var(--accent-gold);
-            transform: scale(1.05);
-        }
-
-        .download-item i {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--text-primary);
-        }
-
-        .download-item h4 {
-            color: var(--text-primary);
-            margin-bottom: 10px;
-        }
-
-        /* Footer */
-        footer {
-            padding: 80px 20px 40px;
-            border-top: 1px solid var(--glass-border);
-            text-align: center;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .social-link {
-            font-size: 1.5rem;
-            color: var(--text-secondary);
-            transition: var(--transition);
-        }
-
-        .social-link:hover {
-            color: var(--accent-blue);
-        }
-
-        /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-        }
-    </style>
+  <link rel="stylesheet" href="css/landing.css">
 </head>
 
 <body>
 
-    <nav>
-        <a href="#" class="logo">
-            <i class="fa-solid fa-hands-praying"></i> Worship Companion
-        </a>
-        <ul class="nav-links">
-            <li><a href="#features">Features</a></li>
-            <li><a href="#downloads">Downloads</a></li>
-            <li><a href="#about">About</a></li>
-        </ul>
-    </nav>
+  <!-- Navigation Bar -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand">
+        <img src="assets/app_icon.png" alt="Worship Companion Icon" class="brand-icon">
+        <span class="brand-title">Worship Companion</span>
+        <span class="brand-tag">v1.4 LIVE</span>
+      </a>
 
+      <ul class="nav-menu">
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#catalog" class="nav-link">Songbook</a></li>
+        <li><a href="#transposer" class="nav-link">Transposer Demo</a></li>
+        <li><a href="#preview" class="nav-link">App Preview</a></li>
+        <li><a href="#download" class="nav-link">Download</a></li>
+        <li><a href="privacy.html" class="nav-link">Privacy</a></li>
+        <li><a href="terms.html" class="nav-link">Terms</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#download" class="btn btn-primary" style="padding: 9px 20px; font-size: 0.88rem;">Get the App</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content fade-in">
-            <h1>Elevate Your Worship Experience.</h1>
-            <p>A premium lyrics management app designed for speed, simplicity, and spiritual connection.</p>
-            <a href="#downloads" class="btn-primary">Download Now</a>
-            <img src="assets/hero-banner.png" alt="Worship Companion App Interface" class="hero-banner">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="badge-pill">
+            <span class="badge-dot"></span>
+            <span>Now Live on Apple App Store &amp; Google Play</span>
+          </div>
+
+          <h1 class="hero-title">
+            <span class="title-line-1">The Modern Songbook&nbsp;&amp;</span>
+            <span class="text-gradient title-line-2">Stage Companion</span>
+          </h1>
+
+          <p class="hero-desc">
+            Engineered for church worship teams, choir vocalists, and instrumentalists. Access over 2,000+ Kannada,
+            English, and multi-language hymns with live chord transposition, hands-free auto-scroll, setlist curation,
+            and rock-solid 100% offline performance.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="https://apps.apple.com/in/app/worship-companion/id6759990066" target="_blank"
+              rel="noopener noreferrer" class="btn btn-store-apple">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.4c.64-.78 1.08-1.86.96-2.95-1 .04-2.16.66-2.84 1.45-.58.67-1.1 1.77-.96 2.83 1.12.09 2.21-.55 2.84-1.33z" />
+              </svg>
+              App Store
+            </a>
+
+            <a href="https://play.google.com/store/apps/details?id=com.reyzie.worshipcompanion" target="_blank"
+              rel="noopener noreferrer" class="btn btn-store-play">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M3.609 1.814L13.792 12 3.61 22.186c-.47-.417-.753-1.026-.753-1.724V3.538c0-.698.283-1.307.752-1.724zm11.396 11.397L5.59 22.625l11.455-6.505-2.04-2.909zm0-2.422l2.04-2.91L5.59 1.375l9.415 9.414zm1.53 1.211l3.784 2.15c.985.56 1.548 1.48 1.548 2.55s-.563 1.99-1.548 2.55l-3.784 2.15V12z" />
+              </svg>
+              Google Play
+            </a>
+
+            <a href="lyrics/" class="btn btn-outline">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                </path>
+              </svg>
+              Web Lyrics Reader
+            </a>
+          </div>
+
+          <div class="hero-metrics">
+            <div class="metric-item">
+              <span class="metric-value">2,000+</span>
+              <span class="metric-label">Curated Songs</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">100%</span>
+              <span class="metric-label">Offline Engine</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">0 ms</span>
+              <span class="metric-label">Transpose Delay</span>
+            </div>
+          </div>
         </div>
+
+        <div class="hero-media">
+          <div class="hero-preview-frame">
+            <img src="assets/banner.png" alt="Worship Companion Banner" width="1024" height="500">
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="features" class="features">
-        <div class="section-title fade-in">
-            <h2>Modern Features</h2>
-            <p>Everything you need for a distraction-free worship session.</p>
+    <!-- Interactive Transposer Section -->
+    <section class="demo-section" id="transposer">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Interactive Demonstration</span>
+          <h2 class="section-title">Real-Time Chord Transposition</h2>
+          <p class="section-subtitle">
+            Need to adjust a song to fit your singer's vocal range on the fly? Click below to experience instant chord
+            shifts with zero page reloads.
+          </p>
         </div>
+
+        <div class="interactive-chords-card">
+          <div class="card-toolbar">
+            <div class="song-badge">
+              <span class="song-title-text">10,000 Reasons (Bless The Lord)</span>
+              <span class="song-lang-tag">English &bull; Chords</span>
+            </div>
+
+            <div class="transpose-controls">
+              <button class="control-btn" id="btnSemiDown" title="Transpose Down Half Step">&minus; 1 Semi</button>
+              <div class="current-key-display" id="keyDisplay">Key: G</div>
+              <button class="control-btn" id="btnSemiUp" title="Transpose Up Half Step">+ 1 Semi</button>
+              <button class="control-btn" id="btnResetKey" title="Reset to Original Key">Reset</button>
+              <button class="control-btn" id="btnToggleChords">Chords: ON</button>
+            </div>
+          </div>
+
+          <div class="interactive-lyrics-sheet" id="lyricsSheet">
+            [Chorus]
+            <span class="chord-token" data-chord="C">C</span>Bless the Lord, O my <span class="chord-token"
+              data-chord="G">G</span>soul, <span class="chord-token" data-chord="D">D</span>O my <span
+              class="chord-token" data-chord="Em">Em</span>soul
+            <span class="chord-token" data-chord="C">C</span>Worship His <span class="chord-token"
+              data-chord="G">G</span>holy <span class="chord-token" data-chord="D">D</span>name
+            Sing like <span class="chord-token" data-chord="C">C</span>never be<span class="chord-token"
+              data-chord="Em">Em</span>fore, <span class="chord-token" data-chord="C">C</span>O <span
+              class="chord-token" data-chord="D">D</span>my <span class="chord-token" data-chord="Em">Em</span>soul
+            I'll <span class="chord-token" data-chord="C">C</span>worship Your <span class="chord-token"
+              data-chord="D">D</span>holy <span class="chord-token" data-chord="G">G</span>name
+
+            [Verse 1]
+            The <span class="chord-token" data-chord="C">C</span>sun comes <span class="chord-token"
+              data-chord="G">G</span>up, it's a <span class="chord-token" data-chord="D">D</span>new day <span
+              class="chord-token" data-chord="Em">Em</span>dawning
+            <span class="chord-token" data-chord="C">C</span>It's time to <span class="chord-token"
+              data-chord="G">G</span>sing Your <span class="chord-token" data-chord="D">D</span>song a<span
+              class="chord-token" data-chord="Em">Em</span>gain
+            What<span class="chord-token" data-chord="C">C</span>ever may <span class="chord-token"
+              data-chord="G">G</span>pass, and what<span class="chord-token" data-chord="D">D</span>ever lies be<span
+              class="chord-token" data-chord="Em">Em</span>fore me
+            <span class="chord-token" data-chord="C">C</span>Let me be <span class="chord-token"
+              data-chord="G">G</span>singing when the <span class="chord-token" data-chord="D">D</span>evening <span
+              class="chord-token" data-chord="G">G</span>comes
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Multi-Language Songbook Showcase -->
+    <section class="catalog-section" id="catalog">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Multilingual Songbook</span>
+          <h2 class="section-title">A Library Built for Real Congregations</h2>
+          <p class="section-subtitle">
+            Whether leading in local regional languages or contemporary international anthems, Worship Companion keeps
+            your entire team on the exact same page.
+          </p>
+        </div>
+
+        <div class="catalog-grid">
+          <div class="catalog-card">
+            <div class="card-image-wrap">
+              <img src="assets/card_kannada.png" alt="Kannada Christian Songs">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">ಕನ್ನಡ ಕ್ರೈಸ್ತ ಗೀತೆಗಳು (Kannada)</h3>
+              <p class="card-text">
+                Extensive collection of traditional hymns and contemporary worship songs. Includes both native Kannada
+                script and English transliteration for non-native readers.
+              </p>
+              <div class="card-meta">
+                <span>1,000+ SONGS</span> &bull; <span>HYMNS &amp; PRAISE</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="catalog-card">
+            <div class="card-image-wrap">
+              <img src="assets/card_english.png" alt="English Praise and Worship Songs">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">English Worship &amp; Hymnody</h3>
+              <p class="card-text">
+                Modern contemporary praise (Bethel, Hillsong, Elevation) alongside timeless historic hymns. Formatted
+                with verified chords and capo instructions.
+              </p>
+              <div class="card-meta">
+                <span>800+ SONGS</span> &bull; <span>CHORDS &amp; CAPO</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="catalog-card">
+            <div class="card-image-wrap">
+              <img src="assets/card_other.png" alt="Multi-Language Christian Songs">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Other Languages &amp; Bilingual</h3>
+              <p class="card-text">
+                Songs in Hindi, Tamil, Malayalam, and bilingual service formats. Cleanly tagged with chorus and bridge
+                markers for seamless team coordination.
+              </p>
+              <div class="card-meta">
+                <span>MULTILINGUAL</span> &bull; <span>GLOBAL HYMNS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage-Ready Features Grid -->
+    <section class="features-section" id="features">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Stage Ready</span>
+          <h2 class="section-title">Engineered for Sunday Rehearsals &amp; Live Services</h2>
+          <p class="section-subtitle">
+            Every feature was built from hands-on musician feedback on church platforms.
+          </p>
+        </div>
+
         <div class="features-grid">
-            <div class="feature-card fade-in">
-                <i class="fa-solid fa-bolt-lightning feature-icon"></i>
-                <h3>Lightning Fast</h3>
-                <p>Instant search and loading, even for massive libraries of hymns and contemporary songs.</p>
+          <div class="feature-box">
+            <div class="feature-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                <line x1="6" y1="18" x2="6.01" y2="18"></line>
+              </svg>
             </div>
-            <div class="feature-card fade-in">
-                <i class="fa-solid fa-cloud-arrow-up feature-icon"></i>
-                <h3>Sync Everywhere</h3>
-                <p>Your favorites and custom songs are synced across all your devices seamlessly.</p>
+            <h3 class="feature-heading">100% Offline SQLCipher</h3>
+            <p class="feature-text">
+              Sanctuary Wi-Fi is notoriously unpredictable. Worship Companion stores its entire 2,000+ catalog in an
+              encrypted local database. Zero loading circles on stage.
+            </p>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
             </div>
-            <div class="feature-card fade-in">
-                <i class="fa-solid fa-moon feature-icon"></i>
-                <h3>Beautiful Dark Mode</h3>
-                <p>Designed for low-light environments like churches and spiritual gatherings.</p>
+            <h3 class="feature-heading">Live Transpose &amp; Capo Helper</h3>
+            <p class="feature-text">
+              Instantly shift between any of the 12 keys. Built-in Capo calculator shows acoustic guitarists the exact
+              chord shapes to play with capo positions.
+            </p>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
             </div>
-            <div class="feature-card fade-in">
-                <i class="fa-solid fa-qrcode feature-icon"></i>
-                <h3>QR Sharing</h3>
-                <p>Share songs instantly with your congregation using dynamic QR codes.</p>
+            <h3 class="feature-heading">Hands-Free Auto-Scroll</h3>
+            <p class="feature-text">
+              Adjust your desired scroll speed with a subtle slider. Lyrics smoothly advance down the screen so your
+              hands never have to leave your keyboard or guitar.
+            </p>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
             </div>
+            <h3 class="feature-heading">Dynamic QR Sharing</h3>
+            <p class="feature-text">
+              Share any song or Sunday setlist instantly with your worship team or congregation via dynamic QR codes.
+              Opens instantly in any mobile browser without requiring app installation.
+            </p>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                <circle cx="12" cy="13" r="4"></circle>
+              </svg>
+            </div>
+            <h3 class="feature-heading">AI Hymnal Scanner</h3>
+            <p class="feature-text">
+              Have an old physical church hymnal or printed bulletin? Snap a picture with the camera. In-flight OCR
+              automatically digitizes verses and chorus directly into your library.
+            </p>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            </div>
+            <h3 class="feature-heading">Dark Stage Mode</h3>
+            <p class="feature-text">
+              True OLED black backgrounds with high-contrast, glare-free typography. Designed to blend invisibly into
+              dimly lit church stages without blinding your eyes or the audience.
+            </p>
+          </div>
         </div>
+      </div>
     </section>
 
-    <section id="downloads" class="downloads">
-        <div class="section-title fade-in">
-            <h2>Available Everywhere</h2>
-            <p>Get the app on your favorite platform.</p>
+    <!-- App Screenshots / Preview Section -->
+    <section class="catalog-section" id="preview" style="background: var(--bg-main);">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Native Experience</span>
+          <h2 class="section-title">Designed for iOS &amp; Android</h2>
+          <p class="section-subtitle">
+            Clean, native Flutter performance with responsive layouts optimized for iPhones, iPads, and Android tablets.
+          </p>
         </div>
-        <div class="download-grid">
-            <a href="https://play.google.com/store/apps/details?id=com.reyzie.worshipcompanion"
-                class="download-item fade-in">
-                <i class="fa-brands fa-google-play"></i>
-                <h4>Android</h4>
-                <p>Available on Play Store</p>
-            </a>
-            <a href="#" class="download-item fade-in" style="opacity: 0.6; cursor: not-allowed;">
-                <i class="fa-brands fa-apple"></i>
-                <h4>iOS</h4>
-                <p>Coming Soon</p>
-            </a>
-            <a href="https://github.com/Reynold29/Worship-Companion/releases" class="download-item fade-in">
-                <i class="fa-brands fa-windows"></i>
-                <h4>Windows / Mac</h4>
-                <p>Get Desktop Version</p>
-            </a>
-            <a href="https://worship-companion.netlify.app/" class="download-item fade-in">
-                <i class="fa-solid fa-globe"></i>
-                <h4>Web Version</h4>
-                <p>Browse Online</p>
-            </a>
+
+        <div
+          style="display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: center; max-width: 900px; margin: 0 auto;">
+          <div style="text-align: center;">
+            <div
+              style="border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-card); box-shadow: var(--shadow-elevated);">
+              <img src="assets/ios_preview.png" alt="Worship Companion iOS App Screenshot"
+                style="width: 100%; height: auto;">
+            </div>
+            <p style="margin-top: 14px; font-weight: 600; color: var(--text-secondary); font-size: 0.9rem;">iOS &bull;
+              Cupertino Design</p>
+          </div>
+
+          <div style="text-align: center;">
+            <div
+              style="border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-card); box-shadow: var(--shadow-elevated);">
+              <img src="assets/android_themed_preview.png" alt="Worship Companion Android App Screenshot"
+                style="width: 100%; height: auto;">
+            </div>
+            <p style="margin-top: 14px; font-weight: 600; color: var(--text-secondary); font-size: 0.9rem;">Android
+              &bull; Material 3 Themed</p>
+          </div>
         </div>
+      </div>
     </section>
 
-    <footer>
-        <div class="section-title fade-in" id="about">
-            <h2>Connect with Me</h2>
-            <p>Built with passion by Reynold Preetham</p>
+    <!-- Download Section -->
+    <section class="download-section" id="download">
+      <div class="container">
+        <div class="download-box">
+          <span class="section-tag">Install Everywhere</span>
+          <h2 class="section-title" style="margin-top: 10px;">Ready to Elevate Your Worship Team?</h2>
+          <p class="section-subtitle" style="max-width: 600px; margin: 0 auto;">
+            Download Worship Companion today on your mobile device, desktop, or explore directly via the web lyrics
+            reader.
+          </p>
+
+          <div class="download-actions">
+            <a href="https://apps.apple.com/in/app/worship-companion/id6759990066" target="_blank"
+              rel="noopener noreferrer" class="btn btn-store-apple">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.4c.64-.78 1.08-1.86.96-2.95-1 .04-2.16.66-2.84 1.45-.58.67-1.1 1.77-.96 2.83 1.12.09 2.21-.55 2.84-1.33z" />
+              </svg>
+              Apple App Store
+            </a>
+
+            <a href="https://play.google.com/store/apps/details?id=com.reyzie.worshipcompanion" target="_blank"
+              rel="noopener noreferrer" class="btn btn-store-play">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M3.609 1.814L13.792 12 3.61 22.186c-.47-.417-.753-1.026-.753-1.724V3.538c0-.698.283-1.307.752-1.724zm11.396 11.397L5.59 22.625l11.455-6.505-2.04-2.909zm0-2.422l2.04-2.91L5.59 1.375l9.415 9.414zm1.53 1.211l3.784 2.15c.985.56 1.548 1.48 1.548 2.55s-.563 1.99-1.548 2.55l-3.784 2.15V12z" />
+              </svg>
+              Google Play Store
+            </a>
+
+            <a href="https://github.com/Reynold29/Worship-Companion/releases" target="_blank" rel="noopener noreferrer"
+              class="btn btn-outline">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+              Desktop Releases
+            </a>
+
+            <a href="lyrics/" class="btn btn-outline">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                </path>
+              </svg>
+              Web Reader
+            </a>
+          </div>
         </div>
-        <div class="footer-links fade-in">
-            <a href="https://github.com/Reynold29" class="social-link"><i class="fa-brands fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/reynoldpreetham/" class="social-link"><i
-                    class="fa-brands fa-linkedin"></i></a>
-            <a href="mailto:reynold29clare@gmail.com" class="social-link"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand">
+            <img src="assets/app_icon.png" alt="Worship Companion Icon" class="brand-icon">
+            <span class="brand-title">Worship Companion</span>
+          </div>
+          <p>
+            A bespoke, musician-first digital lyrics book and chord transposition assistant crafted for worship leaders,
+            choir vocalists, and band members.
+          </p>
         </div>
-        <p class="fade-in">&copy; 2026 Worship Companion. All rights reserved.</p>
-    </footer>
 
-    <script>
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1
-        };
+        <div class="footer-column">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#catalog">Songbook Catalog</a></li>
+            <li><a href="#transposer">Chord Transposer Demo</a></li>
+            <li><a href="#download">Downloads</a></li>
+            <li><a href="lyrics/">Online Lyrics Reader</a></li>
+            <li><a href="playlist/">Online Playlist Viewer</a></li>
+          </ul>
+        </div>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+        <div class="footer-column">
+          <h4>Legal &amp; Trust</h4>
+          <ul class="footer-links">
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Use</a></li>
+            <li><a href="https://sites.google.com/view/worshipcompanionprivacypolicy/home" target="_blank"
+                rel="noopener noreferrer">Google Sites Policy Mirror</a></li>
+            <li><a href="https://github.com/Reynold29" target="_blank" rel="noopener noreferrer">GitHub Profile</a></li>
+            <li><a href="https://www.linkedin.com/in/reynoldpreetham/" target="_blank"
+                rel="noopener noreferrer">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
 
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-    </script>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Worship Companion. Crafted with care by Reynold Preetham.</div>
+        <div>Compliant with Apple App Store &amp; Google Play Store Native Photo Picker Guidelines.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive Transposition Script -->
+  <script>
+    (function () {
+      const chromaticScale = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];
+      const altAccidentals = { 'Db': 'C#', 'D#': 'Eb', 'Gb': 'F#', 'G#': 'Ab', 'A#': 'Bb' };
+
+      const originalChords = ['C', 'G', 'D', 'Em'];
+      let currentOffset = 0;
+      let chordsVisible = true;
+
+      const keyDisplay = document.getElementById('keyDisplay');
+      const btnSemiUp = document.getElementById('btnSemiUp');
+      const btnSemiDown = document.getElementById('btnSemiDown');
+      const btnResetKey = document.getElementById('btnResetKey');
+      const btnToggleChords = document.getElementById('btnToggleChords');
+      const chordElements = document.querySelectorAll('.chord-token');
+
+      function transposeChord(chord, semitones) {
+        // extract root and quality
+        let match = chord.match(/^([A-G][b#]?)(.*)$/);
+        if (!match) return chord;
+        let root = match[1];
+        let quality = match[2];
+
+        // normalize
+        if (altAccidentals[root]) {
+          root = altAccidentals[root];
+        }
+
+        let idx = chromaticScale.indexOf(root);
+        if (idx === -1) return chord;
+
+        let newIdx = (idx + semitones) % 12;
+        if (newIdx < 0) newIdx += 12;
+
+        return chromaticScale[newIdx] + quality;
+      }
+
+      function updateChords() {
+        let baseKeyIndex = chromaticScale.indexOf('G');
+        let currentKeyIndex = (baseKeyIndex + currentOffset) % 12;
+        if (currentKeyIndex < 0) currentKeyIndex += 12;
+        let currentKey = chromaticScale[currentKeyIndex];
+
+        keyDisplay.textContent = 'Key: ' + currentKey;
+
+        chordElements.forEach(el => {
+          let orig = el.getAttribute('data-chord');
+          if (orig) {
+            let transposed = transposeChord(orig, currentOffset);
+            el.textContent = transposed;
+          }
+        });
+      }
+
+      btnSemiUp.addEventListener('click', () => {
+        currentOffset = (currentOffset + 1) % 12;
+        updateChords();
+      });
+
+      btnSemiDown.addEventListener('click', () => {
+        currentOffset = (currentOffset - 1) % 12;
+        updateChords();
+      });
+
+      btnResetKey.addEventListener('click', () => {
+        currentOffset = 0;
+        updateChords();
+      });
+
+      btnToggleChords.addEventListener('click', () => {
+        chordsVisible = !chordsVisible;
+        chordElements.forEach(el => {
+          el.style.display = chordsVisible ? 'inline-block' : 'none';
+        });
+        btnToggleChords.textContent = chordsVisible ? 'Chords: ON' : 'Chords: OFF';
+      });
+
+      updateChords();
+    })();
+  </script>
 </body>
 
 </html>
