@@ -1,6 +1,6 @@
 /* ==========================================================================
-   SX Companion — Design System & Stylesheet
-   Tailored for Yamaha PSR-SX musicians, arranger keyboardists, and live performers.
+   SXG Companion — Design System & Stylesheet
+   Tailored for Yamaha PSR-SX & Genos musicians, arranger keyboardists, and live performers.
    ========================================================================== */
 
 :root {
@@ -998,7 +998,7 @@ button {
 .faq-answer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s cubic-bezier(0, 1, 0, 1), padding 0.3s ease;
+  transition: max-height 0.35s ease, padding 0.3s ease;
   color: var(--text-secondary);
   font-size: 0.9375rem;
   line-height: 1.6;
@@ -1006,8 +1006,48 @@ button {
 }
 
 .faq-item.open .faq-answer {
-  max-height: 500px;
+  max-height: 1200px;
   padding: 0 24px 22px;
+}
+
+.faq-answer p {
+  margin-bottom: 12px;
+}
+
+.faq-answer p:last-child {
+  margin-bottom: 0;
+}
+
+.faq-detail-list {
+  list-style: none;
+  padding: 0;
+  margin: 14px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-detail-list li {
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 3px solid var(--accent-amber);
+  padding: 12px 16px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.faq-detail-list li strong {
+  color: #fff;
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.9375rem;
+}
+
+.faq-detail-list li code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--accent-amber);
 }
 
 /* ── Legal / Policy Pages Styles ───────────────────────────────────────── */
@@ -1082,6 +1122,198 @@ button {
   padding: 20px 24px;
   margin: 28px 0;
   color: var(--text-primary);
+}
+
+/* ── Account & Data Deletion Styles ────────────────────────────────────── */
+.deletion-options-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin: 16px 0 24px;
+}
+
+.data-scope-card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.data-scope-card:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.data-scope-card input[type="checkbox"],
+.data-scope-card input[type="radio"] {
+  margin-top: 4px;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent-amber);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.data-scope-info h4 {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.data-scope-info p {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+
+.scope-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--accent-amber);
+  margin-bottom: 4px;
+}
+
+.scope-badge.danger {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--accent-amber);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 20px 0 24px;
+  cursor: pointer;
+}
+
+.form-consent input {
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent-amber);
+  flex-shrink: 0;
+}
+
+.deletion-steps {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.step-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+}
+
+.step-num {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--accent-amber);
+  background: rgba(245, 158, 11, 0.12);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.step-desc h4 {
+  font-size: 0.9375rem;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.step-desc p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.deletion-success-box {
+  display: none;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: var(--radius-sm);
+  padding: 24px;
+  margin-top: 24px;
+}
+
+.deletion-success-box.visible {
+  display: block;
+}
+
+.receipt-code {
+  font-family: var(--font-mono);
+  background: rgba(0, 0, 0, 0.4);
+  padding: 8px 12px;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 8px 0;
+  color: var(--accent-amber);
+  font-size: 0.9375rem;
 }
 
 /* ── Footer ────────────────────────────────────────────────────────────── */

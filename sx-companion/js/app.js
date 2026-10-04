@@ -1,5 +1,5 @@
 /**
- * SX Companion — Interactive App Logic
+ * SXG Companion — Interactive App Logic
  * Powers the Arranger Simulator, FAQ toggles, and live previews.
  */
 

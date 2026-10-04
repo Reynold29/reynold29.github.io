@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account &amp; Data Deletion — SXG Companion</title>
+  <meta name="description" content="Request account and cloud data deletion for SXG Companion. Choose whether to wipe your entire account or specific portions of your synchronized presets and setlists.">
+  <meta name="theme-color" content="#0b0d11">
+  <link rel="canonical" href="https://projects.reyziehomelab.com/sx-companion/account-deletion.html">
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://projects.reyziehomelab.com/sx-companion/account-deletion.html">
+  <meta property="og:title" content="Account &amp; Data Deletion — SXG Companion">
+  <meta property="og:description" content="Manage and request deletion for your SXG Companion cloud account, presets, or setlists.">
+  <meta property="og:image" content="https://projects.reyziehomelab.com/sx-companion/assets/hero_stage_setup.jpg">
+
+  <link rel="icon" type="image/png" href="assets/icon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand">
+        <img src="assets/icon.png" alt="SXG Companion Logo" class="brand-icon">
+        <div class="brand-name">
+          <span class="brand-title">SXG Companion</span>
+          <span class="brand-badge">Yamaha Arranger Suite</span>
+        </div>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="index.html#features" class="nav-link">Features</a></li>
+        <li><a href="index.html#airsync" class="nav-link">Air Sync</a></li>
+        <li><a href="index.html#hardware" class="nav-link">Compatibility</a></li>
+        <li><a href="privacy.html" class="nav-link">Privacy Policy</a></li>
+        <li><a href="terms.html" class="nav-link">Terms</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="index.html" class="btn btn-outline">&larr; Back to App</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="legal-page">
+    <div class="container">
+      <div class="legal-header">
+        <span class="section-tag">Data Governance &amp; User Control</span>
+        <h1>Account &amp; Data Deletion</h1>
+        <div class="legal-meta">Effective: October 2026 &bull; Compliant with Google Play &amp; Apple Store Policies</div>
+      </div>
+
+      <div class="legal-content">
+        <div class="legal-notice-box">
+          <strong>Your Data, Your Choice:</strong> SXG Companion empowers you with complete control over your information. You can delete your entire account or selectively request deletion of specific parts of your cloud data (such as cloud presets, setlists, or authentication profiles) at any time.
+        </div>
+
+        <h2>Method 1: Instant In-App Deletion (Fastest)</h2>
+        <p>
+          If you have the SXG Companion app installed on your Android or iOS device, you can permanently wipe your account or cloud-synced items immediately without waiting for manual processing:
+        </p>
+
+        <ul class="deletion-steps">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div class="step-desc">
+              <h4>Open App Settings</h4>
+              <p>Launch <strong>SXG Companion</strong> and tap the gear icon in the top header to enter Settings.</p>
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div class="step-desc">
+              <h4>Select Account &amp; Cloud Sync</h4>
+              <p>Tap your profile or navigate to the <strong>Account &amp; Cloud Sync</strong> section.</p>
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div class="step-desc">
+              <h4>Choose What to Delete</h4>
+              <p>Select either <strong>Clear Synced Presets / Setlists</strong> (partial wipe) or <strong>Delete Account Permanently</strong> (complete wipe).</p>
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4</span>
+            <div class="step-desc">
+              <h4>Confirm</h4>
+              <p>Confirm the deletion prompt. Your data is removed from the cloud database instantly.</p>
+            </div>
+          </li>
+        </ul>
+
+        <h2>Method 2: Web Deletion Request Portal</h2>
+        <p>
+          If you no longer have access to the app, have uninstalled it, or prefer to submit a web request, please use the form below. You can specify exactly which parts of your data should be deleted.
+        </p>
+
+        <form id="deletionForm" style="margin-top: 28px;">
+          <div class="form-group">
+            <label for="userEmail" class="form-label">Registered Account Email <span style="color: #f87171;">*</span></label>
+            <input type="email" id="userEmail" class="form-input" placeholder="e.g. musician@example.com" required>
+            <p style="font-size: 0.8125rem; color: var(--text-muted); margin-top: 6px;">The Google or email address associated with your SXG Companion cloud account.</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">What part of your data should be deleted? <span style="color: #f87171;">*</span></label>
+            <p style="font-size: 0.8125rem; color: var(--text-muted); margin-bottom: 12px;">Choose one or more items to tailor your deletion request:</p>
+
+            <div class="deletion-options-grid">
+              <label class="data-scope-card">
+                <input type="checkbox" name="deleteScope" value="Full Account & All Cloud Data" id="scopeFull">
+                <div class="data-scope-info">
+                  <span class="scope-badge danger">Complete Removal</span>
+                  <h4>1. Entire Account &amp; All Cloud Data</h4>
+                  <p>Permanently removes your account profile, credentials, and all cloud-synced song presets, setlists, and chord charts. Your account will cease to exist.</p>
+                </div>
+              </label>
+
+              <label class="data-scope-card">
+                <input type="checkbox" name="deleteScope" value="Cloud Presets & Voice Mappings" id="scopePresets">
+                <div class="data-scope-info">
+                  <span class="scope-badge">Partial Selection</span>
+                  <h4>2. Cloud Presets &amp; Voice Mappings Only</h4>
+                  <p>Deletes all custom style mappings and song presets stored in the cloud. Your account remains active and your setlists are kept intact.</p>
+                </div>
+              </label>
+
+              <label class="data-scope-card">
+                <input type="checkbox" name="deleteScope" value="Setlists & Chord Charts" id="scopeSetlists">
+                <div class="data-scope-info">
+                  <span class="scope-badge">Partial Selection</span>
+                  <h4>3. Setlists &amp; Chord Charts Only</h4>
+                  <p>Deletes all live gig setlists, Sunday service lists, and custom chord charts stored in the cloud. Your account and presets remain active.</p>
+                </div>
+              </label>
+
+              <label class="data-scope-card">
+                <input type="checkbox" name="deleteScope" value="Profile & Authentication Link" id="scopeAuth">
+                <div class="data-scope-info">
+                  <span class="scope-badge">Partial Selection</span>
+                  <h4>4. Authentication Profile &amp; Linked Provider</h4>
+                  <p>Revokes authentication provider linkage (e.g. Google Sign-In identity) and removes profile metadata while allowing you to export or transition local configurations.</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="deletionReason" class="form-label">Additional Notes or Special Instructions (Optional)</label>
+            <textarea id="deletionReason" class="form-textarea" placeholder="Provide any additional details or notes regarding your request..."></textarea>
+          </div>
+
+          <label class="form-consent">
+            <input type="checkbox" id="confirmConsent" required>
+            <span>I understand that deleted cloud presets, setlists, and account records cannot be recovered once purged from the servers.</span>
+          </label>
+
+          <button type="submit" class="btn btn-primary" id="submitBtn">
+            Submit Deletion Request
+          </button>
+        </form>
+
+        <div id="deletionSuccessBox" class="deletion-success-box">
+          <h3 style="color: #4ade80; margin-top: 0; margin-bottom: 8px;">Deletion Request Received</h3>
+          <p>
+            Your request has been registered. A confirmation record has been generated for your records:
+          </p>
+          <div>
+            <strong>Reference ID:</strong> <span id="receiptId" class="receipt-code"></span>
+          </div>
+          <p style="margin-top: 12px;">
+            <strong>Target Account:</strong> <span id="receiptEmail" style="color: #fff;"></span><br>
+            <strong>Scope of Deletion:</strong> <span id="receiptScope" style="color: var(--accent-amber);"></span>
+          </p>
+          <div style="margin-top: 16px;">
+            <a id="emailDeveloperBtn" href="#" class="btn btn-accent" style="display: inline-block;">
+              Send Direct Confirmation Email
+            </a>
+          </div>
+          <p style="font-size: 0.8125rem; color: var(--text-muted); margin-top: 14px;">
+            Cloud records are purged within 7 business days. You will receive confirmation at your registered email address once completed.
+          </p>
+        </div>
+
+        <h2>Data Retention &amp; Policy Details</h2>
+        <h3>What is Permanently Deleted?</h3>
+        <ul>
+          <li><strong>Authentication Information:</strong> Your unique User ID, email address, and linked OAuth tokens are permanently scrubbed from the identity database.</li>
+          <li><strong>Cloud Musical Presets:</strong> All uploaded registration parameters, style assignments, voice split maps, and tempo overrides.</li>
+          <li><strong>Setlists &amp; Charts:</strong> All cloud-synced song orders, key notations, and chord charts.</li>
+        </ul>
+
+        <h3>What is NOT Retained?</h3>
+        <p>
+          SXG Companion does not collect or retain advertising identifiers, tracking telemetry, financial data, or musical audio recordings. We do not sell or share any user data with third-party data brokers.
+        </p>
+
+        <h3>Local Data on Your Device</h3>
+        <p>
+          Submitting a cloud deletion request purges your information from the remote servers. If the SXG Companion app is still installed on your phone or tablet, local cached files remain inside your device's isolated application sandbox until you clear the app data or uninstall the app.
+        </p>
+
+        <h2>Assistance &amp; Direct Inquiries</h2>
+        <p>
+          For any questions or urgent data inquiries, contact the developer directly:
+        </p>
+        <ul>
+          <li>Email: <a href="mailto:reynold29@users.noreply.github.com">reynold29@users.noreply.github.com</a></li>
+          <li>Developer Website: <a href="https://projects.reyziehomelab.com" target="_blank" rel="noopener noreferrer">projects.reyziehomelab.com</a></li>
+          <li>Privacy Policy: <a href="privacy.html">Read our Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 SXG Companion &bull; Developed by Reynold (Reyzie)</div>
+        <div>
+          <a href="terms.html">Terms &amp; Conditions</a> &bull; 
+          <a href="privacy.html">Privacy Policy</a> &bull; 
+          <a href="account-deletion.html">Account Deletion</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Handle Deletion Form Interaction
+    const deletionForm = document.getElementById('deletionForm');
+    const successBox = document.getElementById('deletionSuccessBox');
+    const receiptId = document.getElementById('receiptId');
+    const receiptEmail = document.getElementById('receiptEmail');
+    const receiptScope = document.getElementById('receiptScope');
+    const emailDeveloperBtn = document.getElementById('emailDeveloperBtn');
+    const scopeFull = document.getElementById('scopeFull');
+    const otherScopes = [
+      document.getElementById('scopePresets'),
+      document.getElementById('scopeSetlists'),
+      document.getElementById('scopeAuth')
+    ];
+
+    // If "Full Account" is selected, uncheck partial scopes
+    scopeFull.addEventListener('change', () => {
+      if (scopeFull.checked) {
+        otherScopes.forEach(s => s.checked = false);
+      }
+    });
+
+    otherScopes.forEach(s => {
+      s.addEventListener('change', () => {
+        if (s.checked) {
+          scopeFull.checked = false;
+        }
+      });
+    });
+
+    deletionForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('userEmail').value.trim();
+      const reason = document.getElementById('deletionReason').value.trim();
+      const selectedBoxes = Array.from(document.querySelectorAll('input[name="deleteScope"]:checked')).map(cb => cb.value);
+
+      if (selectedBoxes.length === 0) {
+        alert('Please select at least one part of your data to delete.');
+        return;
+      }
+
+      // Generate verification receipt ID
+      const randomCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+      const refId = 'SXG-DEL-' + randomCode;
+
+      receiptId.textContent = refId;
+      receiptEmail.textContent = email;
+      receiptScope.textContent = selectedBoxes.join(', ');
+
+      // Build mailto fallback
+      const subject = encodeURIComponent(`[SXG Companion] Data Deletion Request - ${refId}`);
+      const body = encodeURIComponent(
+        `Hello,\n\nPlease process this account/data deletion request for SXG Companion:\n\n` +
+        `Reference ID: ${refId}\n` +
+        `Account Email: ${email}\n` +
+        `Data Scope to Delete:\n- ${selectedBoxes.join('\n- ')}\n\n` +
+        (reason ? `Additional Notes:\n${reason}\n\n` : '') +
+        `Timestamp: ${new Date().toISOString()}\n\nThank you.`
+      );
+      emailDeveloperBtn.href = `mailto:reynold29@users.noreply.github.com?subject=${subject}&body=${body}`;
+
+      // Show success box and scroll smoothly to it
+      successBox.classList.add('visible');
+      successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  </script>
+</body>
+</html>
