@@ -1115,6 +1115,28 @@ button {
   text-decoration: underline;
 }
 
+.legal-content a.btn,
+.legal-content a.btn-accent,
+.legal-content a.btn-primary,
+.legal-content a.btn-outline,
+.legal-content .btn {
+  text-decoration: none !important;
+}
+
+.legal-content a.btn-accent,
+.legal-content .btn-accent {
+  color: #0b0d11 !important;
+  font-weight: 700 !important;
+  background: var(--accent-amber) !important;
+}
+
+.legal-content a.btn-primary,
+.legal-content .btn-primary {
+  color: #0b0d11 !important;
+  font-weight: 700 !important;
+  background: #fff !important;
+}
+
 .legal-notice-box {
   background: var(--bg-surface);
   border-left: 4px solid var(--accent-amber);
