@@ -187,14 +187,19 @@
           </p>
           
           <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; margin-bottom: 14px;">
-            <a id="gmailWebBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-accent" style="display: inline-flex; align-items: center; gap: 8px; color: #0b0d11 !important; font-weight: 700; background: var(--accent-amber) !important; padding: 12px 20px; border-radius: 6px;">
+            <a id="mailtoBtn" href="#" class="btn btn-accent" style="display: inline-flex; align-items: center; gap: 8px; color: #0b0d11 !important; font-weight: 700; background: var(--accent-amber) !important; padding: 12px 20px; border-radius: 6px; text-decoration: none !important;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0b0d11" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span style="color: #0b0d11 !important; font-weight: 700;">Send Deletion Email</span>
+            </a>
+
+            <a id="gmailWebBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.25); color: #fff !important; text-decoration: none !important;">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.266H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
-              <span>Send via Gmail</span>
+              <span style="color: #fff !important;">Open in Gmail Web</span>
             </a>
 
             <button type="button" id="copyDetailsBtn" class="btn btn-outline" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.2); color: #fff !important; cursor: pointer;">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              <span id="copyBtnText">Copy Request Details</span>
+              <span id="copyBtnText" style="color: #fff !important;">Copy Request Details</span>
             </button>
           </div>
 
@@ -255,6 +260,7 @@
     const receiptId = document.getElementById('receiptId');
     const receiptEmail = document.getElementById('receiptEmail');
     const receiptScope = document.getElementById('receiptScope');
+    const mailtoBtn = document.getElementById('mailtoBtn');
     const gmailWebBtn = document.getElementById('gmailWebBtn');
     const copyDetailsBtn = document.getElementById('copyDetailsBtn');
     const copyBtnText = document.getElementById('copyBtnText');
@@ -319,13 +325,26 @@
       const subjectEncoded = encodeURIComponent(subjectRaw);
       const bodyEncoded = encodeURIComponent(bodyRaw);
 
+      // Direct mailto link (opens default mail app on device/system)
+      const mailtoUrl = `mailto:${targetDevEmail}?subject=${subjectEncoded}&body=${bodyEncoded}`;
+      if (mailtoBtn) {
+        mailtoBtn.href = mailtoUrl;
+      }
+
       // Direct Gmail Web compose link
       const gmailWebUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${targetDevEmail}&su=${subjectEncoded}&body=${bodyEncoded}`;
-      gmailWebBtn.href = gmailWebUrl;
+      if (gmailWebBtn) {
+        gmailWebBtn.href = gmailWebUrl;
+      }
 
-      // Show success box and scroll smoothly to it without triggering any popups/dialogs
+      // Show success box and scroll smoothly to it
       successBox.classList.add('visible');
       successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      // Automatically launch default email client via mailto
+      setTimeout(() => {
+        window.location.href = mailtoUrl;
+      }, 150);
     });
 
     // Copy Details Button Handler
