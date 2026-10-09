@@ -41,6 +41,7 @@
 
       <ul class="nav-menu">
         <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#instructions" class="nav-link">Instructions</a></li>
         <li><a href="#airsync" class="nav-link">Air Sync</a></li>
         <li><a href="#simulator" class="nav-link">Live Demo</a></li>
         <li><a href="#hardware" class="nav-link">Compatibility</a></li>
@@ -450,6 +451,349 @@
       </div>
     </section>
 
+    <!-- Yamaha MIDI Instructions Section -->
+    <section class="section instructions-section" id="instructions">
+      <div class="container">
+        <div style="max-width: 780px;">
+          <span class="section-tag">Yamaha MIDI Configuration Guide</span>
+          <h2 class="section-title">Complete Keyboard MIDI Instructions</h2>
+          <p class="section-subtitle">
+            Configure your Yamaha PSR-SX700, PSR-SX900, Genos, or Tyros workstation for seamless bidirectional control, instant voice capture, and zero-latency style transitions with SXG Companion.
+          </p>
+        </div>
+
+        <div class="instructions-grid">
+          <!-- Step 1 & Overview Card -->
+          <div class="instructions-card">
+            <div class="instructions-card-header">
+              <div class="instructions-card-title">
+                <span class="instructions-step-badge">1</span>
+                <h3>Enter MIDI Edit Mode &amp; Understand Sound Engines</h3>
+              </div>
+              <span class="instructions-tag-badge amber">Setup Walkthrough</span>
+            </div>
+            <p>
+              Yamaha workstation keyboards feature <strong>two independent sound engines</strong> internally:
+            </p>
+            <div class="architecture-diagram-box">
+              <pre>
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           YAMAHA PSR-SX ENGINE                              │
+│                                                                             │
+│   [Physical Keys / Panel] ───► Keyboard Parts Engine                        │
+│                                (Right 1, Right 2, Left)                     │
+│                                🌟 Super Articulation!, DSP, Reverb          │
+│                                                                             │
+│   [Incoming USB Ch 1]     ───► Song Parts Engine (Default: Song Part 1)     │
+│   (Default Factory Preset)     🎹 General MIDI Grand Piano                  │
+│                                                                             │
+│   [Incoming USB Ch 1]     ───► Re-routed to RIGHT 1!                        │
+│   (With "SX-APP" Template)     🎹 Plays Live Loaded Sax / Strings / Synth   │
+└─────────────────────────────────────────────────────────────────────────────┘</pre>
+            </div>
+            <p>
+              To configure your keyboard, press the physical <strong>[MENU]</strong> button (or tap Menu on the touchscreen) &rarr; tap the <strong>[MIDI]</strong> tile on page 1 &rarr; tap the <strong>[EDIT]</strong> button at the bottom-center of the screen.
+            </p>
+          </div>
+
+          <!-- Step 2: Transmit Tab Card -->
+          <div class="instructions-card">
+            <div class="instructions-card-header">
+              <div class="instructions-card-title">
+                <span class="instructions-step-badge">2</span>
+                <h3>Configure Transmit Tab (Voice &amp; Style Detection)</h3>
+              </div>
+              <span class="instructions-tag-badge amber">Crucial Settings</span>
+            </div>
+            <p>
+              Tap the <strong>Transmit</strong> tab at the top of the Edit screen. This determines what MIDI data the physical keyboard sends to SXG Companion when you touch voices or style buttons:
+            </p>
+
+            <div class="midi-table-wrapper">
+              <table class="midi-table">
+                <thead>
+                  <tr>
+                    <th>Part</th>
+                    <th>Port</th>
+                    <th>Channel</th>
+                    <th>Note</th>
+                    <th>Program Change</th>
+                    <th>System Exclusive</th>
+                    <th>Pitch Bend / CC</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>RIGHT 1</strong></td>
+                    <td><code>USB 1</code></td>
+                    <td><code>1</code></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill critical">ON ★ CRITICAL</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>RIGHT 2</strong></td>
+                    <td><code>USB 1</code></td>
+                    <td><code>3</code></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>LEFT</strong></td>
+                    <td><code>USB 1</code></td>
+                    <td><code>2</code></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>STYLE</strong></td>
+                    <td><code>USB 1</code></td>
+                    <td><code>9</code></td>
+                    <td><span class="midi-status-pill off">—</span></td>
+                    <td><span class="midi-status-pill critical">ON ★ CRITICAL</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill off">—</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="instructions-callout warning">
+              <strong>⚠️ CRITICAL FACTORY REQUIREMENT:</strong>
+              In Yamaha's factory default presets, <strong>Program Change Transmit is turned OFF</strong> for all keyboard parts! You <strong>MUST</strong> turn <code>Program Change = ON</code> for <strong>RIGHT 1</strong> and <strong>STYLE</strong>. Without this, the keyboard sends zero MIDI data when you change voices or rhythms on the touchscreen, preventing the app from detecting your active sounds.
+            </div>
+          </div>
+
+          <!-- Step 3: Receive Tab Card -->
+          <div class="instructions-card">
+            <div class="instructions-card-header">
+              <div class="instructions-card-title">
+                <span class="instructions-step-badge">3</span>
+                <h3>Configure Receive Tab (Route App Notes to Live Voice)</h3>
+              </div>
+              <span class="instructions-tag-badge blue">Sound Routing</span>
+            </div>
+            <p>
+              Tap the <strong>Receive</strong> tab at the top of the Edit screen. This directs where incoming notes, chord voicings, and program changes from the app go inside the keyboard's sound engine:
+            </p>
+
+            <div class="midi-table-wrapper">
+              <table class="midi-table">
+                <thead>
+                  <tr>
+                    <th>Port / Channel</th>
+                    <th>Part Assignment</th>
+                    <th>Note</th>
+                    <th>Program Change</th>
+                    <th>Control Change</th>
+                    <th>Pitch Bend</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>Port 1 / Ch 1</code></td>
+                    <td><strong style="color: var(--accent-amber);">RIGHT 1</strong> <em>(Change from Song 1!)</em></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                  </tr>
+                  <tr>
+                    <td><code>Port 1 / Ch 2</code></td>
+                    <td><strong>LEFT</strong></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                  </tr>
+                  <tr>
+                    <td><code>Port 1 / Ch 3</code></td>
+                    <td><strong>RIGHT 2</strong></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                  </tr>
+                  <tr>
+                    <td><code>Port 1 / Ch 9</code></td>
+                    <td><strong>Rhythm 1</strong></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                  </tr>
+                  <tr>
+                    <td><code>Port 1 / Ch 10</code></td>
+                    <td><strong>Rhythm 2</strong></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                  </tr>
+                  <tr>
+                    <td><code>Port 1 / Ch 11</code></td>
+                    <td><strong>Bass</strong></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                  </tr>
+                  <tr>
+                    <td><code>Port 1 / Ch 12–13</code></td>
+                    <td><strong>Chord 1 &bull; Chord 2</strong></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                  </tr>
+                  <tr>
+                    <td><code>Port 1 / Ch 14</code></td>
+                    <td><strong>Pad</strong></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                  </tr>
+                  <tr>
+                    <td><code>Port 1 / Ch 15–16</code></td>
+                    <td><strong>Phrase 1 &bull; Phrase 2</strong></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="instructions-callout info">
+              <strong>💡 Why change Port 1 / Ch 1 to RIGHT 1?</strong>
+              This routes notes played on the app's keys, chord charts, or presets directly into the <strong>Keyboard Parts Engine</strong>. Instead of hearing generic GM Grand Piano, you will hear your loaded Concert Strings, Super Articulation Saxophone, or Stage Electric Piano with full insert DSP effects!
+            </div>
+          </div>
+
+          <!-- Step 4: System Tab & Saving Card -->
+          <div class="instructions-card">
+            <div class="instructions-card-header">
+              <div class="instructions-card-title">
+                <span class="instructions-step-badge">4</span>
+                <h3>System Tab &amp; Save Custom Template ("SX-APP")</h3>
+              </div>
+              <span class="instructions-tag-badge green">Permanent Storage</span>
+            </div>
+            <p>
+              Tap the <strong>System</strong> tab at the top of the Edit screen and configure the following parameters:
+            </p>
+
+            <div class="midi-table-wrapper">
+              <table class="midi-table">
+                <thead>
+                  <tr>
+                    <th>Setting</th>
+                    <th>Value</th>
+                    <th>Explanation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Clock</strong></td>
+                    <td><span class="midi-status-pill on">Internal</span></td>
+                    <td>Keyboard maintains its own tempo master clock. (Set to <code>USB 1</code> only if slaving tempo to an external DAW).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Transmit Clock</strong></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td>Sends keyboard tap-tempo and style BPM continuously into the app display.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Receive Transpose</strong></td>
+                    <td><span class="midi-status-pill off">OFF</span></td>
+                    <td>Prevents key shifts from being transposed twice (once in app, once on keyboard).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Local Control</strong></td>
+                    <td><span class="midi-status-pill on">ON</span></td>
+                    <td>Ensures the physical keys play directly through the keyboard speakers without requiring a MIDI loopback.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 style="color: #fff; margin: 24px 0 12px; font-size: 1.1rem;">How to Save to Permanent User Memory:</h4>
+            <ol style="padding-left: 20px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 20px;">
+              <li>Tap the <strong>[Close]</strong> (X) icon at the top-right of the Edit screen.</li>
+              <li>Tap the <strong>[USER]</strong> tab at the top of the MIDI template library.</li>
+              <li>Tap the <strong>[Save]</strong> button at the bottom of the screen.</li>
+              <li>Type the template name: <strong><code>"SX-APP"</code></strong> (or <strong><code>"SXG COMPANION"</code></strong>) and tap <strong>OK</strong>.</li>
+              <li>Verify that a <strong>checkmark icon</strong> appears beside your newly created template!</li>
+            </ol>
+
+            <div class="instructions-callout success">
+              <strong>✅ Permanent Configuration:</strong>
+              Once saved to the USER tab, your template is preserved in non-volatile flash memory. The keyboard will remember this configuration whenever it is powered on!
+            </div>
+          </div>
+
+          <!-- Hardware Ports & Cables Card -->
+          <div class="instructions-card">
+            <div class="instructions-card-header">
+              <div class="instructions-card-title">
+                <span class="instructions-step-badge">5</span>
+                <h3>Hardware Wiring, Ports &amp; Cable Guide</h3>
+              </div>
+              <span class="instructions-tag-badge amber">Physical Connections</span>
+            </div>
+            <p>
+              Always connect to the proper rear-panel port. Arranger keyboards have two distinct USB ports:
+            </p>
+
+            <div class="port-compare-grid">
+              <div class="port-card correct">
+                <span class="port-card-badge">✅ CONNECT HERE</span>
+                <h4 style="color: #fff; margin-bottom: 6px;">[USB TO HOST] (Square Type-B)</h4>
+                <p style="color: var(--text-secondary); font-size: 0.875rem;">
+                  The square Type-B port on the rear panel. This provides bidirectional high-speed USB-MIDI data streaming between your keyboard and phone/tablet.
+                </p>
+              </div>
+
+              <div class="port-card wrong">
+                <span class="port-card-badge">❌ DO NOT CONNECT HERE</span>
+                <h4 style="color: #fff; margin-bottom: 6px;">[USB TO DEVICE] (Flat Type-A)</h4>
+                <p style="color: var(--text-secondary); font-size: 0.875rem;">
+                  The flat rectangular port on the front/rear panel. This port is strictly for USB memory sticks and flash drives. Connecting phones or tablets here will not work.
+                </p>
+              </div>
+            </div>
+
+            <h4 style="color: #fff; margin: 24px 0 12px; font-size: 1.1rem;">Cable Checklist by Device:</h4>
+            <div class="cable-grid">
+              <div class="cable-card">
+                <h5>📱 iPad &bull; iPhone (USB-C)</h5>
+                <p>Standard USB-B to USB-C cable (printer cable), or standard USB-B to USB-A cable with a USB-C OTG adapter.</p>
+              </div>
+              <div class="cable-card">
+                <h5>⚡ iPad &bull; iPhone (Lightning)</h5>
+                <p>Apple Lightning to USB 3 Camera Adapter + standard USB-A to USB-B cable. Connect charger to the adapter for endless battery.</p>
+              </div>
+              <div class="cable-card">
+                <h5>🤖 Android (USB-C)</h5>
+                <p>Standard USB-B to USB-C OTG cable. In Android USB settings, select "MIDI" or "File Transfer / MIDI".</p>
+              </div>
+              <div class="cable-card">
+                <h5>💻 Mac &bull; PC</h5>
+                <p>Direct USB-B to USB-C or USB-A cable. Class Compliant: zero driver installation needed on macOS.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Hardware Compatibility -->
     <section class="section" id="hardware">
       <div class="container">
@@ -632,6 +976,7 @@
           <h4>Navigation</h4>
           <ul class="footer-links">
             <li><a href="#features">Features</a></li>
+            <li><a href="#instructions">MIDI Instructions</a></li>
             <li><a href="#airsync">Air Sync Wireless</a></li>
             <li><a href="#simulator">Live Simulator</a></li>
             <li><a href="#hardware">Supported Keyboards</a></li>
