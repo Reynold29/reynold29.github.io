@@ -51,7 +51,7 @@
       </ul>
 
       <div class="nav-actions">
-        <a href="#alpha" class="btn btn-accent">Join Alpha</a>
+        <button type="button" class="btn btn-accent" id="openAlphaNavBtn">Join Alpha</button>
         <button class="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
           <span></span>
           <span></span>
@@ -79,6 +79,13 @@
           </p>
 
           <div class="hero-actions" id="alpha">
+            <button type="button" class="btn btn-accent" id="openAlphaHeroBtn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="10 8 16 12 10 16 10 8"></polygon>
+              </svg>
+              Join Alpha (iOS &amp; Android)
+            </button>
             <a href="https://github.com/Reynold29/sx-companion" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
@@ -853,6 +860,28 @@
           </div>
         </div>
       </div>
+    <!-- Early Access CTA Section -->
+    <section class="section section-cta" id="alpha-cta">
+      <div class="container">
+        <div class="cta-card">
+          <div class="cta-content">
+            <span class="section-tag">Closed Beta Program</span>
+            <h2>Shape the Future of Live Performance on Stage</h2>
+            <p>
+              Join our testing cohort on iOS (TestFlight) and Android (Google Play). 
+              Experience instant style switching, real-time chord tracking, song presets with cloud sync, and wireless Air Sync before public release.
+            </p>
+            <div class="cta-trust-items">
+              <span>🔒 Direct invite only</span>
+              <span>⚡ Zero spam</span>
+              <span>🎹 Yamaha PSR-SX &amp; Genos</span>
+            </div>
+            <button type="button" class="btn btn-accent btn-lg" id="openAlphaCtaBtn">
+              Request Early Access Invite &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- FAQ Section -->
@@ -1002,6 +1031,164 @@
     </div>
   </footer>
 
+  <!-- Beta Signup Modal -->
+  <div class="modal-backdrop" id="alphaModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="alphaModalTitle" hidden>
+    <div class="modal-card">
+      <button type="button" class="modal-close-btn" id="closeAlphaModalBtn" aria-label="Close dialog">&times;</button>
+      
+      <!-- Form View -->
+      <div id="alphaModalFormView">
+        <div class="modal-header">
+          <div class="modal-pill">
+            <span class="status-dot"></span>
+            <span>Early Access &bull; Version 1.0</span>
+          </div>
+          <h2 id="alphaModalTitle">Join SXG Companion Beta</h2>
+          <p class="modal-subtitle">
+            Get invites for Apple TestFlight (iOS) and Google Play Closed Testing (Android).
+          </p>
+          <div class="security-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span>Encrypted transmission &bull; Stored securely &bull; Invitation use only</span>
+          </div>
+        </div>
+
+        <form id="betaSignupForm" class="beta-form" novalidate>
+          <!-- Bot trap (honeypot) -->
+          <input type="text" name="b_trap" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div class="form-group">
+            <label for="userName">Full Name <span class="req">*</span></label>
+            <input type="text" id="userName" name="name" class="form-input" placeholder="e.g. Reynold Clare" required maxlength="100">
+          </div>
+
+          <div class="form-group">
+            <label for="userEmail">Primary Contact Email <span class="req">*</span></label>
+            <input type="email" id="userEmail" name="email" class="form-input" placeholder="you@example.com" required maxlength="255">
+            <span class="form-hint">We will send confirmation and onboarding notes here.</span>
+          </div>
+
+          <div class="form-group">
+            <label>Testing Platform(s) <span class="req">*</span></label>
+            <div class="platform-selector">
+              <label class="platform-option">
+                <input type="radio" name="platform" value="ios" checked>
+                <div class="platform-card">
+                  <span class="platform-icon">🍏</span>
+                  <div class="platform-info">
+                    <span class="platform-name">iOS</span>
+                    <span class="platform-sub">TestFlight</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="platform-option">
+                <input type="radio" name="platform" value="android">
+                <div class="platform-card">
+                  <span class="platform-icon">🤖</span>
+                  <div class="platform-info">
+                    <span class="platform-name">Android</span>
+                    <span class="platform-sub">Google Play</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="platform-option">
+                <input type="radio" name="platform" value="both">
+                <div class="platform-card">
+                  <span class="platform-icon">📱</span>
+                  <div class="platform-info">
+                    <span class="platform-name">Both</span>
+                    <span class="platform-sub">iOS + Android</span>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Dynamic Apple ID field -->
+          <div class="form-group" id="appleEmailGroup">
+            <label for="appleEmail">Apple ID Email <span class="field-tag">TestFlight</span></label>
+            <input type="email" id="appleEmail" name="apple_email" class="form-input" placeholder="apple.id@icloud.com" maxlength="255">
+            <span class="form-hint">Leave blank if identical to your primary email. Must match your App Store Apple ID.</span>
+          </div>
+
+          <!-- Dynamic Google Play field -->
+          <div class="form-group" id="playEmailGroup" style="display: none;">
+            <label for="playEmail">Google Play Email / Gmail <span class="field-tag">Google Play</span></label>
+            <input type="email" id="playEmail" name="play_email" class="form-input" placeholder="your.name@gmail.com" maxlength="255">
+            <span class="form-hint">Leave blank if identical to your primary email. Must be the Google Account on your phone.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="keyboardModel">Yamaha Keyboard Model <span class="req">*</span></label>
+            <select id="keyboardModel" name="keyboard_model" class="form-select" required>
+              <option value="" disabled selected>Select your instrument...</option>
+              <option value="PSR-SX700">Yamaha PSR-SX700</option>
+              <option value="PSR-SX900">Yamaha PSR-SX900</option>
+              <option value="PSR-SX600">Yamaha PSR-SX600</option>
+              <option value="Genos / Genos 2">Yamaha Genos / Genos 2</option>
+              <option value="Tyros 5 / 4">Yamaha Tyros 5 / 4</option>
+              <option value="Other Yamaha Workstation">Other Yamaha Arranger / Workstation</option>
+              <option value="None / Soundfont Synth Only">No Hardware (Testing built-in software synth)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="userNotes">Additional Notes / Setup (Optional)</label>
+            <textarea id="userNotes" name="notes" class="form-textarea" placeholder="e.g. I gig weekly with PSR-SX700 and iPad, interested in Air Sync..." rows="2" maxlength="500"></textarea>
+          </div>
+
+          <div class="form-consent">
+            <label class="consent-label">
+              <input type="checkbox" id="userConsent" name="consent" required checked>
+              <span>I consent to receiving testing invitations for SXG Companion. Your data is protected under our <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a> and can be deleted upon request.</span>
+            </label>
+          </div>
+
+          <div id="formErrorMessage" class="form-error-alert" style="display: none;"></div>
+
+          <div class="modal-footer">
+            <button type="submit" id="submitBetaBtn" class="btn btn-accent btn-full">
+              <span class="btn-text">Submit Request &rarr;</span>
+              <span class="btn-spinner" style="display: none;"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Success View -->
+      <div id="alphaModalSuccessView" class="modal-success" style="display: none;">
+        <div class="success-icon-wrap">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <h3>You're on the Priority List!</h3>
+        <p id="successMessageDetail">
+          Thank you for joining. We will send your early access invite as soon as the next testing cohort is deployed.
+        </p>
+        <div class="success-steps">
+          <div class="step-item">
+            <span class="step-num">1</span>
+            <div><strong>Watch your inbox:</strong> Look for an invite from TestFlight or Google Play Console.</div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">2</span>
+            <div><strong>Hardware Setup:</strong> Prepare a USB-B to USB-C / Lightning OTG cable for direct MIDI link.</div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary btn-full" id="successDoneBtn">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supabase Client & App Logic -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

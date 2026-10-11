@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initArrangerSimulator();
   initFaqAccordion();
   initAirSyncToggle();
+  initBetaSignupModal();
 });
 
 /* ── Mobile Menu Toggle ────────────────────────────────────────────────── */
@@ -189,4 +190,231 @@ function initAirSyncToggle() {
       <span class="node-badge client">Wireless Control Active</span>
     `;
   });
+}
+
+/* ── Beta Signup Modal & Secure Supabase Integration ──────────────────── */
+function initBetaSignupModal() {
+  const backdrop = document.getElementById('alphaModalBackdrop');
+  const closeBtn = document.getElementById('closeAlphaModalBtn');
+  const formView = document.getElementById('alphaModalFormView');
+  const successView = document.getElementById('alphaModalSuccessView');
+  const form = document.getElementById('betaSignupForm');
+  const errorAlert = document.getElementById('formErrorMessage');
+  const submitBtn = document.getElementById('submitBetaBtn');
+  const successDoneBtn = document.getElementById('successDoneBtn');
+  const successDetail = document.getElementById('successMessageDetail');
+
+  const openButtons = [
+    document.getElementById('openAlphaNavBtn'),
+    document.getElementById('openAlphaHeroBtn'),
+    document.getElementById('openAlphaCtaBtn')
+  ].filter(Boolean);
+
+  if (!backdrop || !form) return;
+
+  // Supabase Configuration
+  const SUPABASE_URL = 'https://mpindkfkwuioezetrcib.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1waW5ka2Zrd3Vpb2V6ZXRyY2liIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3MDEyOTIsImV4cCI6MjEwNjI3NzI5Mn0.JeNZodZQElXArOjHZgDvRSa2AKyK73iISsg62E0i8Yg';
+
+  let supabase = null;
+  if (window.supabase && typeof window.supabase.createClient === 'function') {
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+
+  // Open Modal
+  function openModal() {
+    backdrop.removeAttribute('hidden');
+    requestAnimationFrame(() => {
+      backdrop.classList.add('open');
+    });
+    document.body.style.overflow = 'hidden';
+
+    // If user already signed up previously on this device, display status
+    const savedEmail = localStorage.getItem('sxg_beta_signed_up');
+    if (savedEmail) {
+      if (successDetail) {
+        successDetail.textContent = `You are already registered for early access with ${savedEmail}. We will send your invite as soon as the next testing cohort opens.`;
+      }
+      formView.style.display = 'none';
+      successView.style.display = 'block';
+    } else {
+      formView.style.display = 'block';
+      successView.style.display = 'none';
+      errorAlert.style.display = 'none';
+    }
+  }
+
+  // Close Modal
+  function closeModal() {
+    backdrop.classList.remove('open');
+    setTimeout(() => {
+      backdrop.setAttribute('hidden', '');
+      document.body.style.overflow = '';
+    }, 250);
+  }
+
+  openButtons.forEach(btn => btn.addEventListener('click', openModal));
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (successDoneBtn) successDoneBtn.addEventListener('click', closeModal);
+
+  // Close on outside backdrop click
+  backdrop.addEventListener('click', (e) => {
+    if (e.target === backdrop) {
+      closeModal();
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && backdrop.classList.contains('open')) {
+      closeModal();
+    }
+  });
+
+  // Dynamic Platform Switching (iOS Apple ID vs Android Play Email)
+  const platformRadios = form.querySelectorAll('input[name="platform"]');
+  const appleGroup = document.getElementById('appleEmailGroup');
+  const playGroup = document.getElementById('playEmailGroup');
+
+  function updatePlatformFields() {
+    const selected = form.querySelector('input[name="platform"]:checked')?.value || 'ios';
+    if (appleGroup) {
+      appleGroup.style.display = (selected === 'ios' || selected === 'both') ? 'flex' : 'none';
+    }
+    if (playGroup) {
+      playGroup.style.display = (selected === 'android' || selected === 'both') ? 'flex' : 'none';
+    }
+  }
+
+  platformRadios.forEach(r => r.addEventListener('change', updatePlatformFields));
+  updatePlatformFields();
+
+  // Form Submission Handler
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorAlert.style.display = 'none';
+    errorAlert.textContent = '';
+
+    // Bot honeypot verification
+    const honeypot = form.elements['b_trap']?.value;
+    if (honeypot) {
+      // Fake success for automated bot scrapers
+      formView.style.display = 'none';
+      successView.style.display = 'block';
+      return;
+    }
+
+    const name = form.elements['name']?.value?.trim() || '';
+    const email = form.elements['email']?.value?.trim() || '';
+    const platform = form.querySelector('input[name="platform"]:checked')?.value || 'ios';
+    const appleEmail = form.elements['apple_email']?.value?.trim() || '';
+    const playEmail = form.elements['play_email']?.value?.trim() || '';
+    const keyboardModel = form.elements['keyboard_model']?.value || '';
+    const notes = form.elements['notes']?.value?.trim() || '';
+    const consent = form.elements['consent']?.checked;
+
+    // Validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!name) {
+      showError('Please enter your full name.');
+      return;
+    }
+    if (!email || !emailRegex.test(email)) {
+      showError('Please enter a valid contact email address.');
+      return;
+    }
+    if (appleEmail && !emailRegex.test(appleEmail)) {
+      showError('Please enter a valid Apple ID email address.');
+      return;
+    }
+    if (playEmail && !emailRegex.test(playEmail)) {
+      showError('Please enter a valid Google Play email address.');
+      return;
+    }
+    if (!keyboardModel) {
+      showError('Please select your Yamaha keyboard model.');
+      return;
+    }
+    if (!consent) {
+      showError('Please agree to receive testing invites to continue.');
+      return;
+    }
+
+    // Prepare Payload
+    const payload = {
+      name: name,
+      email: email.toLowerCase(),
+      platform: platform,
+      apple_email: (platform === 'ios' || platform === 'both') ? (appleEmail || email).toLowerCase() : null,
+      play_email: (platform === 'android' || platform === 'both') ? (playEmail || email).toLowerCase() : null,
+      keyboard_model: keyboardModel,
+      notes: notes || null,
+      consent: true,
+      status: 'pending'
+    };
+
+    // UI Loading state
+    setLoading(true);
+
+    try {
+      if (!supabase) {
+        throw new Error('Database connection is initializing. If this persists, please contact reynold29clare@gmail.com.');
+      }
+
+      // Safe INSERT to Supabase (Row Level Security enforces public INSERT only, no public SELECT)
+      const { data, error } = await supabase
+        .from('beta_signups')
+        .insert([payload]);
+
+      if (error) {
+        // Unique key constraint violation: email already registered
+        if (error.code === '23505' || (error.message && error.message.includes('unique'))) {
+          localStorage.setItem('sxg_beta_signed_up', email);
+          if (successDetail) {
+            successDetail.textContent = `You're already registered for early access with ${email}! We have your request saved and will dispatch your invite soon.`;
+          }
+          formView.style.display = 'none';
+          successView.style.display = 'block';
+          return;
+        }
+
+        throw error;
+      }
+
+      // Success
+      localStorage.setItem('sxg_beta_signed_up', email);
+      if (successDetail) {
+        const platformLabel = platform === 'both' ? 'iOS (TestFlight) & Android (Google Play)' : (platform === 'ios' ? 'iOS (TestFlight)' : 'Android (Google Play)');
+        successDetail.textContent = `Thank you, ${name}! Your early access invitation for ${platformLabel} will be sent to ${email} as soon as the next testing cohort opens.`;
+      }
+      formView.style.display = 'none';
+      successView.style.display = 'block';
+    } catch (err) {
+      showError(err.message || 'An unexpected error occurred while saving your request. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  });
+
+  function showError(msg) {
+    if (errorAlert) {
+      errorAlert.textContent = msg;
+      errorAlert.style.display = 'block';
+      errorAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  function setLoading(loading) {
+    if (!submitBtn) return;
+    submitBtn.disabled = loading;
+    const btnText = submitBtn.querySelector('.btn-text');
+    const spinner = submitBtn.querySelector('.btn-spinner');
+    if (loading) {
+      if (btnText) btnText.textContent = 'Submitting safely...';
+      if (spinner) spinner.style.display = 'inline-block';
+    } else {
+      if (btnText) btnText.textContent = 'Submit Request →';
+      if (spinner) spinner.style.display = 'none';
+    }
+  }
 }
