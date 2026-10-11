@@ -1034,7 +1034,12 @@
   <!-- Beta Signup Modal -->
   <div class="modal-backdrop" id="alphaModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="alphaModalTitle" hidden>
     <div class="modal-card">
-      <button type="button" class="modal-close-btn" id="closeAlphaModalBtn" aria-label="Close dialog">&times;</button>
+      <button type="button" class="modal-close-btn" id="closeAlphaModalBtn" aria-label="Close dialog">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
       
       <!-- Form View -->
       <div id="alphaModalFormView">
@@ -1077,7 +1082,11 @@
               <label class="platform-option">
                 <input type="radio" name="platform" value="ios" checked>
                 <div class="platform-card">
-                  <span class="platform-icon">🍏</span>
+                  <span class="platform-icon">
+                    <svg width="20" height="20" viewBox="0 0 170 170" fill="currentColor">
+                      <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.58-7.73-11.65-14.07-5.55-8.69-10.02-18.99-13.41-30.89-3.39-11.9-5.08-23.41-5.08-34.53 0-14.35 3.47-26.31 10.42-35.88 6.95-9.57 15.66-14.44 26.12-14.63 4.58 0 9.9 1.25 15.96 3.75 6.06 2.5 10.08 3.81 12.06 3.94 1.77-.13 5.9-1.5 12.39-4.13 6.49-2.62 11.83-3.82 16.03-3.59 12.18.66 22.03 5.39 29.56 14.2-10.86 6.53-16.18 15.63-15.96 27.3.22 9.13 3.84 16.89 10.86 23.27 7.02 6.38 15.42 9.87 25.21 10.48-2.22 6.96-5.06 14.28-8.53 21.97zm-30.13-104.9c-.11 4.58-1.74 9.1-4.88 13.56-3.14 4.46-7.07 7.82-11.78 10.08-.87-4.14-.38-8.48 1.48-13.03 1.86-4.55 4.67-8.52 8.43-11.9 3.76-3.38 7.73-5.29 11.9-5.74.22 2.39.38 4.73.49 7.03z"/>
+                    </svg>
+                  </span>
                   <div class="platform-info">
                     <span class="platform-name">iOS</span>
                     <span class="platform-sub">TestFlight</span>
@@ -1088,7 +1097,11 @@
               <label class="platform-option">
                 <input type="radio" name="platform" value="android">
                 <div class="platform-card">
-                  <span class="platform-icon">🤖</span>
+                  <span class="platform-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993.0001.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.996-3.4566c.099-.1714.0402-.3903-.1312-.4893-.1714-.099-.3903-.0402-.4893.1312l-2.0238 3.505C15.6888 8.4419 13.9168 8 12 8c-1.9168 0-3.6888.4419-5.2289 1.2007L4.7473 5.6957c-.099-.1714-.3179-.2302-.4893-.1312-.1714.099-.2302.3179-.1312.4893l1.996 3.4566C2.6888 11.2862 0 14.859 0 19h24c0-4.141-2.6888-7.7138-6.1185-9.6786"/>
+                    </svg>
+                  </span>
                   <div class="platform-info">
                     <span class="platform-name">Android</span>
                     <span class="platform-sub">Google Play</span>
@@ -1099,7 +1112,15 @@
               <label class="platform-option">
                 <input type="radio" name="platform" value="both">
                 <div class="platform-card">
-                  <span class="platform-icon">📱</span>
+                  <span class="platform-icon platform-dual-icons">
+                    <svg width="15" height="15" viewBox="0 0 170 170" fill="currentColor">
+                      <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.58-7.73-11.65-14.07-5.55-8.69-10.02-18.99-13.41-30.89-3.39-11.9-5.08-23.41-5.08-34.53 0-14.35 3.47-26.31 10.42-35.88 6.95-9.57 15.66-14.44 26.12-14.63 4.58 0 9.9 1.25 15.96 3.75 6.06 2.5 10.08 3.81 12.06 3.94 1.77-.13 5.9-1.5 12.39-4.13 6.49-2.62 11.83-3.82 16.03-3.59 12.18.66 22.03 5.39 29.56 14.2-10.86 6.53-16.18 15.63-15.96 27.3.22 9.13 3.84 16.89 10.86 23.27 7.02 6.38 15.42 9.87 25.21 10.48-2.22 6.96-5.06 14.28-8.53 21.97zm-30.13-104.9c-.11 4.58-1.74 9.1-4.88 13.56-3.14 4.46-7.07 7.82-11.78 10.08-.87-4.14-.38-8.48 1.48-13.03 1.86-4.55 4.67-8.52 8.43-11.9 3.76-3.38 7.73-5.29 11.9-5.74.22 2.39.38 4.73.49 7.03z"/>
+                    </svg>
+                    <span class="icon-divider">+</span>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993.0001.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.996-3.4566c.099-.1714.0402-.3903-.1312-.4893-.1714-.099-.3903-.0402-.4893.1312l-2.0238 3.505C15.6888 8.4419 13.9168 8 12 8c-1.9168 0-3.6888.4419-5.2289 1.2007L4.7473 5.6957c-.099-.1714-.3179-.2302-.4893-.1312-.1714.099-.2302.3179-.1312.4893l1.996 3.4566C2.6888 11.2862 0 14.859 0 19h24c0-4.141-2.6888-7.7138-6.1185-9.6786"/>
+                    </svg>
+                  </span>
                   <div class="platform-info">
                     <span class="platform-name">Both</span>
                     <span class="platform-sub">iOS + Android</span>
@@ -1127,14 +1148,31 @@
             <label for="keyboardModel">Yamaha Keyboard Model <span class="req">*</span></label>
             <select id="keyboardModel" name="keyboard_model" class="form-select" required>
               <option value="" disabled selected>Select your instrument...</option>
-              <option value="PSR-SX700">Yamaha PSR-SX700</option>
-              <option value="PSR-SX900">Yamaha PSR-SX900</option>
-              <option value="PSR-SX600">Yamaha PSR-SX600</option>
-              <option value="Genos / Genos 2">Yamaha Genos / Genos 2</option>
-              <option value="Tyros 5 / 4">Yamaha Tyros 5 / 4</option>
-              <option value="Other Yamaha Workstation">Other Yamaha Arranger / Workstation</option>
-              <option value="None / Soundfont Synth Only">No Hardware (Testing built-in software synth)</option>
+              <optgroup label="PSR-SX Series (Recent &amp; Current)">
+                <option value="PSR-SX920">Yamaha PSR-SX920 (New)</option>
+                <option value="PSR-SX900">Yamaha PSR-SX900</option>
+                <option value="PSR-SX720+">Yamaha PSR-SX720+ (New)</option>
+                <option value="PSR-SX720">Yamaha PSR-SX720 (New)</option>
+                <option value="PSR-SX700">Yamaha PSR-SX700</option>
+                <option value="PSR-SX600">Yamaha PSR-SX600</option>
+              </optgroup>
+              <optgroup label="Genos &amp; Flagship Workstations">
+                <option value="Genos 2">Yamaha Genos 2</option>
+                <option value="Genos 1">Yamaha Genos</option>
+                <option value="Tyros 5 / 4">Yamaha Tyros 5 / 4</option>
+              </optgroup>
+              <optgroup label="Other Setup">
+                <option value="other">Other Keyboard Model (Specify below)</option>
+                <option value="None / Soundfont Synth Only">No Hardware (Testing built-in software synth)</option>
+              </optgroup>
             </select>
+          </div>
+
+          <!-- Mandatory when "Other" is selected -->
+          <div class="form-group" id="otherKeyboardGroup" style="display: none;">
+            <label for="otherKeyboardModel">Specify Keyboard Brand &amp; Model <span class="req">*</span></label>
+            <input type="text" id="otherKeyboardModel" name="other_keyboard_model" class="form-input" placeholder="e.g. Yamaha PSR-S975 / Korg Pa5X / Roland BK-9" maxlength="100">
+            <span class="form-hint">Mandatory: Please type your exact model so we can verify MIDI implementation.</span>
           </div>
 
           <div class="form-group">

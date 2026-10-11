@@ -289,6 +289,29 @@ function initBetaSignupModal() {
   platformRadios.forEach(r => r.addEventListener('change', updatePlatformFields));
   updatePlatformFields();
 
+  // Dynamic Keyboard Selection ("Other" requires mandatory text input)
+  const keyboardSelect = form.elements['keyboard_model'];
+  const otherKeyboardGroup = document.getElementById('otherKeyboardGroup');
+  const otherKeyboardInput = document.getElementById('otherKeyboardModel');
+
+  function updateKeyboardFields() {
+    const isOther = keyboardSelect?.value === 'other';
+    if (otherKeyboardGroup) {
+      otherKeyboardGroup.style.display = isOther ? 'flex' : 'none';
+    }
+    if (otherKeyboardInput) {
+      otherKeyboardInput.required = isOther;
+      if (!isOther) {
+        otherKeyboardInput.value = '';
+      }
+    }
+  }
+
+  if (keyboardSelect) {
+    keyboardSelect.addEventListener('change', updateKeyboardFields);
+    updateKeyboardFields();
+  }
+
   // Form Submission Handler
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -335,6 +358,19 @@ function initBetaSignupModal() {
       showError('Please select your Yamaha keyboard model.');
       return;
     }
+
+    // Mandatory specification if "Other" is chosen
+    let finalKeyboardModel = keyboardModel;
+    if (keyboardModel === 'other') {
+      const customModel = otherKeyboardInput?.value?.trim() || '';
+      if (!customModel) {
+        showError('Please type and specify your keyboard brand and model.');
+        otherKeyboardInput?.focus();
+        return;
+      }
+      finalKeyboardModel = `Other: ${customModel}`;
+    }
+
     if (!consent) {
       showError('Please agree to receive testing invites to continue.');
       return;
@@ -347,7 +383,7 @@ function initBetaSignupModal() {
       platform: platform,
       apple_email: (platform === 'ios' || platform === 'both') ? (appleEmail || email).toLowerCase() : null,
       play_email: (platform === 'android' || platform === 'both') ? (playEmail || email).toLowerCase() : null,
-      keyboard_model: keyboardModel,
+      keyboard_model: finalKeyboardModel.substring(0, 100),
       notes: notes || null,
       consent: true,
       status: 'pending'
