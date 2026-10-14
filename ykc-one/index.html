@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YKC One — CSI Yesu Krupalaya Church · Mysuru</title>
+  <meta name="description"
+    content="Official companion app for CSI Yesu Krupalaya Church (Mysuru). Turn-by-turn carol routes with AES-256 coordinate encryption, parish directory, and verified double-entry church ledger receipts.">
+  <meta name="theme-color" content="#070a12">
+  <link rel="canonical" href="https://projects.reyziehomelab.com/ykc-one/">
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://projects.reyziehomelab.com/ykc-one/">
+  <meta property="og:title" content="YKC One — CSI Yesu Krupalaya Church · Mysuru">
+  <meta property="og:description"
+    content="Official companion app for CSI Yesu Krupalaya Church: Christmas Carol Rounds, Parish Directory, and Verified Church Ledger.">
+  <meta property="og:image" content="https://projects.reyziehomelab.com/ykc-one/assets/feature_graphic.png">
+
+  <!-- Favicon & Icons -->
+  <link rel="icon" type="image/png" href="assets/app_icon.png">
+  <link rel="apple-touch-icon" href="assets/app_icon.png">
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Sticky Header & Nav Tabs -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="#overview" class="brand" data-tab="overview">
+        <img src="assets/app_icon.png" alt="YKC One App Icon" class="brand-icon">
+        <div class="brand-info">
+          <span class="brand-title">YKC One</span>
+          <span class="brand-badge">CSI Yesu Krupalaya Church · Mysuru</span>
+        </div>
+      </a>
+
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle Navigation Menu">
+        Menu ▾
+      </button>
+
+      <ul class="nav-tabs" id="navTabs">
+        <li>
+          <button class="tab-btn active" data-tab="overview">
+            <span>⛪ Overview</span>
+          </button>
+        </li>
+        <li>
+          <button class="tab-btn" data-tab="privacy">
+            <span>🛡️ Privacy Policy</span>
+          </button>
+        </li>
+        <li>
+          <button class="tab-btn danger-tab" data-tab="delete-account">
+            <span>🗑️ Data &amp; Account Deletion</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- ====================================================================
+         TAB 1: APP OVERVIEW & SHOWCASE
+         ==================================================================== -->
+    <div class="tab-content active" id="tab-overview">
+      <div class="container">
+        
+        <!-- Hero Section -->
+        <section class="hero-section">
+          <div class="hero-pill">
+            <span class="dot"></span>
+            <span>Official Release v1.0.0 · Mysore Diocese</span>
+          </div>
+
+          <h1 class="hero-title">
+            Parish Fellowship, Carol Rounds &amp; <span class="gradient-text">Transparent Stewardship</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            The dedicated digital companion for <strong>CSI Yesu Krupalaya Church</strong>, Ramakrishna Nagar, Mysuru.
+            Bringing together household parish registries, turn-by-turn Christmas carol navigation, and verified
+            double-entry ledger giving into one secure, beautifully crafted platform.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="document.querySelector('[data-tab=\'delete-account\']').click()">
+              Manage Account &amp; Data Deletion &rarr;
+            </button>
+            <button class="btn btn-secondary" onclick="document.querySelector('[data-tab=\'privacy\']').click()">
+              Read Privacy Policy
+            </button>
+          </div>
+
+          <!-- Feature Graphic Banner -->
+          <div class="showcase-card">
+            <img src="assets/feature_graphic.png" alt="YKC One Church Showcase Graphic">
+          </div>
+        </section>
+
+        <!-- Technical Specification Row -->
+        <div class="spec-box">
+          <div class="spec-item">
+            <span class="spec-label">Application ID</span>
+            <span class="spec-value">com.reyzie.oneykc</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Parish Location</span>
+            <span class="spec-value">Ramakrishna Nagar, Mysuru</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Coordinate Security</span>
+            <span class="spec-value">AES-256 GCM Shield</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Statutory Compliance</span>
+            <span class="spec-value">80G / Form 10BD Receipts</span>
+          </div>
+        </div>
+
+        <!-- Core Feature Cards -->
+        <section class="features-grid">
+          
+          <!-- Carol Rounds -->
+          <div class="feature-card highlight">
+            <div class="feature-icon-box">🎄</div>
+            <h3 class="feature-title">Christmas Carol Rounds &amp; Navigation</h3>
+            <p class="feature-desc">
+              Tailored turn-by-turn road guidance optimized for Mysuru layouts across Ramakrishna Nagar, Kuvempunagar,
+              Gokulam, and surrounding parishes during the joyous Christmas carol season.
+            </p>
+            <ul class="feature-points">
+              <li><strong>Privacy Shield:</strong> Coordinates protected by AES-256 encryption.</li>
+              <li><strong>Singer View:</strong> Only the active destination home is shown to carol teams.</li>
+              <li><strong>Real-time Progress:</strong> Live stop tracker and home arrival coordinator.</li>
+            </ul>
+          </div>
+
+          <!-- Parish Registry -->
+          <div class="feature-card">
+            <div class="feature-icon-box">📖</div>
+            <h3 class="feature-title">Parish Directory &amp; Family Registry</h3>
+            <p class="feature-desc">
+              Comprehensive directory of enrolled parishioner families, enabling pastoral care, prayer requests, home
+              visit scheduling, and community announcements.
+            </p>
+            <ul class="feature-points">
+              <li><strong>Household Profiles:</strong> Family relationships and contact channels.</li>
+              <li><strong>Pastoral Visits:</strong> Accurate home location mapping for pastors.</li>
+              <li><strong>Self-Service:</strong> Family heads manage their own members and contact updates.</li>
+            </ul>
+          </div>
+
+          <!-- Verified Church Ledger -->
+          <div class="feature-card">
+            <div class="feature-icon-box">⛪</div>
+            <h3 class="feature-title">Double-Entry Ledger &amp; Verified Receipts</h3>
+            <p class="feature-desc">
+              Complete financial stewardship and accountability. Members receive instant verified digital receipts
+              for all tithes, thanksgiving offerings, and charity donations.
+            </p>
+            <ul class="feature-points">
+              <li><strong>Authorized Signatures:</strong> Digital presbyter &amp; treasurer endorsements.</li>
+              <li><strong>Statutory Compliance:</strong> Form 10BD and 80G tax certificate integration.</li>
+              <li><strong>Strict Segregation:</strong> Row-Level Security ensures only your own family receipts are visible.</li>
+            </ul>
+          </div>
+
+        </section>
+
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         TAB 2: DATA & ACCOUNT DELETION PORTAL
+         ==================================================================== -->
+    <div class="tab-content" id="tab-delete-account">
+      <div class="container deletion-wrapper">
+        
+        <div class="deletion-header">
+          <span class="danger-tag">Data Governance &amp; User Control</span>
+          <h1 class="legal-title">Account &amp; Data Deletion Request</h1>
+          <p class="legal-meta">
+            Compliant with Google Play Data Safety &amp; Apple App Store Policy · Response within 24–48 hours
+          </p>
+        </div>
+
+        <div class="legal-notice-box">
+          <strong>Your Right to Control Your Data:</strong> YKC One respects your digital privacy. You have full freedom
+          to request either <strong>partial data deletion</strong> (e.g. wiping your home's GPS coordinates or profile
+          information without closing your parish account) or a <strong>complete account deletion</strong>.
+        </div>
+
+        <!-- Deletion Methods -->
+        <div class="step-card">
+          <h3 class="step-title">
+            <span class="step-number">1</span>
+            Method A: Instant In-App Deletion (Immediate)
+          </h3>
+          <p style="color: var(--text-secondary); font-size: 0.9375rem; margin-bottom: 12px;">
+            If you have the <strong>YKC One</strong> app installed on your smartphone:
+          </p>
+          <ol style="padding-left: 20px; color: var(--text-secondary); font-size: 0.875rem; line-height: 1.8;">
+            <li>Open <strong>YKC One</strong> and navigate to <strong>More</strong> or <strong>Family Settings</strong>.</li>
+            <li>Select <strong>Account &amp; Privacy</strong>.</li>
+            <li>Choose either <strong>"Clear Home Geolocation Pin"</strong> (partial) or <strong>"Delete Account &amp; Access"</strong> (full wipe).</li>
+            <li>Confirm the prompt. Your credentials and stored device session are immediately cleared.</li>
+          </ol>
+        </div>
+
+        <div class="step-card">
+          <h3 class="step-title">
+            <span class="step-number">2</span>
+            Method B: Web Deletion Request Portal
+          </h3>
+          <p style="color: var(--text-secondary); font-size: 0.9375rem; margin-bottom: 20px;">
+            If you have uninstalled the app or prefer to submit a verified web request directly to our developer
+            and parish administration, complete the form below. An automated email draft will be formatted for
+            <strong>reynold29clare@gmail.com</strong>.
+          </p>
+
+          <form id="deletionForm" class="form-box">
+            
+            <div class="form-group">
+              <label for="memberName" class="form-label">
+                Parishioner / Family Head Name <span style="color: #f87171;">*</span>
+              </label>
+              <input type="text" id="memberName" class="form-input" placeholder="e.g. John Doe / Family #42" required>
+            </div>
+
+            <div class="form-group">
+              <label for="contactInfo" class="form-label">
+                Registered Mobile Number or Email <span style="color: #f87171;">*</span>
+              </label>
+              <input type="text" id="contactInfo" class="form-input" placeholder="e.g. +91 98765 43210 or name@example.com" required>
+              <p class="form-hint">The phone number or email linked to your YKC One mobile login.</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                What data would you like deleted? <span style="color: #f87171;">*</span>
+              </label>
+              <p class="form-hint" style="margin-bottom: 10px;">
+                You can request deletion of specific data items <strong>without deleting your entire account</strong>:
+              </p>
+
+              <div class="scope-grid">
+                
+                <label class="scope-card" style="border-left: 3px solid #f87171;">
+                  <input type="checkbox" name="deleteScope" value="Full Account & All Mobile Credentials" id="scopeFull">
+                  <div class="scope-text">
+                    <h4 style="color: #f87171;">Complete Account Wipe (Permanent)</h4>
+                    <p>Permanently removes your login account, PIN, active device sessions, and revokes mobile access.</p>
+                  </div>
+                </label>
+
+                <label class="scope-card" style="border-left: 3px solid #3b82f6;">
+                  <input type="checkbox" name="deleteScope" value="Household GPS Coordinates & Carol Route Pin" id="scopeGeo">
+                  <div class="scope-text">
+                    <h4 style="color: #60a5fa;">Delete Household GPS Pin Only (Keep Account Active)</h4>
+                    <p>Wipes your residential latitude/longitude coordinates and door directions from carol/visit maps while preserving your church directory account.</p>
+                  </div>
+                </label>
+
+                <label class="scope-card" style="border-left: 3px solid #fbbf24;">
+                  <input type="checkbox" name="deleteScope" value="Profile Photo & Contact Information" id="scopeProfile">
+                  <div class="scope-text">
+                    <h4 style="color: #fbbf24;">Delete Profile Photo &amp; Optional Details (Keep Account Active)</h4>
+                    <p>Removes uploaded family photos, alternate phone numbers, or optional profile notes while preserving your member registry.</p>
+                  </div>
+                </label>
+
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="deletionReason" class="form-label">Additional Instructions or Remarks (Optional)</label>
+              <textarea id="deletionReason" class="form-textarea" placeholder="Provide any additional details or specific requests here..."></textarea>
+            </div>
+
+            <div style="margin-top: 24px;">
+              <button type="submit" class="btn btn-danger" style="width: 100%;">
+                Generate Verified Deletion Request &rarr;
+              </button>
+            </div>
+
+          </form>
+
+          <!-- Success & Dispatch Box -->
+          <div class="success-box" id="deletionSuccessBox">
+            <div class="receipt-header">
+              <div class="check-icon">✓</div>
+              <div>
+                <h3 style="color: #ffffff; font-size: 1.15rem; margin-bottom: 2px;">Deletion Request Ready</h3>
+                <p style="color: var(--text-muted); font-size: 0.8125rem;">Dispatch your verified request to the parish administrator.</p>
+              </div>
+            </div>
+
+            <table class="receipt-table">
+              <tr>
+                <td>Reference ID</td>
+                <td id="receiptId">YKC-DEL-XXXXXX</td>
+              </tr>
+              <tr>
+                <td>Member Name</td>
+                <td id="receiptMember">—</td>
+              </tr>
+              <tr>
+                <td>Contact Info</td>
+                <td id="receiptContact">—</td>
+              </tr>
+              <tr>
+                <td>Selected Scope</td>
+                <td id="receiptScope">—</td>
+              </tr>
+              <tr>
+                <td>Recipient</td>
+                <td>reynold29clare@gmail.com</td>
+              </tr>
+            </table>
+
+            <div class="dispatch-actions">
+              <a href="#" id="gmailWebBtn" target="_blank" class="btn btn-primary">
+                Open in Gmail Web ↗
+              </a>
+              <a href="#" id="mailtoBtn" class="btn btn-secondary">
+                Open in Mail App ✉
+              </a>
+              <button type="button" id="copyDetailsBtn" class="btn btn-outline">
+                <span id="copyBtnText">Copy Request Details</span>
+              </button>
+            </div>
+
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 18px; line-height: 1.5;">
+              <strong>Note regarding audited church records:</strong> Under Indian Trust and non-profit accounting regulations,
+              historical tithe receipts and audited accounting vouchers are retained for statutory financial compliance.
+              Personal phone numbers, login PINs, and household GPS coordinates will be permanently purged upon request.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         TAB 3: PRIVACY POLICY
+         ==================================================================== -->
+    <div class="tab-content" id="tab-privacy">
+      <div class="container legal-wrapper">
+        
+        <div class="legal-header">
+          <span class="legal-badge">Official Policy</span>
+          <h1 class="legal-title">Privacy Policy for YKC One</h1>
+          <div class="legal-meta">
+            Effective: October 15, 2026 · Last Updated: October 15, 2026 · Bundle ID: com.reyzie.oneykc
+          </div>
+        </div>
+
+        <div class="legal-notice-box">
+          <strong>Summary:</strong> YKC One is the official parish companion for <strong>CSI Yesu Krupalaya Church</strong> (Mysuru).
+          We do not sell, rent, monetize, or share your data with advertisers. Household GPS coordinates are protected by AES-256
+          encryption, and all records are strictly governed by PostgreSQL Row-Level Security.
+        </div>
+
+        <div class="legal-section">
+          <h2>1. Overview &amp; Parish Philosophy</h2>
+          <p>
+            Welcome to <strong>YKC One</strong> ("the App", "we", "us", or "our"), the official church and parish companion
+            application for <strong>CSI Yesu Krupalaya Church</strong>, Ramakrishna Nagar, Mysuru, Karnataka.
+          </p>
+          <p>
+            YKC One is built exclusively to support our church community, spiritual fellowship, pastoral care, seasonal Christmas
+            carol rounds, and transparent financial stewardship. We adhere to the highest standards of data integrity and privacy.
+          </p>
+        </div>
+
+        <div class="legal-section">
+          <h2>2. Information We Collect &amp; Why</h2>
+          
+          <h3>A. Parish Registry &amp; Directory Information</h3>
+          <ul>
+            <li><strong>Personal Details:</strong> Names, gender, relationship to the family head, marital status, and dates of birth.</li>
+            <li><strong>Parish Milestones:</strong> Wedding anniversaries and family parish enrollment numbers.</li>
+            <li><strong>Contact Details:</strong> Phone numbers, email addresses, and residential physical addresses.</li>
+            <li><strong>Profile Photos:</strong> Optional profile or family photos uploaded to the parish directory.</li>
+          </ul>
+
+          <h3>B. Carol Rounds, Home Visits &amp; Location Data</h3>
+          <ul>
+            <li><strong>Household GPS Coordinates:</strong> Latitude and longitude coordinates of parishioner homes saved to facilitate pastoral home visits and seasonal Christmas carol rounds.</li>
+            <li><strong>Privacy-First Coordinate Shield:</strong> Household coordinates are secured with AES-256 encryption. Only active destination homes are revealed to singer devices during live rounds.</li>
+            <li><strong>Live Device Location:</strong> Accessed solely while actively navigating to a member home during carol rounds or when a family head drops their home pin. We <strong>never</strong> track background movements.</li>
+          </ul>
+
+          <h3>C. Financial Giving, Tithes &amp; Ledger Records</h3>
+          <ul>
+            <li><strong>Tithes &amp; Offerings:</strong> Contribution amounts, payment modes (Cash, Cheque, UPI, Bank Transfer), voucher numbers, and digital receipts.</li>
+            <li><strong>Authorized Signatures:</strong> Digital signatures authorized by church presbyters and treasurers to validate receipts.</li>
+            <li><strong>Statutory 80G Tax Exemption Data:</strong> For donors claiming statutory tax deductions, legal names, addresses, and PAN are collected strictly to issue Form 10BD certificates and official donation receipts.</li>
+          </ul>
+        </div>
+
+        <div class="legal-section">
+          <h2>3. Device Permissions &amp; Transparency</h2>
+          <ul>
+            <li><strong>Location (<code>ACCESS_FINE_LOCATION</code>, <code>ACCESS_COARSE_LOCATION</code>):</strong> Used during Christmas carol rounds for turn-by-turn navigation between parishioner homes, and for family heads to drop house pins.</li>
+            <li><strong>Internet Access (<code>INTERNET</code>):</strong> Connects securely via TLS/HTTPS to our encrypted cloud backend (Supabase) to synchronize receipts and directory details.</li>
+            <li><strong>Photo Library (<code>READ_MEDIA_IMAGES</code>):</strong> Used solely when a church treasurer uploads an authorized receipt signature or when members select profile photos.</li>
+          </ul>
+        </div>
+
+        <div class="legal-section">
+          <h2>4. Role-Based Access &amp; Row-Level Security</h2>
+          <p>
+            Our cloud database strictly enforces <strong>Row-Level Security (RLS)</strong>:
+          </p>
+          <ul>
+            <li><strong>Family Heads:</strong> Can only view their own household records and tithe receipts. Other families' records and the general ledger remain inaccessible.</li>
+            <li><strong>Carol Singers:</strong> Receive temporary, route-specific directions strictly during active carol nights.</li>
+            <li><strong>Data Team:</strong> Can update member phone numbers and addresses, with zero access to financial books or tithe receipts.</li>
+            <li><strong>Treasurers &amp; Presbyters:</strong> Manage vouchers, double-entry ledgers, and official receipts.</li>
+          </ul>
+        </div>
+
+        <div class="legal-section">
+          <h2>5. Data Retention &amp; User Deletion Rights</h2>
+          <p>
+            Parishioners have the right to request the correction or deletion of their data at any time:
+          </p>
+          <ul>
+            <li><strong>Partial Data Deletion:</strong> You may request deletion of specific items (such as your home GPS pin, directions, or profile photos) without deleting your account.</li>
+            <li><strong>Full Account Deletion:</strong> You may request complete account deletion, which revokes your login credentials, clears stored sessions, and wipes linked device access.</li>
+            <li><strong>Audited Financial Records:</strong> Tithe receipts and double-entry accounting records are legal financial books of the church and are retained in compliance with applicable statutory non-profit and trust accounting regulations.</li>
+          </ul>
+          <p>
+            To submit a deletion request, use the <a href="#delete-account" onclick="document.querySelector('[data-tab=\'delete-account\']').click()" style="color: var(--royal-blue-light); text-decoration: underline;">Data &amp; Account Deletion Portal</a>.
+          </p>
+        </div>
+
+        <div class="legal-section">
+          <h2>6. Contact Details</h2>
+          <p>
+            For any privacy inquiries or assistance regarding your records, please contact:
+          </p>
+          <div class="spec-box" style="margin-top: 14px;">
+            <div class="spec-item">
+              <span class="spec-label">Parish</span>
+              <span class="spec-value">CSI Yesu Krupalaya Church</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Address</span>
+              <span class="spec-value">Ramakrishna Nagar, Mysuru, Karnataka</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Email Support</span>
+              <span class="spec-value"><a href="mailto:reynold29clare@gmail.com" style="color: #60a5fa;">reynold29clare@gmail.com</a></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3>YKC One · CSI Yesu Krupalaya Church</h3>
+          <p>Ramakrishna Nagar, Mysuru, Karnataka, India</p>
+          <p style="margin-top: 4px; font-size: 0.8125rem;">Dedicated parish companion for carols, registry, and stewardship.</p>
+        </div>
+
+        <ul class="footer-links">
+          <li><a href="#overview" onclick="document.querySelector('[data-tab=\'overview\']').click()">Overview</a></li>
+          <li><a href="#privacy" onclick="document.querySelector('[data-tab=\'privacy\']').click()">Privacy Policy</a></li>
+          <li><a href="#delete-account" onclick="document.querySelector('[data-tab=\'delete-account\']').click()">Account &amp; Data Deletion</a></li>
+          <li><a href="mailto:reynold29clare@gmail.com">Contact Developer</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 CSI Yesu Krupalaya Church &bull; Developed by Reynold (Reyzie)</div>
+        <div>Package: <code style="color: #93c5fd; font-family: var(--font-mono);">com.reyzie.oneykc</code></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>

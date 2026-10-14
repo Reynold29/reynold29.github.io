@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data &amp; Account Deletion — YKC One (CSI Yesu Krupalaya Church)</title>
+  <meta name="description"
+    content="Request account or selective data deletion for YKC One (CSI Yesu Krupalaya Church). Request removal of household GPS pins, profile photos, or complete account deletion.">
+  <meta name="theme-color" content="#070a12">
+  <link rel="canonical" href="https://projects.reyziehomelab.com/ykc-one/account-deletion.html">
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://projects.reyziehomelab.com/ykc-one/account-deletion.html">
+  <meta property="og:title" content="Data &amp; Account Deletion — YKC One">
+  <meta property="og:description"
+    content="Official deletion request portal for YKC One. Delete your entire account or specific portions of your data without deleting your account.">
+  <meta property="og:image" content="https://projects.reyziehomelab.com/ykc-one/assets/feature_graphic.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/app_icon.png">
+  <link rel="apple-touch-icon" href="assets/app_icon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand">
+        <img src="assets/app_icon.png" alt="YKC One App Icon" class="brand-icon">
+        <div class="brand-info">
+          <span class="brand-title">YKC One</span>
+          <span class="brand-badge">CSI Yesu Krupalaya Church · Mysuru</span>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <a href="index.html" class="btn btn-outline" style="padding: 8px 18px; font-size: 0.85rem;">&larr; Back to App Portal</a>
+      </div>
+    </div>
+  </header>
+
+  <main style="padding: 48px 0 80px;">
+    <div class="container deletion-wrapper">
+      
+      <div class="deletion-header">
+        <span class="danger-tag">Data Governance &amp; User Control</span>
+        <h1 class="legal-title">Data &amp; Account Deletion Portal</h1>
+        <p class="legal-meta">
+          Compliant with Google Play Store Data Safety &amp; Apple App Store Policy · Response within 24–48 hours
+        </p>
+      </div>
+
+      <div class="legal-notice-box" style="border-left-color: #f87171; background: rgba(239, 68, 68, 0.08);">
+        <strong>Delete Data Without Deleting Your Account:</strong> You are <strong>not</strong> required to delete your entire
+        parish member account to remove specific data. You may request the deletion of individual data components (such as your
+        residential GPS location pin, carol navigation directions, or uploaded family photos) while keeping your church directory account
+        and digital receipt access fully intact.
+      </div>
+
+      <!-- Deletion Methods -->
+      <div class="step-card">
+        <h3 class="step-title">
+          <span class="step-number">1</span>
+          Method A: Instant In-App Deletion (Fastest)
+        </h3>
+        <p style="color: var(--text-secondary); font-size: 0.9375rem; margin-bottom: 12px;">
+          If you have the <strong>YKC One</strong> app installed on your smartphone:
+        </p>
+        <ol style="padding-left: 20px; color: var(--text-secondary); font-size: 0.875rem; line-height: 1.8;">
+          <li>Open <strong>YKC One</strong> and navigate to <strong>More</strong> or <strong>Family Settings</strong>.</li>
+          <li>Select <strong>Account &amp; Privacy</strong>.</li>
+          <li>Choose either <strong>"Clear Home Geolocation Pin"</strong> (partial wipe) or <strong>"Delete Account &amp; Access"</strong> (full wipe).</li>
+          <li>Confirm the prompt. Your credentials and stored device session are immediately cleared.</li>
+        </ol>
+      </div>
+
+      <div class="step-card">
+        <h3 class="step-title">
+          <span class="step-number">2</span>
+          Method B: Web Deletion Request Portal
+        </h3>
+        <p style="color: var(--text-secondary); font-size: 0.9375rem; margin-bottom: 20px;">
+          If you have uninstalled the app or prefer to submit a verified web request directly to our developer
+          and parish administration, complete the form below. An automated email draft will be formatted for
+          <strong>reynold29clare@gmail.com</strong>.
+        </p>
+
+        <form id="deletionForm" class="form-box">
+          
+          <div class="form-group">
+            <label for="memberName" class="form-label">
+              Parishioner / Family Head Name <span style="color: #f87171;">*</span>
+            </label>
+            <input type="text" id="memberName" class="form-input" placeholder="e.g. John Doe / Family #42" required>
+          </div>
+
+          <div class="form-group">
+            <label for="contactInfo" class="form-label">
+              Registered Mobile Number or Email <span style="color: #f87171;">*</span>
+            </label>
+            <input type="text" id="contactInfo" class="form-input" placeholder="e.g. +91 98765 43210 or name@example.com" required>
+            <p class="form-hint">The phone number or email linked to your YKC One mobile login.</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              What data would you like deleted? <span style="color: #f87171;">*</span>
+            </label>
+            <p class="form-hint" style="margin-bottom: 10px;">
+              Choose whether you wish to delete specific items or wipe your entire account:
+            </p>
+
+            <div class="scope-grid">
+              
+              <label class="scope-card" style="border-left: 3px solid #3b82f6;">
+                <input type="checkbox" name="deleteScope" value="Household GPS Coordinates & Carol Route Pin" id="scopeGeo">
+                <div class="scope-text">
+                  <h4 style="color: #60a5fa;">1. Delete Household GPS Pin Only (Keep Account Active)</h4>
+                  <p>Permanently deletes your residential latitude/longitude coordinates and door directions from carol/visit maps while preserving your church directory account.</p>
+                </div>
+              </label>
+
+              <label class="scope-card" style="border-left: 3px solid #fbbf24;">
+                <input type="checkbox" name="deleteScope" value="Profile Photo & Contact Information" id="scopeProfile">
+                <div class="scope-text">
+                  <h4 style="color: #fbbf24;">2. Delete Profile Photo &amp; Optional Details (Keep Account Active)</h4>
+                  <p>Removes uploaded family photos, alternate phone numbers, or optional profile notes while preserving your member registry.</p>
+                </div>
+              </label>
+
+              <label class="scope-card" style="border-left: 3px solid #f87171;">
+                <input type="checkbox" name="deleteScope" value="Full Account & All Mobile Credentials" id="scopeFull">
+                <div class="scope-text">
+                  <h4 style="color: #f87171;">3. Complete Account Wipe (Permanent)</h4>
+                  <p>Permanently removes your login account, PIN, active device sessions, and revokes mobile access.</p>
+                </div>
+              </label>
+
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="deletionReason" class="form-label">Additional Instructions or Remarks (Optional)</label>
+            <textarea id="deletionReason" class="form-textarea" placeholder="Provide any additional details or specific requests here..."></textarea>
+          </div>
+
+          <div style="margin-top: 24px;">
+            <button type="submit" class="btn btn-danger" style="width: 100%;">
+              Generate Verified Deletion Request &rarr;
+            </button>
+          </div>
+
+        </form>
+
+        <!-- Success & Dispatch Box -->
+        <div class="success-box" id="deletionSuccessBox">
+          <div class="receipt-header">
+            <div class="check-icon">✓</div>
+            <div>
+              <h3 style="color: #ffffff; font-size: 1.15rem; margin-bottom: 2px;">Deletion Request Ready</h3>
+              <p style="color: var(--text-muted); font-size: 0.8125rem;">Dispatch your verified request to the parish administrator.</p>
+            </div>
+          </div>
+
+          <table class="receipt-table">
+            <tr>
+              <td>Reference ID</td>
+              <td id="receiptId">YKC-DEL-XXXXXX</td>
+            </tr>
+            <tr>
+              <td>Member Name</td>
+              <td id="receiptMember">—</td>
+            </tr>
+            <tr>
+              <td>Contact Info</td>
+              <td id="receiptContact">—</td>
+            </tr>
+            <tr>
+              <td>Selected Scope</td>
+              <td id="receiptScope">—</td>
+            </tr>
+            <tr>
+              <td>Recipient</td>
+              <td>reynold29clare@gmail.com</td>
+            </tr>
+          </table>
+
+          <div class="dispatch-actions">
+            <a href="#" id="gmailWebBtn" target="_blank" class="btn btn-primary">
+              Open in Gmail Web ↗
+            </a>
+            <a href="#" id="mailtoBtn" class="btn btn-secondary">
+              Open in Mail App ✉
+            </a>
+            <button type="button" id="copyDetailsBtn" class="btn btn-outline">
+              <span id="copyBtnText">Copy Request Details</span>
+            </button>
+          </div>
+
+          <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 18px; line-height: 1.5;">
+            <strong>Note regarding audited church records:</strong> Under Indian Trust and non-profit accounting regulations,
+            historical tithe receipts and audited accounting vouchers are retained for statutory financial compliance.
+            Personal phone numbers, login PINs, and household GPS coordinates will be permanently purged upon request.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3>YKC One · CSI Yesu Krupalaya Church</h3>
+          <p>Ramakrishna Nagar, Mysuru, Karnataka, India</p>
+        </div>
+
+        <ul class="footer-links">
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="account-deletion.html">Account &amp; Data Deletion</a></li>
+          <li><a href="mailto:reynold29clare@gmail.com">Contact Developer</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 CSI Yesu Krupalaya Church &bull; Developed by Reynold (Reyzie)</div>
+        <div>Package: <code style="color: #93c5fd; font-family: var(--font-mono);">com.reyzie.oneykc</code></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>
