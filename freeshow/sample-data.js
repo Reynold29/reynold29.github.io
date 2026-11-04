@@ -1,4 +1,4 @@
-export const SAMPLE_SONGS = {
+const SAMPLE_SONGS = {
   "keerthane_1": {
     "kannadaLyrics": "ಸ್ತೋತ್ರವರ್ಪಿಸುವ - ಯೆಹೋವನಿಗೆ \n  ಸ್ತೋತ್ರವರ್ಪಿಸುವ  - ಭ್ರಾತ್ರುಗಳಿರಾ \n  ಸ್ತೋತ್ರವರ್ಪಿಸುವ \n\n1. ಅನವಧಿಗವ್ಯಯ  ದೇವಗೆ \nಅನುಪಮ  ದೃಡ  ಸತ್ಯಶೀಲಗೆ \nಘನಗೇ  ನಿರಾಮಯ    ನಿತ್ಯಗೆ  ದಿವ್ಯ \nಘನಮಾನ  ಸ್ತೋತ್ರ  ತ್ರಾಣ  ನಿನಗೆಂದೀಗ \n\n2. ಸರ್ವಜ್ಞನು  ಪರಂಜ್ಯೋತಿಯು \nಸರ್ವಮಹಿಮ  ನಿಷ್ಕಳಂಕನು \nಸರ್ವಸಾಕ್ಷಿಯು  ಸ್ವಪ್ರಕಾಶನು  ಆದ \nಸರ್ವಕರ್ತನ  ಪಾದಕ್ಕೆರಗಿ  ನಮೋ  ಎಂದು\n\n3. ಸರ್ವಶಕ್ತನು  ನಿರಾತಂಕನು \nಸರ್ವವ್ಯಾಪಿಯು  ಪರಾತ್ಪರನು \nಓರ್ವನೇ  ನೀ  ಮಾತ್ರ  ಸ್ತೋತ್ರಕ್ಕೆಂದಿಗೂ \nಊರ್ವಿಯೊಳ್ಪಾತ್ರನೆಂದರಿತು  ಕೊಂಡಾಡುತ \n\n4. ಸೊಲ್ಲಿನಿಂದಲೆ  ಸಕಲ  ಲೋಕವ  - ಆದ \nರೆಲ್ಲ  ಸೈನ್ಯಗಳನ್ನು  ನಿರ್ಮಿಸಿ \nನಿಲ್ಲದೆ  ಸಲಹುವ  ತಂದೆಗೆ  ಶುಭ \nಹಲ್ಲೆಲೂಯ  ಹಲ್ಲೆಲೂಯ  ಎಂದೆನ್ನುತ\n\n5. ನರರ  ಪಾಪಗಳನ್ನು  ಮನ್ನಿಸಿ  - ಘೋರ \nನರಕದ  ಬಾಧೆಯಿಂ  ತಪ್ಪಿಸಿ \nಭಾರಿತಾನಂದೊಳೆಮ್ಮ  ಸೇರಿಸೆ  ತನ್ನ \nಪರಮಪುತ್ರನನ್ನು  ಮರಣಕ್ಕೊಪ್ಪಿಸಿದವಗೆ",
     "lyrics": "Stotravarpisuva- Yehovanige\n  Stotravarpisuva - Bhraatrugalira \n  Stotravarpisuva\n\n1. Anavadhigayvaya devage\nAnupama Drda Satyasheelage\nGhanage Neraamaya Nityage Divya\nGhanamaana Stotra Traana Ninagendeega\n\n2. Sarvagnanu Paranjyotiyu\nSarvamahima Nishkalankanu\nSarvasaakshiyu Srushtiprakaashanu ada\nSarvakartana Paadakkeragi Namo Endu\n\n3. Sarvashaktanu Niraatankanu\nSarvavyaapiyu Paraatparanu\nOrvane Nee Maatra Stotrakkendigoo\nOorviyolpaatranendaritu Kondaaduta\n\n4. Sollinindale Sakala Lokada - Ada\nRella Sainyagalannu Nirmisi\nNillade Salahuva Tandege Shubha\nHallelooya Hallelooya Endennuta\n\n5. Narara Paapagalannu Mannisi - Ghora\nNarakada Baadheyim Tappisi\nBharitaanandolemma Serise Tanna\nParamaputranannu Maranakkoppisidavage",
@@ -50,3 +50,6 @@ export const SAMPLE_SONGS = {
     ]
   }
 };
+
+if (typeof window !== "undefined") window.SAMPLE_SONGS = SAMPLE_SONGS;
+if (typeof module !== "undefined") module.exports = { SAMPLE_SONGS };

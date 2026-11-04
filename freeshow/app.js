@@ -1,5 +1,5 @@
-import { parseSlides, formatFreeShowJson, formatQuickLyricsText } from './formatter.js';
-import { SAMPLE_SONGS } from './sample-data.js';
+const getFormatter = () => (typeof window !== 'undefined' && window.FreeShowFormatter) || {};
+const getSampleSongs = () => (typeof window !== 'undefined' && window.getSampleSongs()) || {};
 
 // Configuration Defaults
 const DEFAULT_SUPABASE_URL = 'https://vvecgfmnbhlfbtsemlnt.supabase.co/functions/v1/lyrics';
@@ -239,8 +239,8 @@ class FreeShowApp {
 
     // 2. Fallback to authentic pre-loaded samples
     const sampleKey = `${category}_${number}`;
-    if (SAMPLE_SONGS[sampleKey]) {
-      return SAMPLE_SONGS[sampleKey];
+    if (getSampleSongs()[sampleKey]) {
+      return getSampleSongs()[sampleKey];
     }
 
     // Fallback stub if neither live nor exact sample
@@ -266,7 +266,7 @@ class FreeShowApp {
   rebuildSlides() {
     if (!this.currentSong) return;
 
-    this.currentSlides = parseSlides({
+    this.currentSlides = getFormatter().parseSlides({
       number: this.number,
       title: this.currentSong.title || '',
       category: this.category,
@@ -331,7 +331,7 @@ class FreeShowApp {
       return;
     }
 
-    const showJson = formatFreeShowJson({
+    const showJson = getFormatter().formatFreeShowJson({
       number: this.number,
       title: this.currentSong.title || '',
       category: this.category,
@@ -351,7 +351,7 @@ class FreeShowApp {
       return;
     }
 
-    const ql = formatQuickLyricsText({
+    const ql = getFormatter().formatQuickLyricsText({
       number: this.number,
       title: this.currentSong.title || '',
       category: this.category,
@@ -412,7 +412,7 @@ class FreeShowApp {
 
     try {
       const song = await this.fetchSong(cat, num);
-      const slides = parseSlides({
+      const slides = getFormatter().parseSlides({
         number: num,
         title: song.title || '',
         category: cat,
@@ -568,7 +568,7 @@ class FreeShowApp {
       const folder = zip.folder('Sunday-Service-FreeShow');
 
       this.setlist.forEach((item, idx) => {
-        const showJson = formatFreeShowJson({
+        const showJson = getFormatter().formatFreeShowJson({
           number: item.number,
           title: item.title,
           category: item.category,
@@ -601,7 +601,7 @@ class FreeShowApp {
 
     this.setlist.forEach((item, idx) => {
       setTimeout(() => {
-        const showJson = formatFreeShowJson({
+        const showJson = getFormatter().formatFreeShowJson({
           number: item.number,
           title: item.title,
           category: item.category,
@@ -649,7 +649,7 @@ class FreeShowApp {
     const title = this.pasteTitleInput.value.trim() || 'Custom Presentation';
     const category = this.pasteCatSelect.value;
 
-    const slides = parseSlides({
+    const slides = getFormatter().parseSlides({
       number: 1,
       title: title,
       category: category,
@@ -658,7 +658,7 @@ class FreeShowApp {
       mode: 'kannada'
     });
 
-    const showJson = formatFreeShowJson({
+    const showJson = getFormatter().formatFreeShowJson({
       number: 1,
       title: title,
       category: category,
@@ -680,7 +680,7 @@ class FreeShowApp {
     const title = this.pasteTitleInput.value.trim() || 'Custom Presentation';
     const category = this.pasteCatSelect.value;
 
-    const slides = parseSlides({
+    const slides = getFormatter().parseSlides({
       number: 1,
       title: title,
       category: category,
@@ -689,7 +689,7 @@ class FreeShowApp {
       mode: 'kannada'
     });
 
-    const ql = formatQuickLyricsText({
+    const ql = getFormatter().formatQuickLyricsText({
       number: 1,
       title: title,
       category: category,
