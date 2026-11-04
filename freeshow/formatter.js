@@ -206,41 +206,15 @@
           align: '',
           lines: linesList
         },
-        // Watermark Prefix: "By"
         {
-          style: 'top: 940px; left: 1430px; width: 45px; height: 50px;',
+          style: 'top: 940px; left: 80px; width: 1760px; height: 50px;',
           align: '',
           lines: [
             {
               align: 'text-align: right;',
               text: [
                 {
-                  value: 'By',
-                  style: 'font-size: 28px; color: rgb(255 255 255 / 0.55);'
-                }
-              ]
-            }
-          ],
-          decoration: true
-        },
-        // Watermark Logo: 30x30 base64 icon
-        {
-          type: 'media',
-          style: 'top: 950px; left: 1485px; width: 30px; height: 30px; border-radius: 6px;',
-          src: APP_LOGO_BASE64,
-          fit: 'contain',
-          decoration: true
-        },
-        // Watermark Suffix: "CSI Hymns Book App"
-        {
-          style: 'top: 940px; left: 1525px; width: 315px; height: 50px;',
-          align: '',
-          lines: [
-            {
-              align: 'text-align: left;',
-              text: [
-                {
-                  value: 'CSI Hymns Book App',
+                  value: 'By 📖 CSI Hymns Book App',
                   style: 'font-size: 28px; color: rgb(255 255 255 / 0.55);'
                 }
               ]
