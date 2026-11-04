@@ -173,7 +173,12 @@ class FreeShowApp {
     this.btnClearSetlist.addEventListener('click', () => this.clearSetlist());
 
     // Paste Studio
-    this.btnLoadPasteSample.addEventListener('click', () => this.loadPasteSample());
+    this.pasteTextarea.addEventListener('input', () => this.updatePasteLivePreview());
+    this.pasteCatSelect.addEventListener('change', () => this.updatePasteLivePreview());
+    this.btnLoadPasteSample.addEventListener('click', () => {
+      this.loadPasteSample();
+      this.updatePasteLivePreview();
+    });
     this.btnConvertPasteShow.addEventListener('click', () => this.convertPasteToShow());
     this.btnCopyPasteQuickLyrics.addEventListener('click', () => this.copyPasteQuickLyrics());
 
@@ -190,6 +195,8 @@ class FreeShowApp {
   switchTab(tabId) {
     this.navPills.forEach(b => b.classList.toggle('active', b.getAttribute('data-tab') === tabId));
     this.tabPanes.forEach(pane => pane.classList.toggle('active', pane.id === tabId));
+    const promo = document.getElementById('bottomPromoStrip');
+    if (promo) promo.style.display = (tabId === 'tabApp') ? 'none' : 'flex';
   }
 
   updateCategoryLimits() {
@@ -620,6 +627,44 @@ class FreeShowApp {
   /* ==========================================================================
      Section 3: Paste Studio
      ========================================================================== */
+
+  updatePasteLivePreview() {
+    const raw = this.pasteTextarea.value.trim();
+    const lyricsEl = document.getElementById('pasteLyricsText');
+    const badgeEl = document.getElementById('pasteSlideBadge');
+    const counterEl = document.getElementById('pasteSlideCounter');
+    if (!lyricsEl) return;
+
+    if (!raw) {
+      lyricsEl.textContent = 'Paste lyrics on the left or click "Load Sample" to preview slides here.';
+      if (badgeEl) {
+        badgeEl.textContent = 'Verse 1';
+        badgeEl.classList.remove('chorus');
+      }
+      if (counterEl) counterEl.textContent = '1 / 1';
+      return;
+    }
+
+    const title = this.pasteTitleInput.value.trim() || 'Custom Presentation';
+    const category = this.pasteCatSelect.value;
+    const slides = getFormatter().parseSlides({
+      number: 1,
+      title: title,
+      category: category,
+      kannadaLyrics: raw,
+      englishLyrics: '',
+      mode: 'kannada'
+    });
+
+    if (slides && slides.length > 0) {
+      lyricsEl.textContent = slides[0].content;
+      if (badgeEl) {
+        badgeEl.textContent = slides[0].group;
+        badgeEl.classList.toggle('chorus', slides[0].group.toLowerCase().startsWith('chorus'));
+      }
+      if (counterEl) counterEl.textContent = '1 / ' + slides.length;
+    }
+  }
 
   loadPasteSample() {
     this.pasteTitleInput.value = 'Mahimeyu Ninage Prabhuvē';
