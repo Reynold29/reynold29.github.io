@@ -442,6 +442,14 @@ class FreeShowApp {
 
       this.triggerDownload(filename, blob, 'application/zip');
       this.showToast(`Downloaded ${filename} (Import via File > Import > Project)`);
+      this.logDownloadToSupabase({
+        download_type: 'single',
+        category: this.category,
+        song_number: this.number,
+        song_title: this.currentSong?.title || '',
+        language: this.languageMode,
+        slide_count: this.currentSlides?.length || 0
+      });
     } catch (err) {
       this.showToast(`Failed to export .project: ${err.message}`, true);
     } finally {
@@ -704,6 +712,15 @@ class FreeShowApp {
 
       this.triggerDownload(filename, blob, 'application/zip');
       this.showToast(`Downloaded ${filename} (${this.setlist.length} songs bundled)`);
+      this.logDownloadToSupabase({
+        download_type: 'setlist',
+        category: 'setlist',
+        song_number: null,
+        song_title: `Sunday Service (${this.setlist.length} Songs)`,
+        language: 'mixed',
+        slide_count: this.setlist.reduce((acc, s) => acc + (s.slides?.length || 0), 0),
+        metadata: { songs: this.setlist.map(s => ({ category: s.category, number: s.number, title: s.title })) }
+      });
     } catch (err) {
       this.showToast(`Failed to generate .project: ${err.message}`, true);
     } finally {
@@ -862,6 +879,14 @@ class FreeShowApp {
 
       this.triggerDownload(filename, blob, 'application/zip');
       this.showToast(`Converted & downloaded ${filename} (${slides.length} slides)`);
+      this.logDownloadToSupabase({
+        download_type: 'paste',
+        category: category,
+        song_number: null,
+        song_title: title,
+        language: 'custom',
+        slide_count: slides.length
+      });
     } catch (err) {
       this.showToast(`Failed to export .project: ${err.message}`, true);
     } finally {
@@ -960,6 +985,40 @@ class FreeShowApp {
   /* ==========================================================================
      Helper Utilities
      ========================================================================== */
+
+  async logDownloadToSupabase(payload) {
+    try {
+      let baseUrl = 'https://vvecgfmnbhlfbtsemlnt.supabase.co';
+      if (this.apiUrl && this.apiUrl.includes('.supabase.co')) {
+        const match = this.apiUrl.match(/https:\/\/[^/]+/);
+        if (match) baseUrl = match[0];
+      }
+      const endpoint = `${baseUrl}/rest/v1/freeshow_downloads`;
+      const key = this.apiKey || DEFAULT_ANON_KEY;
+
+      await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'apikey': key,
+          'Authorization': `Bearer ${key}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          download_type: payload.download_type || 'single',
+          category: payload.category || null,
+          song_number: payload.song_number || null,
+          song_title: payload.song_title || null,
+          language: payload.language || null,
+          slide_count: payload.slide_count || 0,
+          source: 'web',
+          metadata: payload.metadata || {}
+        })
+      });
+    } catch (e) {
+      console.warn('FreeShow download telemetry log failed:', e);
+    }
+  }
 
   triggerDownload(filename, content, mimeType) {
     const blob = (content instanceof Blob) ? content : new Blob([content], { type: mimeType });
