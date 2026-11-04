@@ -53,6 +53,7 @@ class FreeShowApp {
     this.quickChips = document.querySelectorAll('.quick-chip');
     this.langChips = document.querySelectorAll('.lang-chip-btn');
     this.btnDownloadSingleShow = document.getElementById('btnDownloadSingleShow');
+    this.btnDownloadSingleProject = document.getElementById('btnDownloadSingleProject');
     this.btnAddToSetlistSingle = document.getElementById('btnAddToSetlistSingle');
 
     // Slide Preview
@@ -84,6 +85,7 @@ class FreeShowApp {
     this.pasteTextarea = document.getElementById('pasteTextarea');
     this.btnLoadPasteSample = document.getElementById('btnLoadPasteSample');
     this.btnConvertPasteShow = document.getElementById('btnConvertPasteShow');
+    this.btnConvertPasteProject = document.getElementById('btnConvertPasteProject');
 
     // Settings Modal
     this.btnOpenSettings = document.getElementById('btnOpenSettings');
@@ -180,6 +182,9 @@ class FreeShowApp {
 
     // Single Generator Actions
     this.btnDownloadSingleShow.addEventListener('click', () => this.downloadSingleShow());
+    if (this.btnDownloadSingleProject) {
+      this.btnDownloadSingleProject.addEventListener('click', () => this.downloadSingleProject());
+    }
     this.btnAddToSetlistSingle.addEventListener('click', () => this.addCurrentToSetlist());
 
     // Setlist Actions
@@ -196,6 +201,9 @@ class FreeShowApp {
       this.updatePasteLivePreview();
     });
     this.btnConvertPasteShow.addEventListener('click', () => this.convertPasteToShow());
+    if (this.btnConvertPasteProject) {
+      this.btnConvertPasteProject.addEventListener('click', () => this.convertPasteToProject());
+    }
 
     // Settings
     this.btnOpenSettings.addEventListener('click', () => this.openSettings());
@@ -389,6 +397,83 @@ class FreeShowApp {
 
     this.triggerDownload(filename, showJson, 'application/json');
     this.showToast(`Downloaded ${filename}`);
+  }
+
+  async getAppIconBlob() {
+    try {
+      const resp = await fetch('assets/app_icon.png');
+      if (resp.ok) {
+        return await resp.blob();
+      }
+    } catch (e) {
+      console.warn('Direct fetch of assets/app_icon.png failed, attempting canvas fallback:', e);
+    }
+
+    try {
+      const img = document.querySelector('.monitor-watermark-logo');
+      if (img && (img.naturalWidth || img.complete)) {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth || 64;
+        canvas.height = img.naturalHeight || 64;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        return await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+      }
+    } catch (e) {
+      console.warn('Canvas fallback for app icon failed:', e);
+    }
+    return null;
+  }
+
+  async downloadSingleProject() {
+    if (!this.currentSong || this.currentSlides.length === 0) {
+      this.showToast('Please select a valid song first', true);
+      return;
+    }
+    if (typeof JSZip === 'undefined') {
+      this.showToast('JSZip library loading, please wait...', true);
+      return;
+    }
+
+    const origHtml = this.btnDownloadSingleProject ? this.btnDownloadSingleProject.innerHTML : '';
+    if (this.btnDownloadSingleProject) {
+      this.btnDownloadSingleProject.disabled = true;
+      this.btnDownloadSingleProject.textContent = 'Packaging .project...';
+    }
+
+    try {
+      const projectData = getFormatter().formatFreeShowProjectData({
+        number: this.number,
+        title: this.currentSong.title || '',
+        category: this.category,
+        slides: this.currentSlides
+      });
+
+      const zip = new JSZip();
+      const projectJson = JSON.stringify(projectData, null, 2);
+      zip.file('data.json', projectJson);
+      zip.file('project.json', projectJson);
+
+      const iconBlob = await this.getAppIconBlob();
+      if (iconBlob) {
+        zip.file('app_icon.png', iconBlob);
+      }
+
+      const blob = await zip.generateAsync({ type: 'blob' });
+      const prefix = this.category === 'keerthane' ? 'Keerthane' : this.category === 'mt' ? 'MT_Hymn' : 'Hymn';
+      const cleanTitle = (this.currentSong.title || 'Lyrics').replace(/[^a-zA-Z0-9]/g, '_');
+      const filename = `${prefix}_${this.number}_${cleanTitle}.project`;
+
+      this.triggerDownload(filename, blob, 'application/zip');
+      this.showToast(`Downloaded ${filename} (Import via File > Import > Project)`);
+    } catch (err) {
+      this.showToast(`Failed to export .project: ${err.message}`, true);
+    } finally {
+      if (this.btnDownloadSingleProject) {
+        this.btnDownloadSingleProject.disabled = false;
+        this.btnDownloadSingleProject.innerHTML = origHtml;
+      }
+    }
   }
 
   copySingleQuickLyrics() {
@@ -628,6 +713,27 @@ class FreeShowApp {
         folder.file(filename, showJson);
       });
 
+      // Also bundle an all-in-one .project file containing the full setlist with app icon
+      try {
+        const serviceProjectData = getFormatter().formatFreeShowProjectData({
+          projectName: `Sunday Service (${this.setlist.length} Songs)`,
+          songs: this.setlist
+        });
+        const projJson = JSON.stringify(serviceProjectData, null, 2);
+        const subProjZip = new JSZip();
+        subProjZip.file('data.json', projJson);
+        subProjZip.file('project.json', projJson);
+        const iconBlob = await this.getAppIconBlob();
+        if (iconBlob) {
+          subProjZip.file('app_icon.png', iconBlob);
+          folder.file('app_icon.png', iconBlob);
+        }
+        const projBlob = await subProjZip.generateAsync({ type: 'blob' });
+        folder.file('00_Complete_Sunday_Service.project', projBlob);
+      } catch (projErr) {
+        console.warn('Could not bundle .project in zip:', projErr);
+      }
+
       const blob = await zip.generateAsync({ type: 'blob' });
       const now = new Date().toISOString().split('T')[0];
       const zipName = `CSI-Sunday-Service-${now}.zip`;
@@ -752,6 +858,73 @@ class FreeShowApp {
     const filename = `${title.replace(/[^a-zA-Z0-9]/g, '_')}.show`;
     this.triggerDownload(filename, showJson, 'application/json');
     this.showToast(`Converted & downloaded ${filename} (${slides.length} slides)`);
+  }
+
+  async convertPasteToProject() {
+    const raw = this.pasteTextarea.value.trim();
+    if (!raw) {
+      this.showToast('Please paste lyrics first', true);
+      return;
+    }
+    if (typeof JSZip === 'undefined') {
+      this.showToast('JSZip library loading, please wait...', true);
+      return;
+    }
+
+    const title = this.pasteTitleInput.value.trim() || 'Custom Presentation';
+    const category = this.pasteCatSelect.value;
+
+    const slides = getFormatter().parseSlides({
+      number: 1,
+      title: title,
+      category: category,
+      kannadaLyrics: raw,
+      englishLyrics: '',
+      mode: 'kannada'
+    });
+
+    if (slides.length === 0) {
+      this.showToast('Unable to parse slides from lyrics', true);
+      return;
+    }
+
+    const origHtml = this.btnConvertPasteProject ? this.btnConvertPasteProject.innerHTML : '';
+    if (this.btnConvertPasteProject) {
+      this.btnConvertPasteProject.disabled = true;
+      this.btnConvertPasteProject.textContent = 'Packaging .project...';
+    }
+
+    try {
+      const projectData = getFormatter().formatFreeShowProjectData({
+        number: 1,
+        title: title,
+        category: category,
+        slides: slides
+      });
+
+      const zip = new JSZip();
+      const projectJson = JSON.stringify(projectData, null, 2);
+      zip.file('data.json', projectJson);
+      zip.file('project.json', projectJson);
+
+      const iconBlob = await this.getAppIconBlob();
+      if (iconBlob) {
+        zip.file('app_icon.png', iconBlob);
+      }
+
+      const blob = await zip.generateAsync({ type: 'blob' });
+      const filename = `${title.replace(/[^a-zA-Z0-9]/g, '_')}.project`;
+
+      this.triggerDownload(filename, blob, 'application/zip');
+      this.showToast(`Converted & downloaded ${filename} (${slides.length} slides)`);
+    } catch (err) {
+      this.showToast(`Failed to export .project: ${err.message}`, true);
+    } finally {
+      if (this.btnConvertPasteProject) {
+        this.btnConvertPasteProject.disabled = false;
+        this.btnConvertPasteProject.innerHTML = origHtml;
+      }
+    }
   }
 
   copyPasteQuickLyrics() {

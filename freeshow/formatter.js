@@ -170,11 +170,12 @@
     return out.trim();
   }
 
-  function formatFreeShowJson(options) {
+  function createShowObject(options) {
     const number = options.number || 1;
     const title = options.title || '';
     const category = options.category || 'keerthane';
     const slides = options.slides || [];
+    const includeLogoMedia = Boolean(options.includeLogoMedia);
 
     const prefix = category === 'keerthane' ? 'Keerthane' : category === 'mt' ? 'M.T. Hymn' : 'Hymn';
     const showName = `${prefix} ${number} - ${title || 'Lyrics'}`;
@@ -197,29 +198,79 @@
         ]
       }));
 
-      const itemsList = [
-        {
-          style: 'top: 60px; left: 80px; width: 1760px; height: 860px;',
-          align: '',
-          lines: linesList
-        },
-        {
-          style: 'top: 940px; left: 80px; width: 1760px; height: 50px;',
-          align: '',
-          lines: [
-            {
-              align: 'text-align: right;',
-              text: [
-                {
-                  value: 'By CSI Hymns Book App',
-                  style: 'font-size: 28px; color: rgb(255 255 255 / 0.55);'
-                }
-              ]
-            }
-          ],
-          decoration: true
-        }
-      ];
+      let itemsList;
+      if (includeLogoMedia) {
+        itemsList = [
+          {
+            style: 'top: 60px; left: 80px; width: 1760px; height: 860px;',
+            align: '',
+            lines: linesList
+          },
+          {
+            style: 'top: 940px; left: 1449px; width: 45px; height: 45px;',
+            align: '',
+            lines: [
+              {
+                align: 'text-align: right;',
+                text: [
+                  {
+                    value: 'By',
+                    style: 'font-size: 28px; color: rgb(255 255 255 / 0.55);'
+                  }
+                ]
+              }
+            ],
+            decoration: true
+          },
+          {
+            type: 'media',
+            style: 'top: 945px; left: 1502px; width: 30px; height: 30px; border-radius: 6px;',
+            src: 'app_icon.png',
+            fit: 'contain',
+            decoration: true
+          },
+          {
+            style: 'top: 940px; left: 1540px; width: 300px; height: 45px;',
+            align: '',
+            lines: [
+              {
+                align: 'text-align: left;',
+                text: [
+                  {
+                    value: 'CSI Hymns Book App',
+                    style: 'font-size: 28px; color: rgb(255 255 255 / 0.55);'
+                  }
+                ]
+              }
+            ],
+            decoration: true
+          }
+        ];
+      } else {
+        itemsList = [
+          {
+            style: 'top: 60px; left: 80px; width: 1760px; height: 860px;',
+            align: '',
+            lines: linesList
+          },
+          {
+            style: 'top: 940px; left: 80px; width: 1760px; height: 50px;',
+            align: '',
+            lines: [
+              {
+                align: 'text-align: right;',
+                text: [
+                  {
+                    value: 'By CSI Hymns Book App',
+                    style: 'font-size: 28px; color: rgb(255 255 255 / 0.55);'
+                  }
+                ]
+              }
+            ],
+            decoration: true
+          }
+        ];
+      }
 
       const slideObj = {
         group: slide.group,
@@ -265,7 +316,43 @@
       media: {}
     };
 
-    return JSON.stringify([showId, showData], null, 2);
+    return [showId, showData];
+  }
+
+  function formatFreeShowJson(options) {
+    const showTuple = createShowObject(options);
+    return JSON.stringify(showTuple, null, 2);
+  }
+
+  function formatFreeShowProjectData(options) {
+    const songs = options.songs || [options];
+    const projectName = options.projectName || (songs.length === 1
+      ? `${(songs[0].category === 'keerthane' ? 'Keerthane' : songs[0].category === 'mt' ? 'MT_Hymn' : 'Hymn')} ${songs[0].number || 1} - ${songs[0].title || 'Lyrics'}`
+      : 'CSI Service Setlist');
+    const now = Date.now();
+
+    const showsMap = {};
+    const projectShowsList = [];
+
+    songs.forEach((songOpt) => {
+      const [sId, sData] = createShowObject({
+        ...songOpt,
+        includeLogoMedia: true
+      });
+      showsMap[sId] = sData;
+      projectShowsList.push({ id: sId });
+    });
+
+    return {
+      project: {
+        name: projectName,
+        created: now,
+        shows: projectShowsList
+      },
+      parentFolder: '',
+      shows: showsMap,
+      files: ['app_icon.png']
+    };
   }
 
   const Formatter = {
@@ -273,7 +360,9 @@
     splitIntoParagraphs,
     parseSlides,
     formatQuickLyricsText,
-    formatFreeShowJson
+    createShowObject,
+    formatFreeShowJson,
+    formatFreeShowProjectData
   };
 
   if (typeof module !== 'undefined' && module.exports) {
