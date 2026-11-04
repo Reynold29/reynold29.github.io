@@ -784,6 +784,8 @@ body {
   display: flex;
   align-items: center;
   gap: 0.45rem;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .monitor-watermark-logo {
