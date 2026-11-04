@@ -1,5 +1,5 @@
 const getFormatter = () => (typeof window !== 'undefined' && window.FreeShowFormatter) || {};
-const getSampleSongs = () => (typeof window !== 'undefined' && window.SAMPLE_SONGS) || {};
+const getSampleSongs = () => (typeof window !== 'undefined' && (window.SAMPLE_SONGS || (typeof window.getSampleSongs === 'function' ? window.getSampleSongs() : {}))) || {};
 
 // Configuration Defaults
 const DEFAULT_SUPABASE_URL = 'https://vvecgfmnbhlfbtsemlnt.supabase.co/functions/v1/lyrics';
@@ -46,7 +46,6 @@ class FreeShowApp {
     this.quickChips = document.querySelectorAll('.quick-chip');
     this.langChips = document.querySelectorAll('.lang-chip-btn');
     this.btnDownloadSingleShow = document.getElementById('btnDownloadSingleShow');
-    this.btnCopyQuickLyrics = document.getElementById('btnCopyQuickLyrics');
     this.btnAddToSetlistSingle = document.getElementById('btnAddToSetlistSingle');
 
     // Slide Preview
@@ -78,7 +77,6 @@ class FreeShowApp {
     this.pasteTextarea = document.getElementById('pasteTextarea');
     this.btnLoadPasteSample = document.getElementById('btnLoadPasteSample');
     this.btnConvertPasteShow = document.getElementById('btnConvertPasteShow');
-    this.btnCopyPasteQuickLyrics = document.getElementById('btnCopyPasteQuickLyrics');
 
     // Settings Modal
     this.btnOpenSettings = document.getElementById('btnOpenSettings');
@@ -163,7 +161,6 @@ class FreeShowApp {
 
     // Single Generator Actions
     this.btnDownloadSingleShow.addEventListener('click', () => this.downloadSingleShow());
-    this.btnCopyQuickLyrics.addEventListener('click', () => this.copySingleQuickLyrics());
     this.btnAddToSetlistSingle.addEventListener('click', () => this.addCurrentToSetlist());
 
     // Setlist Actions
@@ -180,7 +177,6 @@ class FreeShowApp {
       this.updatePasteLivePreview();
     });
     this.btnConvertPasteShow.addEventListener('click', () => this.convertPasteToShow());
-    this.btnCopyPasteQuickLyrics.addEventListener('click', () => this.copyPasteQuickLyrics());
 
     // Settings
     this.btnOpenSettings.addEventListener('click', () => this.openSettings());
@@ -250,12 +246,13 @@ class FreeShowApp {
       return getSampleSongs()[sampleKey];
     }
 
-    // Fallback stub if neither live nor exact sample
+    // Fallback stub if neither live nor exact sample (English only for errors/status)
+    const fallbackNotice = `Song #${number} (${category}) is not loaded. If this is a live hymnal lookup, verify the Supabase Edge Function deployment in Settings.`;
     return {
       number,
       title: `${category.toUpperCase()} #${number}`,
-      lyrics: `1. Lyrics for ${category} ${number} will appear here.\n\n2. Configure your Supabase Edge Function in Settings to load all songs live.`,
-      kannadaLyrics: `1. ${category} ${number} ರ ಸಾಹಿತ್ಯ ಇಲ್ಲಿ ಗೋಚರಿಸುತ್ತದೆ.\n\n2. ಸೆಟ್ಟಿಂಗ್ಸ್‌ನಲ್ಲಿ Supabase Edge Function ಅನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಿ.`
+      lyrics: `1. ${fallbackNotice}`,
+      kannadaLyrics: `1. ${fallbackNotice}`
     };
   }
 
