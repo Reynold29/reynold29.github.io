@@ -1,5 +1,5 @@
 const getFormatter = () => (typeof window !== 'undefined' && window.FreeShowFormatter) || {};
-const getSampleSongs = () => (typeof window !== 'undefined' && window.getSampleSongs()) || {};
+const getSampleSongs = () => (typeof window !== 'undefined' && window.SAMPLE_SONGS) || {};
 
 // Configuration Defaults
 const DEFAULT_SUPABASE_URL = 'https://vvecgfmnbhlfbtsemlnt.supabase.co/functions/v1/lyrics';
