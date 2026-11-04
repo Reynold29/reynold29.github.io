@@ -743,21 +743,45 @@ body {
 
 .monitor-lyrics-content {
   flex: 1;
+  min-height: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: safe center;
   text-align: center;
-  padding: 1.2rem 0;
+  padding: 0.8rem 0.5rem;
   z-index: 2;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
+}
+
+.monitor-lyrics-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.monitor-lyrics-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.monitor-lyrics-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+}
+
+.monitor-lyrics-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.45);
 }
 
 .monitor-lyrics-text {
+  margin: auto 0;
   font-size: clamp(1.15rem, 2.4vw, 1.65rem);
   font-weight: 600;
   color: #ffffff;
   line-height: 1.62;
   white-space: pre-line;
-  max-width: 90%;
+  max-width: 92%;
   font-family: var(--font-kannada);
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
 }
@@ -769,6 +793,7 @@ body {
   z-index: 2;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: 0.65rem;
+  flex-shrink: 0;
 }
 
 .monitor-info-tag {
@@ -778,22 +803,22 @@ body {
 }
 
 .monitor-watermark {
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.75);
   font-weight: 500;
   display: flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.5rem;
   white-space: nowrap;
   flex-shrink: 0;
 }
 
 .monitor-watermark-logo {
-  width: 18px;
-  height: 18px;
-  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
   object-fit: cover;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   display: inline-block;
   vertical-align: middle;
 }

@@ -52,7 +52,6 @@ class FreeShowApp {
     this.btnFetchLyrics = document.getElementById('btnFetchLyrics');
     this.quickChips = document.querySelectorAll('.quick-chip');
     this.langChips = document.querySelectorAll('.lang-chip-btn');
-    this.btnDownloadSingleShow = document.getElementById('btnDownloadSingleShow');
     this.btnDownloadSingleProject = document.getElementById('btnDownloadSingleProject');
     this.btnAddToSetlistSingle = document.getElementById('btnAddToSetlistSingle');
 
@@ -75,8 +74,7 @@ class FreeShowApp {
     this.setlistNumInput = document.getElementById('setlistNumInput');
     this.setlistLangSelect = document.getElementById('setlistLangSelect');
     this.btnSetlistAdd = document.getElementById('btnSetlistAdd');
-    this.btnDownloadZip = document.getElementById('btnDownloadZip');
-    this.btnDownloadSeparate = document.getElementById('btnDownloadSeparate');
+    this.btnDownloadSetlistProject = document.getElementById('btnDownloadSetlistProject');
     this.btnClearSetlist = document.getElementById('btnClearSetlist');
 
     // Section 3: Paste Studio
@@ -84,7 +82,6 @@ class FreeShowApp {
     this.pasteCatSelect = document.getElementById('pasteCatSelect');
     this.pasteTextarea = document.getElementById('pasteTextarea');
     this.btnLoadPasteSample = document.getElementById('btnLoadPasteSample');
-    this.btnConvertPasteShow = document.getElementById('btnConvertPasteShow');
     this.btnConvertPasteProject = document.getElementById('btnConvertPasteProject');
 
     // Settings Modal
@@ -181,7 +178,6 @@ class FreeShowApp {
     this.btnNextSlide.addEventListener('click', () => this.navigateSlide(1));
 
     // Single Generator Actions
-    this.btnDownloadSingleShow.addEventListener('click', () => this.downloadSingleShow());
     if (this.btnDownloadSingleProject) {
       this.btnDownloadSingleProject.addEventListener('click', () => this.downloadSingleProject());
     }
@@ -189,8 +185,9 @@ class FreeShowApp {
 
     // Setlist Actions
     this.btnSetlistAdd.addEventListener('click', () => this.handleSetlistAdd());
-    this.btnDownloadZip.addEventListener('click', () => this.downloadSetlistZip());
-    this.btnDownloadSeparate.addEventListener('click', () => this.downloadSetlistSeparate());
+    if (this.btnDownloadSetlistProject) {
+      this.btnDownloadSetlistProject.addEventListener('click', () => this.downloadSetlistProject());
+    }
     this.btnClearSetlist.addEventListener('click', () => this.clearSetlist());
 
     // Paste Studio
@@ -200,7 +197,6 @@ class FreeShowApp {
       this.loadPasteSample();
       this.updatePasteLivePreview();
     });
-    this.btnConvertPasteShow.addEventListener('click', () => this.convertPasteToShow());
     if (this.btnConvertPasteProject) {
       this.btnConvertPasteProject.addEventListener('click', () => this.convertPasteToProject());
     }
@@ -377,26 +373,6 @@ class FreeShowApp {
       this.renderCurrentSlide();
       this.renderThumbnails();
     }
-  }
-
-  downloadSingleShow() {
-    if (!this.currentSong || this.currentSlides.length === 0) {
-      this.showToast('Please select a valid song first', true);
-      return;
-    }
-
-    const showJson = getFormatter().formatFreeShowJson({
-      number: this.number,
-      title: this.currentSong.title || '',
-      category: this.category,
-      slides: this.currentSlides
-    });
-
-    const prefix = this.category === 'keerthane' ? 'Keerthane' : this.category === 'mt' ? 'MT_Hymn' : 'Hymn';
-    const filename = `${prefix}_${this.number}_${(this.currentSong.title || 'Lyrics').replace(/[^a-zA-Z0-9]/g, '_')}.show`;
-
-    this.triggerDownload(filename, showJson, 'application/json');
-    this.showToast(`Downloaded ${filename}`);
   }
 
   async getAppIconBlob() {
@@ -684,89 +660,52 @@ class FreeShowApp {
     });
   }
 
-  async downloadSetlistZip() {
-    if (this.setlist.length === 0) return;
+  async downloadSetlistProject() {
+    if (this.setlist.length === 0) {
+      this.showToast('Your setlist is empty. Add songs first!', true);
+      return;
+    }
     if (typeof JSZip === 'undefined') {
       this.showToast('JSZip library loading, please wait...', true);
       return;
     }
 
-    this.btnDownloadZip.disabled = true;
-    this.btnDownloadZip.textContent = 'Packaging Zip...';
+    const origHtml = this.btnDownloadSetlistProject ? this.btnDownloadSetlistProject.innerHTML : '';
+    if (this.btnDownloadSetlistProject) {
+      this.btnDownloadSetlistProject.disabled = true;
+      this.btnDownloadSetlistProject.textContent = 'Packaging Service (.project)...';
+    }
 
     try {
-      const zip = new JSZip();
-      const folder = zip.folder('Sunday-Service-FreeShow');
-
-      this.setlist.forEach((item, idx) => {
-        const showJson = getFormatter().formatFreeShowJson({
-          number: item.number,
-          title: item.title,
-          category: item.category,
-          slides: item.slides
-        });
-
-        const prefix = item.category === 'keerthane' ? 'Keerthane' : item.category === 'mt' ? 'MT' : 'Hymn';
-        const cleanTitle = (item.title || 'Lyrics').replace(/[^a-zA-Z0-9]/g, '_');
-        const filename = `0${idx + 1}_${prefix}_${item.number}_${cleanTitle}.show`;
-
-        folder.file(filename, showJson);
+      const now = new Date().toISOString().split('T')[0];
+      const serviceProjectData = getFormatter().formatFreeShowProjectData({
+        projectName: `Sunday Service (${this.setlist.length} Songs)`,
+        songs: this.setlist
       });
 
-      // Also bundle an all-in-one .project file containing the full setlist with app icon
-      try {
-        const serviceProjectData = getFormatter().formatFreeShowProjectData({
-          projectName: `Sunday Service (${this.setlist.length} Songs)`,
-          songs: this.setlist
-        });
-        const projJson = JSON.stringify(serviceProjectData, null, 2);
-        const subProjZip = new JSZip();
-        subProjZip.file('data.json', projJson);
-        subProjZip.file('project.json', projJson);
-        const iconBlob = await this.getAppIconBlob();
-        if (iconBlob) {
-          subProjZip.file('app_icon.png', iconBlob);
-          folder.file('app_icon.png', iconBlob);
-        }
-        const projBlob = await subProjZip.generateAsync({ type: 'blob' });
-        folder.file('00_Complete_Sunday_Service.project', projBlob);
-      } catch (projErr) {
-        console.warn('Could not bundle .project in zip:', projErr);
+      const zip = new JSZip();
+      const projJson = JSON.stringify(serviceProjectData, null, 2);
+      zip.file('data.json', projJson);
+      zip.file('project.json', projJson);
+
+      const iconBlob = await this.getAppIconBlob();
+      if (iconBlob) {
+        zip.file('app_icon.png', iconBlob);
       }
 
       const blob = await zip.generateAsync({ type: 'blob' });
-      const now = new Date().toISOString().split('T')[0];
-      const zipName = `CSI-Sunday-Service-${now}.zip`;
+      const filename = `CSI-Sunday-Service-${now}.project`;
 
-      this.triggerDownload(zipName, blob, 'application/zip');
-      this.showToast(`Downloaded Service Pack (${this.setlist.length} songs)`);
+      this.triggerDownload(filename, blob, 'application/zip');
+      this.showToast(`Downloaded ${filename} (${this.setlist.length} songs bundled)`);
     } catch (err) {
-      this.showToast(`Failed to generate zip: ${err.message}`, true);
+      this.showToast(`Failed to generate .project: ${err.message}`, true);
     } finally {
-      this.btnDownloadZip.disabled = false;
-      this.btnDownloadZip.textContent = '📦 Download Service Pack (.zip)';
+      if (this.btnDownloadSetlistProject) {
+        this.btnDownloadSetlistProject.disabled = false;
+        this.btnDownloadSetlistProject.innerHTML = origHtml;
+      }
     }
-  }
-
-  downloadSetlistSeparate() {
-    if (this.setlist.length === 0) return;
-
-    this.setlist.forEach((item, idx) => {
-      setTimeout(() => {
-        const showJson = getFormatter().formatFreeShowJson({
-          number: item.number,
-          title: item.title,
-          category: item.category,
-          slides: item.slides
-        });
-
-        const prefix = item.category === 'keerthane' ? 'Keerthane' : item.category === 'mt' ? 'MT' : 'Hymn';
-        const filename = `${prefix}_${item.number}_${(item.title || 'Lyrics').replace(/[^a-zA-Z0-9]/g, '_')}.show`;
-        this.triggerDownload(filename, showJson, 'application/json');
-      }, idx * 250);
-    });
-
-    this.showToast(`Downloading all ${this.setlist.length} .show files...`);
   }
 
   /* ==========================================================================
