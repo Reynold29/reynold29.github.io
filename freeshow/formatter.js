@@ -10,6 +10,9 @@
   const END_MARKER_REGEX = /^\s*(\.\.\.end\.\.\.|\-\-end\-\-|\.\.\.end|--end|\*\*\*|---|___)\s*$/i;
   const NUMBERED_STANZA_REGEX = /^\s*(\d+)[\.\)]+\s*/;
 
+  // 32x32 Base64 PNG App Logo for FreeShow .show file watermark
+  const APP_LOGO_BASE64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAE4klEQVRYCe2WfUxVZRzHP+ec+0Jc9MpAXtR8IUAFFUUkQZvaNLMttW6zYZqrWdmam27FXLVpW5m15T9t2SScUYk1Lar1orlIHE40AxMkkAhUlm+gCVy4b+f0O4e5qZv3tMXmP/7uztnznPPc5/t9vuf7+z2PYkhwB0O9g9gW9F0CdxVw/BcTnm5tY0d5BecvX0HBkJ8Z5l2xLkUSyTDbZldaqq6zcF4hy5Y+Yj6IGrYEWlrbeWjNa7R1+iE7FyWvACMcGYBWVfSItDUNIrpACykBVxSDHe/vwUzwJx+LTsKWQNkX39CenocnPUI49T70ufMhCA6ZXP2yFKWxFr1oLcHM8SToBq+MVbjc3ceWiMq+qiO2BGxNeKnbj/p7DcGqfaa4GP2idFgW3H6G9FNHeLUgnf59FUTk+YI4HX/5R+za9BaaqqErooxN2BIgImgpo4kpXCDSh3H29OIq3cKQkk2kxMeRkZ3FsMYaYt9Zj9ZUh+pNoGD5Uxa46Re7sP0EqA7UYD+BX6tQfVmE/2ohp+MkG9Y9S1LycNJGj6LszXV8v/8gJ3aVEjNtMocPNaCm5WMoliujcrAnoEcIXenCkzGFcDCAK30idc5EfKuLmf3ADF4oWsLzxW/jiPUwakQifaEIDy4vouxomyTEYCggrnbOW4zS3yPpJT7/8XNSjF5mrlrG1Y4OrnX3MGFGHktWFTEhyUvNwWrKyz5BySiIuvLrL+09YMrodIn5/FbKJU/Nw7dyGWFJu/7+gLxy0dJwit0fbOfwgUoSU5KYu3IFhpma9gKIre1CwPVD3xGs/BrNHUPX8SPs372XYd6hxHk81gSZk7LxPfcMU2fmc+lcBz/tLEMJiXkHxQOSBXpYJ3bqLIKBIMk5+eRnDCXd4+TP2joOVFZT39BEzKe70ApzOawlc2mhZMzZFlmavQT2JhQjuSZNJ3SuBUVV+Od4Ndd6mvE+vpiLs5ZSWXuCtOItVDwxkV4dSmpk5WE3tJ8eqMw2CtsSUBwOApXf4oqJITxxFuPmPMzHj66mzq9yxh1CyVnE2XAI3/EAFwJwTp5rLgOzWBuGMLIJWwJI8VHz56FK3Te6LtLcpzFjbyvnQ9AdFqOJR6VJ5d+m3NJRZJwp/bFfGD9njA28lHTbEZoTvbaaMcleYt1iyL31hCIGKfLHEbLpOMXtFrnrn1uMp4hvCrLHsHb1CtvpbQn0ifGKZuewfXMx98S4iZimlHqgmEDiifo/WrnQ2WX1TTRT9sR4LyFRv7PrqmRKbFQStgRcTo0pudOJi/Pw+nvb+LmqhiHeIYwdmcqHmzdw9GQjNXX1aOIVoSRbR5iszHG4pT7saetg68b1/4+Ab9FcNry7jax7h7P/0DF+a2xjY/EaJqQmcvREAwW52RTmTbZATAJmBEMhNm0tYf7sfKsf7SaHmdsX7IgcNvr8fkrLv6K84gea2zu4cvUaI5ITSBuVQkhWa+W65b8BcLMZkSp5/7QpvPHyi8THx6OZVfE2EZVAZ2cnzU1NA+kk331ryWdclGPZyNQkXnraR9AicOPMAxqY3nC73OIRlYzMTBISEm4cdFM7KgFzZFhAAoEAwWCQ3l6/ddwKiDE1My2viyeGNPvmSh3iBXN/cMnldrut/k2It3RsCdwyftC79pvRoEPePOFdAndcgX8BsF3fiVEJPDgAAAAASUVORK5CYII=';
+
   function generateRandomId(len = 11) {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
     let res = '';
@@ -203,15 +206,41 @@
           align: '',
           lines: linesList
         },
+        // Watermark Prefix: "By"
         {
-          style: 'top: 940px; left: 80px; width: 1760px; height: 50px;',
+          style: 'top: 940px; left: 1430px; width: 45px; height: 50px;',
           align: '',
           lines: [
             {
               align: 'text-align: right;',
               text: [
                 {
-                  value: 'By CSI Hymns Book App',
+                  value: 'By',
+                  style: 'font-size: 28px; color: rgb(255 255 255 / 0.55);'
+                }
+              ]
+            }
+          ],
+          decoration: true
+        },
+        // Watermark Logo: 30x30 base64 icon
+        {
+          type: 'media',
+          style: 'top: 950px; left: 1485px; width: 30px; height: 30px; border-radius: 6px;',
+          src: APP_LOGO_BASE64,
+          fit: 'contain',
+          decoration: true
+        },
+        // Watermark Suffix: "CSI Hymns Book App"
+        {
+          style: 'top: 940px; left: 1525px; width: 315px; height: 50px;',
+          align: '',
+          lines: [
+            {
+              align: 'text-align: left;',
+              text: [
+                {
+                  value: 'CSI Hymns Book App',
                   style: 'font-size: 28px; color: rgb(255 255 255 / 0.55);'
                 }
               ]
