@@ -212,7 +212,7 @@
               text: [
                 {
                   value: 'By CSI Hymns Book App',
-                  style: 'font-size: 26px; color: rgb(255 255 255 / 0.55);'
+                  style: 'font-size: 28px; color: rgb(255 255 255 / 0.55);'
                 }
               ]
             }
