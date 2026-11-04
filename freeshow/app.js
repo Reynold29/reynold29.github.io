@@ -2,13 +2,19 @@ const getFormatter = () => (typeof window !== 'undefined' && window.FreeShowForm
 const getSampleSongs = () => (typeof window !== 'undefined' && (window.SAMPLE_SONGS || (typeof window.getSampleSongs === 'function' ? window.getSampleSongs() : {}))) || {};
 
 // Configuration Defaults
-const DEFAULT_SUPABASE_URL = 'https://vvecgfmnbhlfbtsemlnt.supabase.co/functions/v1/lyrics';
+const DEFAULT_SUPABASE_URL = 'https://vvecgfmnbhlfbtsemlnt.supabase.co/functions/v1/csi-hymns-presenter-api';
 const DEFAULT_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ2ZWNnZm1uYmhsZmJ0c2VtbG50Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ2Njk1NTksImV4cCI6MjA3MDI0NTU1OX0.5OZKfvef8z-5zQ3KRbKwl0hBOT5FqDSIUW1SS7qYO0o';
 const MAX_SETLIST_SIZE = 5;
 
 class FreeShowApp {
   constructor() {
-    this.apiUrl = localStorage.getItem('csi_freeshow_api_url') || DEFAULT_SUPABASE_URL;
+    const savedUrl = localStorage.getItem('csi_freeshow_api_url');
+    if (!savedUrl || savedUrl.includes('/functions/v1/lyrics')) {
+      this.apiUrl = DEFAULT_SUPABASE_URL;
+      localStorage.setItem('csi_freeshow_api_url', DEFAULT_SUPABASE_URL);
+    } else {
+      this.apiUrl = savedUrl;
+    }
     this.apiKey = localStorage.getItem('csi_freeshow_api_key') || DEFAULT_ANON_KEY;
 
     // Single Generator State
