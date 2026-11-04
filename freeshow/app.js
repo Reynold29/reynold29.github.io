@@ -790,3 +790,4 @@ class FreeShowApp {
 document.addEventListener('DOMContentLoaded', () => {
   new FreeShowApp();
 });
+
