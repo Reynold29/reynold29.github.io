@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSI Hymns Book — FreeShow Presentation Bridge</title>
+  <meta name="description" content="Generate and download FreeShow .show slide decks for Kannada Keerthanes, CSI Hymns, and Mangalore Tunes with authentic bilingual formatting and zero setup.">
+  <meta name="theme-color" content="#080b12">
+
+  <link rel="canonical" href="https://projects.reyziehomelab.com/freeshow/">
+
+  <!-- OpenGraph / Social Cards -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://projects.reyziehomelab.com/freeshow/">
+  <meta property="og:title" content="CSI Hymns Book — FreeShow Presentation Bridge">
+  <meta property="og:description" content="Instant .show slide decks for Kannada Keerthanes, CSI Hymns & Mangalore Tunes. Formatted for FreeShow with bilingual support and slide watermark.">
+  <meta property="og:image" content="assets/app_icon.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/app_icon.png">
+
+  <!-- Google Fonts: Plus Jakarta Sans, Noto Sans Kannada & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+Kannada:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Sticky Navigation Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-wrapper spring-tactile">
+        <img src="assets/app_icon.png" alt="CSI Hymns Book Icon" class="brand-icon">
+        <div class="brand-text">
+          <h1>CSI Hymns Book <span class="brand-badge">FreeShow Deck</span></h1>
+          <p>Congregational Projection Bridge</p>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <nav class="nav-pills">
+          <button class="nav-pill-btn active spring-tactile" data-tab="tabSingle">
+            <span>🎵</span> <span>Song Generator</span>
+          </button>
+          <button class="nav-pill-btn spring-tactile" data-tab="tabSetlist">
+            <span>📋</span> <span>Sunday Setlist</span>
+            <span class="counter-badge" id="setlistNavBadge">0 / 5</span>
+          </button>
+          <button class="nav-pill-btn spring-tactile" data-tab="tabPaste">
+            <span>✍️</span> <span>Paste Studio</span>
+          </button>
+          <button class="nav-pill-btn spring-tactile" data-tab="tabApp">
+            <span>📱</span> <span>Get Android App</span>
+          </button>
+        </nav>
+
+        <button class="api-settings-btn spring-tactile" id="btnOpenSettings" title="API Gateway Settings">
+          ⚙️
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Header Banner -->
+  <section class="hero-banner">
+    <div class="hero-tag animate-pop">
+      <span class="pulse-dot"></span>
+      <span>Live FreeShow Deck Engine • Native .show Exporter</span>
+    </div>
+    <h2>Worship Slides in Seconds.</h2>
+    <p>Generate authentic, bilingual Kannada Keerthanes, CSI Hymns, and Mangalore Tunes formatted specifically for FreeShow church presentation software.</p>
+  </section>
+
+  <!-- Main Content Tabs -->
+  <main class="main-container">
+
+    <!-- Tab 1: Single Song Generator -->
+    <div class="tab-pane active" id="tabSingle">
+      <div class="grid-dashboard">
+
+        <!-- Left Controls Panel -->
+        <div class="panel-card animate-pop">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span>🎯</span>
+              <h3>Select Song</h3>
+            </div>
+            <span class="slide-counter-badge" id="categoryLimitsBadge">Keerthanes 1–234</span>
+          </div>
+
+          <!-- Category Selector -->
+          <span class="section-label">Hymnal Category</span>
+          <div class="category-pill-group">
+            <label class="category-radio-label checked spring-tactile">
+              <input type="radio" name="songCategory" value="keerthane" checked>
+              <div class="cat-content">
+                <div class="cat-title">Keerthanes</div>
+                <div class="cat-sub">ಕೀರ್ತನೆಗಳು (1–234)</div>
+              </div>
+            </label>
+
+            <label class="category-radio-label spring-tactile">
+              <input type="radio" name="songCategory" value="hymn">
+              <div class="cat-content">
+                <div class="cat-title">CSI Hymns</div>
+                <div class="cat-sub">ಗೀತೆಗಳು (1–368)</div>
+              </div>
+            </label>
+
+            <label class="category-radio-label spring-tactile">
+              <input type="radio" name="songCategory" value="mt">
+              <div class="cat-content">
+                <div class="cat-title">Mangalore Tunes</div>
+                <div class="cat-sub">ರಾಗಗಳು (1–410)</div>
+              </div>
+            </label>
+          </div>
+
+          <!-- Song Number Input -->
+          <span class="section-label">Song Number</span>
+          <div class="number-stepper-box">
+            <button class="stepper-btn spring-tactile" id="btnStepDown" title="Previous number">−</button>
+            <input type="number" class="stepper-input" id="songNumberInput" value="214" min="1" max="234">
+            <button class="stepper-btn spring-tactile" id="btnStepUp" title="Next number">+</button>
+          </div>
+
+          <!-- Quick Jump Popular Chips -->
+          <div class="quick-chips-row">
+            <span style="font-size: 0.75rem; color: var(--text-dim);">Quick Picks:</span>
+            <button class="quick-chip spring-tactile" data-cat="keerthane" data-num="214">Keerthane 214</button>
+            <button class="quick-chip spring-tactile" data-cat="keerthane" data-num="1">Keerthane 1</button>
+            <button class="quick-chip spring-tactile" data-cat="hymn" data-num="100">Hymn 100</button>
+            <button class="quick-chip spring-tactile" data-cat="hymn" data-num="1">Hymn 1</button>
+            <button class="quick-chip spring-tactile" data-cat="mt" data-num="1">M.T. 1</button>
+          </div>
+
+          <!-- Language Selector -->
+          <span class="section-label">Language / Script</span>
+          <div class="lang-chips-group">
+            <button class="lang-chip-btn active spring-tactile" data-lang="kannada">ಕನ್ನಡ (Kannada)</button>
+            <button class="lang-chip-btn spring-tactile" data-lang="english">English Romanized</button>
+            <button class="lang-chip-btn spring-tactile" data-lang="bilingual">Bilingual (Both)</button>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="action-buttons-stack">
+            <button class="btn-primary-glow spring-tactile" id="btnDownloadSingleShow">
+              <span>📥</span>
+              <span>Download .show File</span>
+            </button>
+
+            <button class="btn-secondary-tactile spring-tactile" id="btnCopyQuickLyrics">
+              <span>📋</span>
+              <span>Copy FreeShow Quick Lyrics</span>
+            </button>
+
+            <button class="btn-tertiary-subtle spring-tactile" id="btnAddToSetlistSingle">
+              <span>➕</span>
+              <span>Add to Sunday Setlist (+)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Preview Panel (Projection Monitor) -->
+        <div class="preview-container animate-pop">
+          <div class="panel-card" style="padding: 1.4rem;">
+            <div class="panel-header" style="margin-bottom: 0.8rem; padding-bottom: 0.6rem;">
+              <div class="panel-title">
+                <span>🖥️</span>
+                <h3>FreeShow Slide Deck Preview</h3>
+              </div>
+              <span class="slide-counter-badge" id="slideSongInfo">Keerthane #214</span>
+            </div>
+
+            <!-- Projection Monitor Frame (16:9) -->
+            <div class="projection-monitor">
+              <div class="monitor-scanline"></div>
+
+              <div class="monitor-header">
+                <span class="slide-group-badge chorus" id="slideBadge">Chorus</span>
+                <span class="slide-counter-badge" id="slideCounter">1 / 3</span>
+              </div>
+
+              <div class="monitor-lyrics-content">
+                <div class="monitor-lyrics-text" id="slideLyricsText">
+                  Loading lyrics...
+                </div>
+              </div>
+
+              <div class="monitor-footer">
+                <span class="monitor-info-tag">1920 × 1080 Full HD</span>
+                <span class="monitor-watermark">
+                  <span>🛡️</span>
+                  <span>By CSI Hymns Book App</span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Deck Navigator -->
+            <div class="deck-controls" style="margin-top: 1rem;">
+              <button class="deck-nav-btn spring-tactile" id="btnPrevSlide">← Prev Slide</button>
+              <div class="deck-thumbnails-strip" id="deckThumbs">
+                <!-- Dynamic thumbnail badges -->
+              </div>
+              <button class="deck-nav-btn spring-tactile" id="btnNextSlide">Next Slide →</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Tab 2: Sunday Service Setlist (Bulk Export - Max 5) -->
+    <div class="tab-pane" id="tabSetlist">
+      <div class="setlist-hero-card animate-pop">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span>📋</span>
+            <div>
+              <h3>Sunday Service Setlist Pack</h3>
+              <p style="font-size: 0.82rem; color: var(--text-muted); font-weight: normal; margin-top: 0.15rem;">
+                Queue up to 5 hymns & keerthanes for your worship order (Prelude, Opening, Sermon, Offertory, Recessional).
+              </p>
+            </div>
+          </div>
+          <span class="setlist-count-badge" id="setlistCounterBadge">0 / 5 songs</span>
+        </div>
+
+        <!-- Progress Meter -->
+        <div class="setlist-meter-wrapper">
+          <div class="setlist-meter-header">
+            <span class="setlist-meter-title">
+              <span>⚡ Batch Capacity Meter</span>
+            </span>
+            <span class="meter-caption">Strict 5-song cap to preserve server edge overhead</span>
+          </div>
+          <div class="meter-track">
+            <div class="meter-fill" id="setlistMeterFill"></div>
+          </div>
+        </div>
+
+        <!-- Quick Add Bar -->
+        <div class="setlist-add-bar">
+          <select class="select-custom" id="setlistCatSelect">
+            <option value="keerthane">Kannada Keerthanes</option>
+            <option value="hymn">CSI Hymns</option>
+            <option value="mt">Mangalore Tunes</option>
+          </select>
+
+          <input type="number" class="input-custom" id="setlistNumInput" placeholder="Song #" min="1" value="1">
+
+          <select class="select-custom" id="setlistLangSelect">
+            <option value="kannada">ಕನ್ನಡ (Kannada)</option>
+            <option value="english">English Romanized</option>
+            <option value="bilingual">Bilingual (Both)</option>
+          </select>
+
+          <button class="btn-primary-glow spring-tactile" id="btnSetlistAdd" style="padding: 0.65rem 1.2rem; font-size: 0.9rem;">
+            Add to Setlist (+)
+          </button>
+        </div>
+
+        <!-- Queue Stack -->
+        <div class="setlist-items-stack" id="setlistItemsStack">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Bulk Export Bar -->
+        <div class="bulk-export-bar">
+          <button class="btn-secondary-tactile spring-tactile" id="btnClearSetlist" style="color: var(--accent-rose);">
+            Clear Setlist
+          </button>
+
+          <button class="btn-secondary-tactile spring-tactile" id="btnDownloadSeparate">
+            📥 Download Separately (.show)
+          </button>
+
+          <button class="btn-primary-glow spring-tactile" id="btnDownloadZip">
+            📦 Download Service Pack (.zip)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Paste & Convert Studio -->
+    <div class="tab-pane" id="tabPaste">
+      <div class="paste-studio-card animate-pop">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span>✍️</span>
+            <div>
+              <h3>Paste Custom Lyrics to .show</h3>
+              <p style="font-size: 0.82rem; color: var(--text-muted); font-weight: normal; margin-top: 0.15rem;">
+                Have lyrics from a church bulletin, email, or WhatsApp? Paste them here to auto-split stanzas and generate a FreeShow file.
+              </p>
+            </div>
+          </div>
+          <button class="btn-secondary-tactile spring-tactile" id="btnLoadPasteSample" style="padding: 0.4rem 0.85rem; font-size: 0.82rem;">
+            Load Sample
+          </button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-bottom: 1.2rem;">
+          <div>
+            <span class="section-label">Song Title</span>
+            <input type="text" class="input-custom" id="pasteTitleInput" placeholder="e.g. Mahimeyu Ninage Prabhuvē" style="width: 100%;">
+          </div>
+          <div>
+            <span class="section-label">Category</span>
+            <select class="select-custom" id="pasteCatSelect" style="width: 100%;">
+              <option value="keerthane">Keerthane (Chorus + Stanzas)</option>
+              <option value="hymn">Hymn (Numbered Verses)</option>
+              <option value="mt">Mangalore Tune</option>
+            </select>
+          </div>
+        </div>
+
+        <span class="section-label">Lyrics Text (Separate verses or chorus with a blank line)</span>
+        <textarea class="paste-textarea" id="pasteTextarea" placeholder="Paste your Kannada or English lyrics here..."></textarea>
+
+        <div style="display: flex; gap: 0.8rem; justify-content: flex-end;">
+          <button class="btn-secondary-tactile spring-tactile" id="btnCopyPasteQuickLyrics">
+            📋 Copy Quick Lyrics
+          </button>
+          <button class="btn-primary-glow spring-tactile" id="btnConvertPasteShow">
+            📥 Convert & Download .show File
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4 & Showcase: CSI Hymns Book App Promotion -->
+    <div class="tab-pane" id="tabApp">
+      <!-- Full Tab View of Showcase -->
+      <div class="showcase-banner animate-pop" style="margin-top: 0;">
+        <div class="showcase-top">
+          <div class="showcase-hero-info">
+            <img src="assets/app_icon.png" alt="CSI Hymns Book App Logo" class="showcase-hero-icon">
+            <div class="showcase-hero-text">
+              <h3>CSI Hymns Book for Android</h3>
+              <p>The definitive digital hymnal engineered for CSI congregations, organists, choir masters, and church media teams worldwide.</p>
+            </div>
+          </div>
+
+          <a href="https://play.google.com/store/apps/details?id=com.reyzie.hymns" target="_blank" rel="noopener noreferrer" class="playstore-btn spring-tactile">
+            <svg class="playstore-icon-svg" viewBox="0 0 24 24" fill="none">
+              <path d="M3.6 1.8L14.4 12.6L3.6 23.4C3.2 23 3 22.4 3 21.6V3.6C3 2.8 3.2 2.2 3.6 1.8Z" fill="#2196F3"/>
+              <path d="M18 9L15.3 11.7L3.6 1.8C4.1 1.3 4.8 1.1 5.6 1.5L18 9Z" fill="#4CAF50"/>
+              <path d="M18 16.2L5.6 23.7C4.8 24.1 4.1 23.9 3.6 23.4L15.3 13.5L18 16.2Z" fill="#F44336"/>
+              <path d="M22.5 11.4L19.2 9.5L16.2 12.6L19.2 15.7L22.5 13.8C23.5 13.2 23.5 12 22.5 11.4Z" fill="#FFEB3B"/>
+            </svg>
+            <div class="playstore-btn-text">
+              <span class="btn-sub">Get it on</span>
+              <span class="btn-main">Google Play</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- 4 Bento Feature Cards -->
+        <div class="bento-grid">
+          <div class="bento-card spring-tactile">
+            <span class="bento-icon">🎹</span>
+            <h4>SATB Voice Isolation</h4>
+            <p>Practice Soprano, Alto, Tenor, and Bass independently with multi-channel organ and piano accompaniment audio.</p>
+          </div>
+
+          <div class="bento-card spring-tactile">
+            <span class="bento-icon">📴</span>
+            <h4>100% Offline Sanctuary Ready</h4>
+            <p>Full database of 234 Keerthanes, 368 CSI Hymns, and 410 Mangalore Tunes without requiring church Wi-Fi.</p>
+          </div>
+
+          <div class="bento-card spring-tactile">
+            <span class="bento-icon">🖥️</span>
+            <h4>Presenter Mode & FreeShow</h4>
+            <p>Admin Presenter Mode exports projection-ready slide decks directly for your church sanctuary screen.</p>
+          </div>
+
+          <div class="bento-card spring-tactile">
+            <span class="bento-icon">🎨</span>
+            <h4>Material 3 Expressive UI</h4>
+            <p>Tactile spring physics, high-contrast dark themes, and authentic Kannada typography crafted with precision.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- App Showcase Banner permanently at bottom of page -->
+    <div class="showcase-banner" style="margin-top: 3.5rem;">
+      <div class="showcase-top">
+        <div class="showcase-hero-info">
+          <img src="assets/app_icon.png" alt="CSI Hymns Book App Logo" class="showcase-hero-icon">
+          <div class="showcase-hero-text">
+            <h3>Experience the CSI Hymns Book App</h3>
+            <p>Enhance congregational worship with authentic organ MIDI audio, bilingual verses, and choir part training.</p>
+          </div>
+        </div>
+
+        <a href="https://play.google.com/store/apps/details?id=com.reyzie.hymns" target="_blank" rel="noopener noreferrer" class="playstore-btn spring-tactile">
+          <svg class="playstore-icon-svg" viewBox="0 0 24 24" fill="none">
+            <path d="M3.6 1.8L14.4 12.6L3.6 23.4C3.2 23 3 22.4 3 21.6V3.6C3 2.8 3.2 2.2 3.6 1.8Z" fill="#2196F3"/>
+            <path d="M18 9L15.3 11.7L3.6 1.8C4.1 1.3 4.8 1.1 5.6 1.5L18 9Z" fill="#4CAF50"/>
+            <path d="M18 16.2L5.6 23.7C4.8 24.1 4.1 23.9 3.6 23.4L15.3 13.5L18 16.2Z" fill="#F44336"/>
+            <path d="M22.5 11.4L19.2 9.5L16.2 12.6L19.2 15.7L22.5 13.8C23.5 13.2 23.5 12 22.5 11.4Z" fill="#FFEB3B"/>
+          </svg>
+          <div class="playstore-btn-text">
+            <span class="btn-sub">Get it on</span>
+            <span class="btn-main">Google Play</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="bento-grid">
+        <div class="bento-card spring-tactile">
+          <span class="bento-icon">📖</span>
+          <h4>Authentic Hymnals</h4>
+          <p>Carefully verified lyrics with chorus labels, meters, and tune signatures for all Karnataka churches.</p>
+        </div>
+        <div class="bento-card spring-tactile">
+          <span class="bento-icon">🎼</span>
+          <h4>Choir Part Training</h4>
+          <p>Isolate soprano melody or bass line to rehearse vocal harmonies for Sunday services.</p>
+        </div>
+        <div class="bento-card spring-tactile">
+          <span class="bento-icon">⚡</span>
+          <h4>Instant Smart Search</h4>
+          <p>Find hymns instantly by number, first Kannada lyric line, or English title keyword.</p>
+        </div>
+        <div class="bento-card spring-tactile">
+          <span class="bento-icon">🛡️</span>
+          <h4>Free & Non-Commercial</h4>
+          <p>Dedicated to CSI churches and congregational worship with zero ads or tracking.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Settings Modal (Supabase API Gateway Config) -->
+  <div class="modal-backdrop" id="settingsModal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <h3 class="modal-title">API Gateway Settings</h3>
+        <button class="modal-close-btn spring-tactile" id="btnCloseSettings">✕</button>
+      </div>
+
+      <div style="margin-bottom: 1.2rem;">
+        <span class="section-label">Supabase Edge Function URL</span>
+        <input type="text" class="input-custom" id="apiEndpointInput" style="width: 100%; font-size: 0.85rem;" placeholder="https://<project>.supabase.co/functions/v1/lyrics">
+        <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 0.35rem;">
+          Fetches individual songs on-demand directly from your private hymnal vault.
+        </p>
+      </div>
+
+      <div style="margin-bottom: 1.4rem;">
+        <span class="section-label">Supabase Anon Key (Header)</span>
+        <input type="password" class="input-custom" id="apiKeyInput" style="width: 100%; font-size: 0.82rem;" placeholder="eyJhbGciOiJIUzI1Ni...">
+      </div>
+
+      <div style="margin-bottom: 1.4rem; display: flex; align-items: center; justify-content: space-between;">
+        <button class="btn-secondary-tactile spring-tactile" id="btnPingApi" style="font-size: 0.82rem; padding: 0.45rem 0.9rem;">
+          ⚡ Test Connection (Ping)
+        </button>
+        <span id="pingStatusText" style="font-size: 0.78rem;"></span>
+      </div>
+
+      <div style="display: flex; gap: 0.8rem; justify-content: flex-end;">
+        <button class="btn-primary-glow spring-tactile" id="btnSaveSettings" style="width: 100%;">
+          Save Configuration
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>© 2026 CSI Hymns Book App • FreeShow Presentation Bridge</p>
+    <p style="margin-top: 0.3rem;">
+      <a href="https://projects.reyziehomelab.com/hymns/">CSI Hymns Portal</a> •
+      <a href="https://play.google.com/store/apps/details?id=com.reyzie.hymns" target="_blank" rel="noopener">Google Play</a> •
+      <a href="https://freeshow.app" target="_blank" rel="noopener">FreeShow Official</a>
+    </p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/jszip.min.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
