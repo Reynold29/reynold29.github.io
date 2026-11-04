@@ -473,7 +473,10 @@ class FreeShowApp {
   }
 
   addCurrentToSetlist() {
-    if (!this.currentSong || this.currentSlides.length === 0) return;
+    if (!this.currentSong || this.currentSlides.length === 0) {
+      this.showToast('Please fetch lyrics before adding to setlist', true);
+      return;
+    }
 
     this.addItemToSetlist({
       category: this.category,
@@ -613,9 +616,12 @@ class FreeShowApp {
       this.btnAddToSetlistSingle.textContent = 'Add to Sunday Setlist (+)';
     }
 
-    this.btnDownloadZip.disabled = (count === 0);
-    this.btnDownloadSeparate.disabled = (count === 0);
-    this.btnClearSetlist.disabled = (count === 0);
+    if (this.btnDownloadSetlistProject) {
+      this.btnDownloadSetlistProject.disabled = (count === 0);
+    }
+    if (this.btnClearSetlist) {
+      this.btnClearSetlist.disabled = (count === 0);
+    }
 
     // Render list
     if (count === 0) {
@@ -983,7 +989,13 @@ class FreeShowApp {
 }
 
 // Bootstrap App
-document.addEventListener('DOMContentLoaded', () => {
-  new FreeShowApp();
-});
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', () => {
+    new FreeShowApp();
+  });
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = FreeShowApp;
+}
 

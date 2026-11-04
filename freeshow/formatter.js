@@ -207,7 +207,7 @@
             lines: linesList
           },
           {
-            style: 'top: 935px; left: 1320px; width: 60px; height: 60px;',
+            style: 'top: 930px; left: 1195px; width: 65px; height: 70px; white-space: nowrap; overflow: visible;',
             align: '',
             lines: [
               {
@@ -215,7 +215,7 @@
                 text: [
                   {
                     value: 'By',
-                    style: 'font-size: 32px; color: rgb(255 255 255 / 0.6); white-space: nowrap;'
+                    style: 'font-size: 34px; color: rgb(255 255 255 / 0.65); white-space: nowrap;'
                   }
                 ]
               }
@@ -224,13 +224,13 @@
           },
           {
             type: 'media',
-            style: 'top: 946px; left: 1392px; width: 38px; height: 38px; border-radius: 8px;',
+            style: 'top: 943px; left: 1272px; width: 44px; height: 44px; border-radius: 10px;',
             src: 'app_icon.png',
             fit: 'contain',
             decoration: true
           },
           {
-            style: 'top: 935px; left: 1442px; width: 440px; height: 60px;',
+            style: 'top: 930px; left: 1330px; width: 520px; height: 70px; white-space: nowrap; overflow: visible;',
             align: '',
             lines: [
               {
@@ -238,7 +238,7 @@
                 text: [
                   {
                     value: 'CSI Hymns Book App',
-                    style: 'font-size: 32px; color: rgb(255 255 255 / 0.6); white-space: nowrap;'
+                    style: 'font-size: 34px; color: rgb(255 255 255 / 0.65); white-space: nowrap;'
                   }
                 ]
               }
@@ -254,7 +254,7 @@
             lines: linesList
           },
           {
-            style: 'top: 935px; left: 80px; width: 1760px; height: 60px;',
+            style: 'top: 930px; left: 80px; width: 1760px; height: 70px; white-space: nowrap; overflow: visible;',
             align: '',
             lines: [
               {
@@ -262,7 +262,7 @@
                 text: [
                   {
                     value: 'By CSI Hymns Book App',
-                    style: 'font-size: 32px; color: rgb(255 255 255 / 0.6); white-space: nowrap;'
+                    style: 'font-size: 34px; color: rgb(255 255 255 / 0.65); white-space: nowrap;'
                   }
                 ]
               }
