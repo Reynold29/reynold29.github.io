@@ -118,12 +118,18 @@
             </label>
           </div>
 
-          <!-- Song Number Input -->
+          <!-- Song Number Input & Fetch Action -->
           <span class="section-label">Song Number</span>
-          <div class="number-stepper-box">
-            <button class="stepper-btn spring-tactile" id="btnStepDown" title="Previous number">−</button>
-            <input type="number" class="stepper-input" id="songNumberInput" value="214" min="1" max="234">
-            <button class="stepper-btn spring-tactile" id="btnStepUp" title="Next number">+</button>
+          <div class="song-fetch-row">
+            <div class="number-stepper-box">
+              <button class="stepper-btn spring-tactile" id="btnStepDown" title="Previous number">−</button>
+              <input type="number" class="stepper-input" id="songNumberInput" value="214" min="1" max="234">
+              <button class="stepper-btn spring-tactile" id="btnStepUp" title="Next number">+</button>
+            </div>
+            <button class="btn-fetch-lyrics spring-tactile" id="btnFetchLyrics" title="Fetch Lyrics from Vault">
+              <span>🔍</span>
+              <span>Fetch Lyrics</span>
+            </button>
           </div>
 
           <!-- Quick Jump Popular Chips -->

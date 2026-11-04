@@ -49,6 +49,7 @@ class FreeShowApp {
     this.numberInput = document.getElementById('songNumberInput');
     this.btnStepDown = document.getElementById('btnStepDown');
     this.btnStepUp = document.getElementById('btnStepUp');
+    this.btnFetchLyrics = document.getElementById('btnFetchLyrics');
     this.quickChips = document.querySelectorAll('.quick-chip');
     this.langChips = document.querySelectorAll('.lang-chip-btn');
     this.btnDownloadSingleShow = document.getElementById('btnDownloadSingleShow');
@@ -114,24 +115,35 @@ class FreeShowApp {
         this.catLabels.forEach(l => l.classList.remove('checked'));
         e.target.closest('.category-radio-label').classList.add('checked');
         this.updateCategoryLimits();
-        this.loadCurrentSong();
       });
     });
 
-    // Number Stepper
+    // Number Stepper & Input
     this.btnStepDown.addEventListener('click', () => {
       this.stepNumber(-1);
     });
     this.btnStepUp.addEventListener('click', () => {
       this.stepNumber(1);
     });
-    this.numberInput.addEventListener('change', () => {
+    this.numberInput.addEventListener('input', () => {
       const val = parseInt(this.numberInput.value, 10);
       if (!isNaN(val) && val > 0) {
         this.number = val;
-        this.loadCurrentSong();
       }
     });
+    this.numberInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        this.handleFetchLyrics();
+      }
+    });
+
+    // Explicit Fetch Lyrics Button
+    if (this.btnFetchLyrics) {
+      this.btnFetchLyrics.addEventListener('click', () => {
+        this.handleFetchLyrics();
+      });
+    }
 
     // Quick Chips
     this.quickChips.forEach(chip => {
@@ -144,10 +156,11 @@ class FreeShowApp {
             r.checked = (r.value === cat);
             r.closest('.category-radio-label').classList.toggle('checked', r.value === cat);
           });
+          this.updateCategoryLimits();
         }
         this.number = num;
         this.numberInput.value = num;
-        this.loadCurrentSong();
+        this.handleFetchLyrics();
       });
     });
 
@@ -217,12 +230,35 @@ class FreeShowApp {
     if (this.category === 'hymn') max = 368;
     if (this.category === 'mt') max = 410;
 
-    let next = this.number + delta;
+    const currentVal = parseInt(this.numberInput.value, 10) || this.number || 1;
+    let next = currentVal + delta;
     if (next < 1) next = 1;
     if (next > max) next = max;
     this.number = next;
     this.numberInput.value = next;
-    this.loadCurrentSong();
+  }
+
+  async handleFetchLyrics() {
+    const val = parseInt(this.numberInput.value, 10);
+    if (isNaN(val) || val < 1) {
+      this.showToast('Please enter a valid song number', true);
+      return;
+    }
+    this.number = val;
+
+    if (this.btnFetchLyrics) {
+      this.btnFetchLyrics.disabled = true;
+      this.btnFetchLyrics.innerHTML = `<span>⏳</span><span>Fetching...</span>`;
+    }
+
+    try {
+      await this.loadCurrentSong();
+    } finally {
+      if (this.btnFetchLyrics) {
+        this.btnFetchLyrics.disabled = false;
+        this.btnFetchLyrics.innerHTML = `<span>🔍</span><span>Fetch Lyrics</span>`;
+      }
+    }
   }
 
   async fetchSong(category, number) {
