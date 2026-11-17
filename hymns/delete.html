@@ -1,113 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Request Data Deletion</title>
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png" />
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <style>
-      .container-narrow { max-width: 720px; }
-      .card { border-radius: 12px; }
-      .muted { opacity: .8; }
-    </style>
-  </head>
-  <body>
-    <header class="header-area">
-      <div class="navbar-area">
-        <div class="container">
-          <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand" href="index.html">← Back to Home</a>
-          </nav>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Delete Your Data · CSI Hymns Book</title>
+  <meta name="description" content="Ask for your CSI Hymns Book account and its data to be deleted." />
+  <meta name="theme-color" content="#faf8f3" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#131316" media="(prefers-color-scheme: dark)" />
+  <link rel="canonical" href="https://projects.reyziehomelab.com/hymns/delete.html" />
+  <link rel="icon" href="assets/img/favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" />
+  <link rel="stylesheet" href="assets/site.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-nav">
+    <nav class="wrap nav-inner" aria-label="Main">
+      <a class="brand" href="./">
+        <img src="assets/img/app-icon.png" alt="" width="34" height="34" />
+        CSI Hymns Book
+      </a>
+      <a class="back-link" href="./">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        Back to home
+      </a>
+    </nav>
+  </header>
+
+  <main id="main" class="wrap">
+    <article class="doc">
+      <header class="doc-head">
+        <p class="rubric"><span class="num">§</span>Your data</p>
+        <h1>Delete your account data</h1>
+        <p>Fill in the form and we will delete your account and everything linked to it, such as synced favourites and collections. Requests are handled within 7 days.</p>
+      </header>
+
+      <div class="form-card">
+        <div class="notice notice-ok" id="delete-ok" role="status" tabindex="-1" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>Request sent. We will confirm by email once your data has been deleted.</span>
         </div>
-      </div>
-    </header>
+        <div class="notice notice-err" id="delete-err" role="alert" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>
+          <span data-message></span>
+        </div>
 
-    <main class="pt-120 pb-120">
-      <div class="container container-narrow">
-        <div class="row justify-content-center">
-          <div class="col-12">
-            <div class="card p-4 p-md-5 shadow-sm">
-              <h2 class="mb-2">Request deletion of your data</h2>
-              <p class="text muted mb-4">Please fill in all fields. Your request will be sent directly to us.</p>
-
-              <form id="deleteForm" action="https://formspree.io/f/mwpqyypg" method="POST" novalidate>
-                <div class="mb-3">
-                  <label for="fullName" class="form-label">Full name</label>
-                  <input id="fullName" name="fullName" class="form-control" placeholder="Your full name" required />
-                </div>
-                <div class="mb-3">
-                  <label for="email" class="form-label">Email address</label>
-                  <input id="email" name="email" type="email" class="form-control" placeholder="you@example.com" required />
-                </div>
-                <div class="mb-3">
-                  <label for="reason" class="form-label">Reason for deletion</label>
-                  <textarea id="reason" name="reason" class="form-control" rows="5" placeholder="Type your reason here..." required></textarea>
-                </div>
-                <input type="hidden" name="_subject" value="Request to delete my user data" />
-                <input type="hidden" name="_replyto" id="_replyto" value="" />
-                <button type="submit" class="main-btn">Send request</button>
-              </form>
-              <div id="status" class="mt-3 small"></div>
-              <p class="mt-3 small muted">This form sends directly to <b>reyziecrafts@gmail.com</b>. Nothing is stored on this website.</p>
-            </div>
+        <form id="deleteForm" action="https://formspree.io/f/mwpqyypg" method="POST" novalidate>
+          <div class="field">
+            <label for="fullName">Full name</label>
+            <input id="fullName" name="fullName" type="text" autocomplete="name" required />
           </div>
-        </div>
+          <div class="field">
+            <label for="email">Email you signed in with</label>
+            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" required aria-describedby="email-hint" />
+            <span class="field-hint" id="email-hint">We use this to find your account.</span>
+          </div>
+          <div class="field">
+            <label for="reason">Reason for deletion</label>
+            <textarea id="reason" name="reason" rows="5" required></textarea>
+          </div>
+          <input type="hidden" name="_subject" value="Request to delete my user data" />
+          <input type="hidden" name="_replyto" id="_replyto" value="" />
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Send deletion request</button>
+          </div>
+        </form>
       </div>
-    </main>
 
-    <script>
-      (function() {
-        const form = document.getElementById('deleteForm');
-        const statusEl = document.getElementById('status');
-        form.addEventListener('submit', async function(e) {
-          e.preventDefault();
-          statusEl.textContent = '';
-          const submitBtn = form.querySelector('button[type="submit"]');
+      <p class="form-note doc-note">
+        This form sends your request straight to <b>reyziecrafts@gmail.com</b>. Nothing is stored on this website.
+        You can also read the <a href="privacy-policy.html">privacy policy</a>.
+      </p>
+    </article>
+  </main>
 
-          // Basic client-side validation
-          const fullName = document.getElementById('fullName');
-          const email = document.getElementById('email');
-          const reason = document.getElementById('reason');
-          if (!fullName.value.trim() || !email.value.trim() || !reason.value.trim()) {
-            statusEl.textContent = 'Please complete all required fields.';
-            return;
-          }
-          if (email.validity && !email.validity.valid) {
-            statusEl.textContent = 'Please enter a valid email address.';
-            return;
-          }
+  <footer class="site-footer">
+    <div class="wrap footer-bottom footer-min">
+      <span>© Reynold Preetham</span>
+      <a href="./">CSI Hymns Book</a>
+    </div>
+  </footer>
 
-          // Ensure reply-to is set for Formspree
-          const replyTo = document.getElementById('_replyto');
-          if (replyTo) replyTo.value = email.value.trim();
+  <script src="assets/site.js" defer></script>
+  <script>
+    (function () {
+      "use strict";
+      const form = document.getElementById("deleteForm");
+      const ok = document.getElementById("delete-ok");
+      const err = document.getElementById("delete-err");
+      const errText = err.querySelector("[data-message]");
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const fields = ["fullName", "email", "reason"].map((id) => document.getElementById(id));
+      const SUBMIT_LABEL = "Send deletion request";
 
-          submitBtn.disabled = true;
-          submitBtn.textContent = 'Sending...';
-          try {
-            const data = new FormData(form);
-            const res = await fetch(form.action, {
-              method: 'POST',
-              body: data,
-              headers: { 'Accept': 'application/json' }
-            });
-            if (res.ok) {
-              form.reset();
-              statusEl.textContent = 'Request sent. We will get back to you.';
-            } else {
-              statusEl.textContent = 'Failed to send. Please try again later.';
-            }
-          } catch (err) {
-            statusEl.textContent = 'Failed to send. Please check your connection and try again.';
-          } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Send request';
-          }
-        });
-      })();
-    </script>
-  </body>
-  </html>
+      function showError(message, field) {
+        ok.hidden = true;
+        errText.textContent = message;
+        err.hidden = false;
+        if (field) field.focus();
+      }
 
+      function validate() {
+        fields.forEach((f) => f.removeAttribute("aria-invalid"));
+        const empty = fields.find((f) => !f.value.trim());
+        if (empty) {
+          empty.setAttribute("aria-invalid", "true");
+          showError("Please fill in every field.", empty);
+          return false;
+        }
+        const email = fields[1];
+        if (!email.validity.valid) {
+          email.setAttribute("aria-invalid", "true");
+          showError("Please enter a valid email address.", email);
+          return false;
+        }
+        return true;
+      }
 
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        err.hidden = true;
+        ok.hidden = true;
+        if (!validate()) return;
+
+        document.getElementById("_replyto").value = fields[1].value.trim();
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending…";
+        try {
+          const res = await fetch(form.action, {
+            method: "POST",
+            body: new FormData(form),
+            headers: { Accept: "application/json" }
+          });
+          if (!res.ok) throw new Error("Request failed with status " + res.status);
+          form.reset();
+          ok.hidden = false;
+          ok.focus();
+        } catch (error) {
+          showError("We could not send your request. Check your connection and try again, or email reyziecrafts@gmail.com.");
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = SUBMIT_LABEL;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

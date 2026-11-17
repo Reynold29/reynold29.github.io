@@ -1,812 +1,435 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
-
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-
-  <!--====== Title ======-->
-  <title>CSI Hymns Book</title>
-
-  <meta name="description" content="" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CSI Hymns Book: CSI hymns and keerthanes in Kannada and English</title>
+  <meta name="description" content="A free iPhone and Android app for CSI hymns, keerthanes and Mangalore Tunes, with Kannada and English lyrics, sing-along audio, the Order of Service and offline reading." />
+  <meta name="theme-color" content="#faf8f3" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#131316" media="(prefers-color-scheme: dark)" />
+  <link rel="canonical" href="https://projects.reyziehomelab.com/hymns/" />
 
-  <!--====== Favicon Icon ======-->
-  <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="CSI Hymns Book" />
+  <meta property="og:description" content="Every CSI hymn and keerthane in Kannada and English, with sing-along audio and the Order of Service. On iPhone and Android." />
+  <meta property="og:url" content="https://projects.reyziehomelab.com/hymns/" />
+  <meta property="og:image" content="https://projects.reyziehomelab.com/hymns/assets/img/app-icon.png" />
+  <meta name="twitter:card" content="summary" />
 
-  <!--====== CSS Files LinkUp ======-->
-  <link rel="stylesheet" href="assets/css/animate.css" />
-  <link rel="stylesheet" href="assets/css/glightbox.min.css" />
-  <link rel="stylesheet" href="assets/css/lineIcons.css" />
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" href="assets/img/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="assets/img/app-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Noto+Serif+Kannada:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="assets/site.css" />
+  <link rel="preload" as="image" href="assets/video/launch-poster.jpg" fetchpriority="high" />
 </head>
 
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <!--====== PRELOADER PART START ======-->
-  <div class="preloader">
-    <div class="loader">
-      <div class="spinner">
-        <div class="spinner-container">
-          <div class="spinner-rotator">
-            <div class="spinner-left">
-              <div class="spinner-circle"></div>
-            </div>
-            <div class="spinner-right">
-              <div class="spinner-circle"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--====== PRELOADER PART ENDS ======-->
-
-  <!--====== HEADER PART START ======-->
-  <header class="header-area">
-    <div class="navbar-area">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <nav class="navbar navbar-expand-lg">
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="toggler-icon"> </span>
-                <span class="toggler-icon"> </span>
-                <span class="toggler-icon"> </span>
-              </button>
-
-              <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                <ul id="nav" class="navbar-nav ms-auto">
-                  <li class="nav-item">
-                    <a class="page-scroll active" href="#home">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="page-scroll" href="#features">Features</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="page-scroll" href="#downloads">Downloads</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="page-scroll" href="#why">Why This App?</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#about-dev">About Developer</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="page-scroll" href="#support">Support</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="page-scroll" href="#privacy">Privacy Policy</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="delete.html">Delete User Data</a>
-                  </li>
-                </ul>
-              </div>
-              <!-- navbar collapse -->
-
-              <!--<div class="navbar-btn d-none d-sm-inline-block">
-                  <a
-                    class="main-btn"
-                    data-scroll-nav="0"
-                    href="https://uideck.com/templates/basic/"
-                    rel="nofollow">
-                    Download Now
-                  </a>
-                </div>-->
-            </nav>
-            <!-- navbar -->
-          </div>
-        </div>
-        <!-- row -->
-      </div>
-      <!-- container -->
-    </div>
-    <!-- navbar area -->
-
-    <div id="home" class="header-hero bg_cover" style="background-image: url(assets/images/header/banner-bg.svg)">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <div class="header-hero-content text-center">
-              <h3 class="header-sub-title wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.2s">
-                CSI Hymns Book
-              </h3>
-              <h2 class="header-title wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.5s">
-                A Simple Lyrics Book App
-              </h2>
-              <p class="text wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.8s">
-                A simple, robust, feature-rich and on-the-go application made in
-                in Flutter and available to download for multiple platforms.
-              </p>
-              <a href="#downloads" class="main-btn wow fadeInUp" ]>
-                Download Now
-              </a>
-            </div>
-            <!-- header hero content -->
-          </div>
-        </div>
-        <!-- row -->
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="header-hero-image text-center wow fadeIn" data-wow-duration="1.3s" data-wow-delay="1.4s">
-              <img src="assets/images/header/header-hero.png" alt="hero" />
-            </div>
-            <!-- header hero image -->
-          </div>
-        </div>
-        <!-- row -->
-      </div>
-      <!-- container -->
-      <div id="particles-1" class="particles"></div>
-    </div>
-    <!-- header hero -->
+  <header class="site-nav">
+    <nav class="wrap nav-inner" aria-label="Main">
+      <a class="brand" href="#top">
+        <img src="assets/img/app-icon.png" alt="" width="34" height="34" />
+        CSI Hymns Book
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#screens">Screens</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#support">Support</a></li>
+        <li><a href="#privacy">Privacy</a></li>
+        <li><a class="btn btn-primary btn-sm" href="#download">Get the app</a></li>
+      </ul>
+    </nav>
   </header>
-  <!--====== HEADER PART ENDS ======-->
 
-  <!--====== PRIVACY POLICY PART START ======-->
-  <section id="privacy" class="services-area pt-120">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-10">
-          <div class="section-title text-center pb-40">
-            <div class="line m-auto"></div>
-            <h3 class="title">
-              Privacy Policy
-            </h3>
-            <p class="text mt-30">
-              Your privacy is important to us. Here are the key points of our policy:
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="hero-eyebrow"><span class="launch-tag">New</span>Now on the App Store and Google Play</p>
+          <h1 id="hero-title">Every hymn and keerthane, <em>in your pocket.</em></h1>
+          <p class="hero-lede">
+            CSI Hymns, Keerthanes and Mangalore Tunes in Kannada and English, with
+            sing-along audio and the Order of Service. Free on iPhone, iPad and Android,
+            and it works without a signal.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://projects.reyziehomelab.com/app-redirection/?app=hymns" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+              Download free
+            </a>
+            <a class="btn btn-secondary" href="https://csi-hymns.netlify.app/" rel="noopener">Open in your browser</a>
+          </div>
+          <ul class="hero-facts" aria-label="At a glance">
+            <li><strong>10,000+</strong><span>downloads</span></li>
+            <li><strong>4.8</strong><span>average rating</span></li>
+            <li><strong>Free</strong><span>iOS + Android, no ads</span></li>
+          </ul>
+        </div>
+
+        <div class="hero-visual">
+          <figure class="launch-film">
+            <video class="hero-phone" data-launch-video width="1080" height="1920"
+                   poster="assets/video/launch-poster.jpg" controls muted loop playsinline preload="none"
+                   aria-label="Launch video: a 23-second tour of CSI Hymns Book">
+              <source src="assets/video/launch.mp4" type="video/mp4" />
+              <a href="assets/video/launch.mp4">Watch the launch video</a>
+            </video>
+            <figcaption class="visually-hidden">A 23-second tour of the app: choosing a book, bilingual lyrics, audio and the Order of Service.</figcaption>
+          </figure>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section section-alt" id="features" aria-labelledby="features-title">
+      <div class="wrap">
+        <div class="features-intro">
+          <div class="section-head">
+            <p class="rubric"><span class="num">i.</span>In the app</p>
+            <h2 id="features-title">Built for the pew, the choir loft and the organ bench.</h2>
+            <p>Everything you reach for during a service, in one app that stays out of the way. Try the language switch on this hymn.</p>
+          </div>
+          <article class="hymn-page" aria-label="Sample hymn">
+            <div class="hymn-page-head">
+              <div>
+                <p class="hymn-no">M.T. No. 3</p>
+                <p class="hymn-title">Holy, holy, holy</p>
+                <p class="hymn-meter">Meter 245 · Traditional</p>
+              </div>
+              <div class="lang-toggle" role="group" aria-label="Lyrics language" data-lang-toggle>
+                <button type="button" data-show="en" aria-pressed="false">EN</button>
+                <button type="button" data-show="kn" aria-pressed="true" lang="kn">ಕನ್ನಡ</button>
+              </div>
+            </div>
+            <p class="stanza" lang="kn" data-stanza="kn">
+              <span class="v" aria-hidden="true">1</span>ಶುದ್ಧ, ಶುದ್ಧ, ಶುದ್ಧ,<br />
+              ಸರ್ವಶಕ್ತ ಕರ್ತ,<br />
+              ನಿಂಗೆ ಸ್ತುತಿ ಸ್ತೋತ್ರ<br />
+              ನಿರಂತವಾಗಲಿ!
             </p>
-            <ul class="text-start mt-20 mb-30" style="list-style: disc; padding-left: 20px; display: inline-block; text-align: left;">
-              <li><strong>No Personal Data:</strong> We do not collect names, emails, or locations by default.</li>
-              <li><strong>Account Security:</strong> If you sign in, your email is encrypted and never shared.</li>
-              <li><strong>Transparency:</strong> We use internet access only for audio streaming and updates.</li>
+            <p class="stanza" lang="en" data-stanza="en" hidden>
+              <span class="v" aria-hidden="true">1</span>Holy, holy, holy!<br />
+              Lord God Almighty!<br />
+              Early in the morning<br />
+              our song shall rise to Thee.
+            </p>
+          </article>
+        </div>
+
+        <ul class="features">
+          <li class="feature">
+            <h3>Kannada and English</h3>
+            <p>Switch any hymn between Kannada and English with one tap. Set the text size you can read, and pick up where you left off.</p>
+          </li>
+          <li class="feature">
+            <h3>Sing along with audio</h3>
+            <p>MIDI playback with live transpose, tempo control and a separate instrument for soprano, alto, tenor and bass. Play it through a speaker with AirPlay or Chromecast.</p>
+          </li>
+          <li class="feature">
+            <h3>Read it like a book</h3>
+            <p>Scroll through the stanzas, or turn on Page Flip and turn pages with your finger. Hide the controls when you are leading worship.</p>
+          </li>
+          <li class="feature">
+            <h3>Order of Service</h3>
+            <p>The Regular Sunday and Festival liturgies in Kannada and English, with a full-screen reader and jump-to-page.</p>
+          </li>
+          <li class="feature">
+            <h3>Mangalore Tunes</h3>
+            <p>The full M.T. hymn book, with its own search, categories and favourites, one tap away from the CSI books.</p>
+          </li>
+          <li class="feature">
+            <h3>Find any hymn fast</h3>
+            <p>Search by number, title or meter, then jump straight to a meter in the list. No more flipping pages during the announcement.</p>
+          </li>
+          <li class="feature">
+            <h3>Favourites and collections</h3>
+            <p>Star hymns and build collections for each occasion. Sign in and they follow you to every device.</p>
+          </li>
+          <li class="feature">
+            <h3>Works offline</h3>
+            <p>Lyrics ship inside the app and update quietly in the background, so it still works in a church hall with no signal.</p>
+          </li>
+          <li class="feature">
+            <h3>Christmas mode</h3>
+            <p>A festive theme every December, with community carols and carol-book PDFs shared by churches.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Screens -->
+    <section class="section" id="screens" aria-labelledby="screens-title">
+      <div class="wrap gallery-head">
+        <div class="section-head">
+          <p class="rubric"><span class="num">ii.</span>A look inside</p>
+          <h2 id="screens-title">Quiet on the page, quick under the thumb.</h2>
+        </div>
+        <div class="gallery-controls">
+          <button class="icon-btn" type="button" data-gallery-prev aria-label="Previous screens" aria-controls="gallery">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="icon-btn" type="button" data-gallery-next aria-label="Next screens" aria-controls="gallery">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <ul class="gallery" id="gallery" data-gallery tabindex="0" aria-label="App screenshots, scroll sideways">
+        <li><figure><img src="assets/img/screens/home.jpg" width="506" height="1100" loading="lazy" alt="Home screen for choosing a hymn book: CSI Hymns, Keerthanes, Order of Service and M.T. Hymns" /><figcaption><b>Choose your book</b>Hymns, keerthanes, liturgy, M.T.</figcaption></figure></li>
+        <li><figure><img src="assets/img/screens/mangalore-tunes.jpg" width="506" height="1100" loading="lazy" alt="Mangalore Tunes hymn list with search and sort by number or meter" /><figcaption><b>Mangalore Tunes</b>Search by number, title or meter</figcaption></figure></li>
+        <li><figure><img src="assets/img/screens/audio.jpg" width="506" height="1100" loading="lazy" alt="Hymn lyrics in Kannada with the audio player at the bottom" /><figcaption><b>Sing along</b>Lyrics with built-in audio</figcaption></figure></li>
+        <li><figure><img src="assets/img/screens/audio-settings.jpg" width="506" height="1100" loading="lazy" alt="Advanced audio options with instrument, transpose and soprano, alto, tenor and bass routing" /><figcaption><b>Audio settings</b>Transpose and SATB instruments</figcaption></figure></li>
+        <li><figure><img src="assets/img/screens/order-of-service.jpg" width="506" height="1100" loading="lazy" alt="Order of Service screen with Regular Sunday and Festival Services" /><figcaption><b>Order of Service</b>Regular and festival liturgies</figcaption></figure></li>
+        <li><figure><img src="assets/img/screens/favorites.jpg" width="506" height="1100" loading="lazy" alt="Favourites list of saved hymns and keerthanes" /><figcaption><b>Favourites</b>Your hymns, one tap away</figcaption></figure></li>
+        <li><figure><img src="assets/img/screens/christmas.jpg" width="506" height="1100" loading="lazy" alt="Christmas mode home screen with festive colours and a Christmas Carols section" /><figcaption><b>Christmas mode</b>Festive theme each December</figcaption></figure></li>
+        <li><figure><img src="assets/img/screens/carols.jpg" width="506" height="1100" loading="lazy" alt="A church's carol book PDF in the Christmas carols section" /><figcaption><b>Church carols</b>Songs and PDFs from your church</figcaption></figure></li>
+      </ul>
+    </section>
+
+    <!-- Download -->
+    <section class="section section-alt" id="download" aria-labelledby="download-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="rubric"><span class="num">iii.</span>Download</p>
+          <h2 id="download-title">Two native apps, one hymn book.</h2>
+          <p>The same hymns, lyrics and audio on both, each built to feel at home on its own phone. Free, with no ads.</p>
+        </div>
+
+        <div class="store-grid">
+          <article class="store-card" aria-labelledby="ios-title">
+            <div class="store-card-head">
+              <span class="platform-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9a4.8 4.8 0 0 0-3.8-2c-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9a5 5 0 0 0-4.2 2.6c-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.5 1.3 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.5a10 10 0 0 0 1.4-2.8 4.3 4.3 0 0 1-2.1-4.1zM13.9 5c.7-.8 1.2-2 1-3.1-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.4z"/></svg>
+              </span>
+              <div>
+                <h3 id="ios-title">iPhone and iPad</h3>
+                <p class="store-meta">App Store · Requires iOS 26 or later</p>
+              </div>
+            </div>
+            <p class="store-lede">Rebuilt natively in SwiftUI, with the Liquid Glass look of iOS 26.</p>
+            <ul class="store-list">
+              <li>Liquid Glass tab bar, navigation and list cards</li>
+              <li>Sign in with Apple, Google or email</li>
+              <li>Play hymn audio on a speaker or TV with AirPlay</li>
+              <li>Privacy Centre to manage consent, download your data or close your account</li>
+              <li>Light, dark and AMOLED themes with an accent colour picker</li>
             </ul>
-            <br>
-            <a href="privacy-policy.html" class="main-btn">View Full Privacy Policy</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!--====== PRIVACY POLICY PART ENDS ======-->
+            <a class="btn btn-primary" href="https://projects.reyziehomelab.com/app-redirection/?app=hymns" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9a4.8 4.8 0 0 0-3.8-2c-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9a5 5 0 0 0-4.2 2.6c-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.5 1.3 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.5a10 10 0 0 0 1.4-2.8 4.3 4.3 0 0 1-2.1-4.1zM13.9 5c.7-.8 1.2-2 1-3.1-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.4z"/></svg>
+              Download on the App Store
+            </a>
+          </article>
 
-  <!--====== BRAND PART START ======-->
-  <div class="brand-area pt-90">
-    <div class="container">
-      <div class="row">
-        <h4 style="text-align: center; opacity: 0.55;">Possible by:</h4>
-        <div class="col-lg-12">
-          <div class="brand-logo
-                d-flex
-                align-items-center
-                justify-content-center justify-content-md-between
-              ">
-            <div class="single-logo mt-30 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
-              <img src="assets/images/brands/flutter.svg" alt="brand" />
-            </div>
-            <!-- single logo -->
-            <div class="single-logo mt-30 wow fadeIn" data-wow-duration="1.5s" data-wow-delay="0.2s">
-              <img src="assets/images/brands/fontawesome.svg" alt="brand" />
-            </div>
-            <!-- single logo -->
-            <div class="single-logo mt-30 wow fadeIn" data-wow-duration="1.5s" data-wow-delay="0.3s">
-              <img src="assets/images/brands/github.svg" alt="brand" />
-            </div>
-            <!-- single logo -->
-            <div class="single-logo mt-30 wow fadeIn" data-wow-duration="1.5s" data-wow-delay="0.4s">
-              <img src="assets/images/brands/lineicons.svg" alt="brand" />
-            </div>
-            <!-- single logo -->
-            <div class="single-logo mt-30 wow fadeIn" data-wow-duration="1.5s" data-wow-delay="0.5s">
-              <img src="assets/images/brands/gemini.svg" alt="brand" />
-            </div>
-            <!-- single logo -->
-          </div>
-          <!-- brand logo -->
-        </div>
-      </div>
-      <!-- row -->
-    </div>
-    <!-- container -->
-  </div>
-  <!--====== BRAND PART ENDS ======-->
-
-  <!--====== SERVICES PART START ======-->
-  <section id="features" class="services-area pt-120">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-10">
-          <div class="section-title text-center pb-40">
-            <div class="line m-auto"></div>
-            <h3 class="title">
-              Clean and simple design,
-              <span> Comes with everything you'll ever need!</span>
-            </h3>
-          </div>
-          <!-- section title -->
-        </div>
-      </div>
-      <!-- row -->
-      <div class="row justify-content-center">
-        <div class="col-lg-4 col-md-7 col-sm-8">
-          <div class="single-services text-center mt-30 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
-            <div class="services-icon">
-              <img class="shape" src="assets/images/services/services-shape.svg" alt="shape" />
-              <img class="shape-1" src="assets/images/services/services-shape-1.svg" alt="shape" />
-              <i class="lni lni-baloon"> </i>
-            </div>
-            <div class="services-content mt-30">
-              <h4 class="services-title">
-                <a href="javascript:void(0)">Clean</a>
-              </h4>
-              <p class="text">
-                Clean UI Interface for easy user interactivity
-              </p>
-            </div>
-          </div>
-          <!-- single services -->
-        </div>
-        <div class="col-lg-4 col-md-7 col-sm-8">
-          <div class="single-services text-center mt-30 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
-            <div class="services-icon">
-              <img class="shape" src="assets/images/services/services-shape.svg" alt="shape" />
-              <img class="shape-1" src="assets/images/services/services-shape-2.svg" alt="shape" />
-              <i class="lni lni-cog"> </i>
-            </div>
-            <div class="services-content mt-30">
-              <h4 class="services-title">
-                <a href="javascript:void(0)">Robust</a>
-              </h4>
-              <p class="text">
-                The app is tested vigorously, which makes it quite robust and bug-free!
-              </p>
-            </div>
-          </div>
-          <!-- single services -->
-        </div>
-        <div class="col-lg-4 col-md-7 col-sm-8">
-          <div class="single-services text-center mt-30 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.8s">
-            <div class="services-icon">
-              <img class="shape" src="assets/images/services/services-shape.svg" alt="shape" />
-              <img class="shape-1" src="assets/images/services/services-shape-3.svg" alt="shape" />
-              <i class="lni lni-bolt-alt"> </i>
-            </div>
-            <div class="services-content mt-30">
-              <h4 class="services-title">
-                <a href="javascript:void(0)">Feature-Rich</a>
-              </h4>
-              <p class="text">
-                The app is feature-rich and comes with every feature you'll ever need
-                in a lyrics book app.
-              </p>
-            </div>
-          </div>
-          <!-- single services -->
-        </div>
-      </div>
-      <!-- row -->
-    </div>
-    <!-- container -->
-  </section>
-  <!--====== SERVICES PART ENDS ======-->
-
-  <!--====== DOWNLOAD PART START ======-->
-  <section id="downloads" class="services-area pt-120">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-10">
-          <div class="section-title text-center pb-40">
-            <div class="line m-auto"></div>
-            <h3 class="title">
-              Download Here 👇<br><br>
-              <span> Multiple Platforms Supported <br> to suit your needs!</span>
-            </h3>
-          </div>
-          <!-- section title -->
-        </div>
-      </div>
-      <!-- row -->
-      <div class="row justify-content-center">
-        <div class="col-lg-4 col-md-7 col-sm-8">
-          <div class="single-services text-center mt-30 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
-            <div class="services-icon">
-              <img class="shape" src="assets/images/downloads/android.svg" alt="shape" />
-            </div>
-            <div class="services-content mt-30">
-              <h4 class="services-title">
-                <a href="javascript:void(0)">Android</a>
-              </h4>
-              <p class="text">
-                Available on the Google Play Store. Install in seconds and enjoy the full experience on your Android
-                device.
-              </p>
-              <a class="more" href="https://play.google.com/store/apps/details?id=com.reyzie.hymns">Download Here <i
-                  class="lni lni-chevron-right"> </i>
-              </a>
-            </div>
-          </div>
-          <!-- single services -->
-        </div>
-        <div class="col-lg-4 col-md-7 col-sm-8">
-          <div class="single-services text-center mt-30 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
-            <div class="services-icon">
-              <img class="shape" src="assets/images/downloads/ios.svg" alt="shape" />
-            </div>
-            <div class="services-content mt-30">
-              <h4 class="services-title">
-                <a href="javascript:void(0)">iOS</a>
-              </h4>
-              <p class="text">
-                Coming Soon on the App Store! Stay tuned for the iOS release.
-              </p>
-              <a class="more" href="javascript:void(0)" style="opacity:0.4; pointer-events:none; cursor:default;">Coming
-                Soon <i class="lni lni-chevron-right"> </i>
-              </a>
-            </div>
-          </div>
-          <!-- single services -->
-        </div>
-        <div class="col-lg-4 col-md-7 col-sm-8">
-          <div class="single-services text-center mt-30 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.8s">
-            <div class="services-icon">
-              <img class="shape" src="assets/images/downloads/mac.svg" alt="shape" />
-            </div>
-            <div class="services-content mt-30">
-              <h4 class="services-title">
-                <a href="javascript:void(0)">MacOS</a>
-              </h4>
-              <p class="text">
-                A standalone macOS application. No installation required — just download, open, and start browsing
-                hymns.
-              </p>
-              <a class="more" href="https://github.com/Reynold29/CSI-Hymns-And-Lyrics/releases">Download Here <i
-                  class="lni lni-chevron-right"> </i>
-              </a>
-            </div>
-          </div>
-          <!-- single services -->
-        </div>
-        <div class="col-lg-4 col-md-7 col-sm-8">
-          <div class="single-services text-center mt-30 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.8s">
-            <div class="services-icon">
-              <img class="shape" src="assets/images/downloads/windows.svg" alt="shape" />
-            </div>
-            <div class="services-content mt-30">
-              <h4 class="services-title">
-                <a href="javascript:void(0)">Windows</a>
-              </h4>
-              <p class="text">
-                A native Windows desktop installer. Simple setup, smooth experience.
-              </p>
-              <a class="more" href="https://github.com/Reynold29/CSI-Hymns-And-Lyrics/releases">Download Here <i
-                  class="lni lni-chevron-right"> </i>
-              </a>
-            </div>
-          </div>
-          <!-- single services -->
-        </div>
-        <div class="col-lg-4 col-md-7 col-sm-8">
-          <div class="single-services text-center mt-30 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.8s">
-            <div class="services-icon">
-              <img class="shape" src="assets/images/downloads/web.svg" alt="shape" />
-            </div>
-            <div class="services-content mt-30">
-              <h4 class="services-title">
-                <a href="javascript:void(0)">Web View Version</a>
-              </h4>
-              <p class="text">
-                No device? No problem. Access CSI Hymns directly from any browser — no download or account required.
-              </p>
-              <a class="more" href="https://csi-hymns.netlify.app/">Visit Here <i class="lni lni-chevron-right">
-                </i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- row -->
-    </div>
-    <!-- container -->
-  </section>
-  <!--====== DOWNLOAD PART ENDS ======-->
-
-  <section id="why">
-    <!--====== ABOUT PART START ======-->
-    <div class="about-area pt-70" id="about-dev">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="about-content mt-50 wow fadeInLeftBig" data-wow-duration="1s" data-wow-delay="0.5s">
-              <div class="section-title">
-                <div class="line"></div>
-                <h3 class="title">
-                  <span>You may ask, </span> Why This App? What's the purpose?!
-                </h3>
+          <article class="store-card" aria-labelledby="android-title">
+            <div class="store-card-head">
+              <span class="platform-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.5 19.4 6.4a.4.4 0 0 0-.7-.4L16.9 9.1A11 11 0 0 0 12 8a11 11 0 0 0-4.9 1.1L5.3 6a.4.4 0 0 0-.7.4l1.8 3.1A10.4 10.4 0 0 0 1 18h22a10.4 10.4 0 0 0-5.4-8.5zM7 15.3a1.1 1.1 0 1 1 0-2.3 1.1 1.1 0 0 1 0 2.3zm10 0a1.1 1.1 0 1 1 0-2.3 1.1 1.1 0 0 1 0 2.3z"/></svg>
+              </span>
+              <div>
+                <h3 id="android-title">Android</h3>
+                <p class="store-meta">Google Play · Requires Android 8.0 or later</p>
               </div>
-              <!-- section title -->
-              <p class="text">
-                Well, pretty much the old apps weren't updated and were slowing getting
-                removed from the Play Store. Plus, there were no support for
-                iOS, Mac, Windows and Web support. The UI and App was basically
-                outdated. So <b><i> VOILA </i></b> ! <br><i>( Not like anyone needs Mac and
-                  Windows support lol ) </i> <br>
-              </p>
-              <a href="#downloads" class="main-btn">Try it Now!</a>
             </div>
-            <!-- about content -->
-          </div>
-          <div class="col-lg-6">
-            <div class="about-image text-center mt-50 wow fadeInRightBig" data-wow-duration="1s" data-wow-delay="0.5s">
-              <img src="assets/images/about/about3.svg" alt="about" />
-            </div>
-            <!-- about image -->
-          </div>
+            <p class="store-lede">Rebuilt natively in Kotlin and Jetpack Compose, with Material 3 Expressive design.</p>
+            <ul class="store-list">
+              <li>Material 3 Expressive design with haptics and predictive back</li>
+              <li>Sign in with Google or email</li>
+              <li>Cast hymn audio to a TV or speaker with Chromecast</li>
+              <li>Page Flip mode with a finger-driven page curl</li>
+              <li>22 accent colours, AMOLED black and in-app updates</li>
+            </ul>
+            <a class="btn btn-primary" href="https://projects.reyziehomelab.com/app-redirection/?app=hymns" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 2.3c-.2.2-.3.6-.3 1v17.4c0 .4.1.8.3 1l9.7-9.7L3.6 2.3zm10.8 8.6 2.7-2.7L5.3 1.5c-.3-.2-.7-.2-1-.1l10.1 9.5zm0 2.2L4.3 22.6c.3.1.7.1 1-.1l11.8-6.7-2.7-2.7zm6.2-2.3-2.6-1.5-3 3 3 3 2.6-1.5c.8-.5.8-1.6 0-3z"/></svg>
+              Get it on Google Play
+            </a>
+          </article>
         </div>
-        <!-- row -->
-      </div>
-      <!-- container -->
-      <div class="about-shape-1">
-        <img src="assets/images/about/about-shape-1.svg" alt="shape" />
-      </div>
-    </div>
-    <!--====== ABOUT PART ENDS ======-->
-  </section>
 
-  <!--====== ABOUT PART START ======-->
-  <div class="about-area pt-70">
-    <div class="about-shape-2">
-      <img src="assets/images/about/about-shape-2.svg" alt="shape" />
-    </div>
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6 order-lg-last">
-          <div class="about-content ms-lg-auto mt-50 wow fadeInLeftBig" data-wow-duration="1s" data-wow-delay="0.5s">
-            <div class="section-title">
-              <div class="line"></div>
-              <h3 class="title">
-                About Developer <span> <br>(<i> Hey, That's my cue! </i>)</span>
-              </h3>
-              <br>
-            </div>
-            <!-- section title -->
-            <p class="text">
-              Hey there! I'm Reynold, a Bachelor's Degree holder in Computer Applications and currently pursuing a
-              Master's degree in Computer Applications at Jain University.
-              I love computer hardware and software; therefore, I'm also a Cyber Security student with a passion to
-              become a highly skilled Network Penetration Tester!
-              <br><br>Where did I learn Flutter? Well, YouTube exists and the Flutter community support is just so good!
-              Why Flutter? Well, why not?! Since I'm not really pursuing App Development as my main domain, I can just
-              code in one language and get cross-platform capability with ease!
+        <div class="web-row">
+          <span class="platform-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.8 6 3.8 9.5S14.6 18.7 12 21.5M12 2.5C9.4 5.3 8.2 8.5 8.2 12s1.2 6.7 3.8 9.5"/></svg>
+          </span>
+          <p><b>No phone to hand?</b> Read the hymns in any browser. Nothing to install, no account needed.</p>
+          <a class="btn btn-secondary" href="https://csi-hymns.netlify.app/" rel="noopener">Open the web version</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Story + developer -->
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="rubric"><span class="num">iv.</span>Why this app</p>
+          <h2 id="about-title" class="visually-hidden">Why this app exists</h2>
+        </div>
+        <div class="story">
+          <p class="story-quote">The old hymn apps stopped getting updates and started vanishing from the Play Store. So I built one that would stay.</p>
+          <div class="story-body">
+            <p>
+              The apps our congregations relied on were Android-only, looked their age and
+              were slowly being pulled from the store. This one puts the hymns, keerthanes,
+              Mangalore Tunes and Order of Service in one place, in both languages, with audio
+              to sing along to.
             </p>
-            <a href="delete.html" class="main-btn" style="margin-top: 10px;">Delete User Data</a>
-          </div>
-          <!-- about content -->
-        </div>
-        <div class="col-lg-6 order-lg-first">
-          <div class="about-image text-center mt-50 wow fadeInRightBig" data-wow-duration="1s" data-wow-delay="0.5s"
-            style="max-width: 70%; height: auto;">
-            <img src="assets/images/about/aboutme.png" alt="about" style="max-width: 100%; height: auto;">
-          </div>
-          <!-- about image -->
-        </div>
-      </div>
-      <!-- row -->
-    </div>
-    <!-- container -->
-  </div>
-  </section>
+            <p class="aside">Now it is a native app on both iPhone and Android, built to last.</p>
 
-  <!--====== SUPPORT PART START ======-->
-  <section id="support" class="services-area pt-120 pb-120">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-10">
-          <div class="section-title text-center pb-40">
-            <div class="line m-auto"></div>
-            <h3 class="title">
-              App Support Center<br><br>
-              <span>Have a question, issue, or feedback? We're here to help!</span>
-            </h3>
-          </div>
-        </div>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-lg-8">
-          <!-- Developer Contact Info -->
-          <div
-            style="background: #f8f9ff; padding: 28px 36px; border-radius: 10px; box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.07); margin-bottom: 28px;">
-            <h5 style="margin-bottom: 14px; font-weight: 700; color: #333;">Contact Information</h5>
-            <p style="margin-bottom: 8px; color: #555;"><strong>Developer:</strong> Reynold Preetham</p>
-            <p style="margin-bottom: 8px; color: #555;"><strong>Email:</strong> <a
-                href="mailto:reynold29clare@gmail.com" style="color: inherit;">reynold29clare@gmail.com</a></p>
-            <p style="margin-bottom: 0; color: #555;"><strong>Location:</strong> Karnataka, India</p>
-          </div>
-
-          <!-- Support Form -->
-          <div class="contact-form-wrapper"
-            style="background: #fff; padding: 40px; border-radius: 10px; box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);">
-            <h5 style="margin-bottom: 20px; font-weight: 700; color: #333;">Submit a Support Ticket</h5>
-            <form action="https://formsubmit.co/support@reyziecrafts.atlassian.net" method="POST">
-              <!-- Disable Captcha optionally -->
-              <input type="hidden" name="_captcha" value="false">
-              <!-- Next page destination after success -->
-              <input type="hidden" name="_next" value="https://projects.reyziehomelab.com/hymns/#support">
-              <!-- Subject line -->
-              <input type="hidden" name="_subject" value="New Support Ticket from Web">
-              <input type="hidden" name="_template" value="table">
-
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="single-form form-group mb-30" style="margin-bottom: 20px;">
-                    <input type="text" name="name" placeholder="Your Name" required class="form-control"
-                      style="width: 100%; height: 50px; padding: 0 20px; border: 1px solid #e2e8f0; border-radius: 5px;">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="single-form form-group mb-30" style="margin-bottom: 20px;">
-                    <input type="email" name="email" placeholder="Your Email" required class="form-control"
-                      style="width: 100%; height: 50px; padding: 0 20px; border: 1px solid #e2e8f0; border-radius: 5px;">
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <div class="single-form form-group mb-30" style="margin-bottom: 20px;">
-                    <textarea name="message" placeholder="Describe your issue or ask a question..." required
-                      class="form-control"
-                      style="width: 100%; height: 150px; padding: 15px 20px; border: 1px solid #e2e8f0; border-radius: 5px; resize: none;"></textarea>
-                  </div>
-                </div>
-                <div class="col-md-12 text-center">
-                  <div class="single-form">
-                    <button type="submit" class="main-btn" style="border: none; cursor: pointer;">Submit Ticket</button>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!--====== SUPPORT PART ENDS ======-->
-
-  <!--====== VIDEO COUNTER PART START ======-->
-  <section id="facts" class="video-counter pt-70">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 order-lg-last">
-          <div class="counter-wrapper mt-50 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.8s">
-            <div class="counter-content">
-              <div class="section-title">
-                <div class="line"></div>
-                <h3 class="title">Overall App <span> Statistics</span></h3>
+            <div class="dev-card">
+              <img src="assets/img/developer.png" alt="" width="64" height="64" loading="lazy" />
+              <div>
+                <b>Reynold Preetham</b>
+                <span>Developer. MCA student at Jain University and cyber-security enthusiast, building this in spare time.</span>
               </div>
             </div>
-            <!-- counter content -->
-            <div class="row no-gutters">
-              <div class="col-4">
-                <div class="
-                      single-counter
-                      counter-color-1
-                      d-flex
-                      align-items-center
-                      justify-content-center
-                    ">
-                  <div class="counter-items text-center">
-                    <span class="count countup text-uppercase" cup-end="5000"></span>
-
-                    <p class="text">Downloads</p>
-                  </div>
-                </div>
-                <!-- single counter -->
-              </div>
-              <div class="col-4">
-                <div class="
-                      single-counter
-                      counter-color-2
-                      d-flex
-                      align-items-center
-                      justify-content-center
-                    ">
-                  <div class="counter-items text-center">
-                    <span class="count countup text-uppercase" cup-end="4000"></span>
-                    <p class="text">Active Users</p>
-                  </div>
-                </div>
-                <!-- single counter -->
-              </div>
-              <div class="col-4">
-                <div class="
-                      single-counter
-                      counter-color-3
-                      d-flex
-                      align-items-center
-                      justify-content-center
-                    ">
-                  <div class="counter-items text-center">
-                    <span class="count countup text-uppercase" cup-end="4.8"></span>
-                    <p class="text">User Rating</p>
-                  </div>
-                </div>
-                <!-- single counter -->
-              </div>
-            </div>
-            <!-- row -->
+            <p>
+              I am not an app developer by trade. I learned from YouTube and the community, first
+              in Flutter. Both apps are now rebuilt natively: SwiftUI on iPhone and iPad, Kotlin and
+              Jetpack Compose on Android.
+              Suggestions and contributions are always welcome.
+            </p>
+            <a class="text-link" href="https://www.youtube.com/watch?v=r44RKWyfcFw" rel="noopener">
+              Watch the walkthrough video
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
           </div>
-          <!-- counter wrapper
-          </div>
-          <div class="col-lg-6">
-            <div
-              class="video-content mt-50 wow fadeIn"
-              data-wow-duration="1s"
-              data-wow-delay="0.5s"
-            >
-              <img class="dots" src="assets/images/video/dots.svg" alt="dots" />
-              <div class="video-wrapper">
-                <div class="video-image">
-                  <img src="assets/images/video/video.png" alt="video" />
-                </div>
-                <div class="video-icon">
-                  <a
-                    href="https://www.youtube.com/watch?v=r44RKWyfcFw"
-                    class="video-popup glightbox"
-                  >
-                    <i class="lni lni-play"> </i>
-                  </a>
-                </div>
-              </div>
-              video wrapper -->
         </div>
-        <!-- video content -->
+      </div>
+    </section>
+
+    <!-- Support -->
+    <section class="section section-alt" id="support" aria-labelledby="support-title">
+      <div class="wrap support">
+        <div>
+          <div class="section-head flush">
+            <p class="rubric"><span class="num">v.</span>Support</p>
+            <h2 id="support-title">Found a typo in a hymn, or something not working?</h2>
+            <p>Send a message and you will get a reply by email. To report a lyric mistake, you can also tap the report button on any hymn inside the app.</p>
+          </div>
+          <ul class="contact-list">
+            <li><span class="k">Developer</span><span>Reynold Preetham</span></li>
+            <li><span class="k">Email</span><a href="mailto:reynold29clare@gmail.com">reynold29clare@gmail.com</a></li>
+            <li><span class="k">Telegram</span><a href="https://t.me/Reynold29" rel="noopener">@Reynold29</a></li>
+            <li><span class="k">Location</span><span>Karnataka, India</span></li>
+          </ul>
+        </div>
+
+        <div class="form-card">
+          <div class="notice notice-ok" id="support-sent" role="status" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>Thanks, your message was sent. You will hear back by email.</span>
+          </div>
+          <h3>Send a support request</h3>
+          <p>All fields are required.</p>
+          <form action="https://formsubmit.co/support@reyziecrafts.atlassian.net" method="POST">
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_next" value="https://projects.reyziehomelab.com/hymns/?sent=1#support" />
+            <input type="hidden" name="_subject" value="New Support Ticket from Web" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="visually-hidden" aria-hidden="true" />
+
+            <div class="field">
+              <label for="support-name">Your name</label>
+              <input id="support-name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="support-email">Email</label>
+              <input id="support-email" name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" required />
+            </div>
+            <div class="field">
+              <label for="support-message">What can we help with?</label>
+              <textarea id="support-message" name="message" required placeholder="For a lyric mistake, include the hymn number…"></textarea>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">Send message</button>
+              <span class="form-note">Opens a ticket in our support desk.</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Privacy -->
+    <section class="section" id="privacy" aria-labelledby="privacy-title">
+      <div class="wrap privacy-band">
+        <div class="section-head flush">
+          <p class="rubric"><span class="num">vi.</span>Privacy</p>
+          <h2 id="privacy-title">Your hymns, not your data.</h2>
+          <p>The short version of the privacy policy.</p>
+          <div class="privacy-actions">
+            <a class="btn btn-secondary" href="privacy-policy.html">Read the full policy</a>
+            <a class="btn btn-secondary" href="delete.html">Request data deletion</a>
+          </div>
+        </div>
+        <ul class="promise-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.4 3.4 8.3 8 9 4.6-.7 8-4.6 8-9V6l-8-3z"/></svg>
+            <div><b>No personal data by default</b><span>No names, phone numbers or locations are collected. You can use the app without an account.</span></div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+            <div><b>Accounts are optional and private</b><span>Sign in with Apple, Google or email only if you want to sync favourites. Your account details are stored securely and never shared.</span></div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M2 9a15 15 0 0 1 20 0"/><circle cx="12" cy="19.5" r="1" fill="currentColor"/></svg>
+            <div><b>No ads, ever</b><span>The connection is used to stream hymn audio and fetch lyric updates. On iPhone, optional analytics can be switched off in the Privacy Centre.</span></div>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="brand" href="#top">
+            <img src="assets/img/app-icon.png" alt="" width="34" height="34" loading="lazy" />
+            CSI Hymns Book
+          </a>
+          <p>Made in Karnataka for the congregations of the Church of South India. Thank you for singing along.</p>
+        </div>
+        <div class="footer-col">
+          <h2>App</h2>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="https://projects.reyziehomelab.com/app-redirection/?app=hymns" rel="noopener">Download</a></li>
+            <li><a href="https://csi-hymns.netlify.app/" rel="noopener">Web app</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Help</h2>
+          <ul>
+            <li><a href="#support">Support</a></li>
+            <li><a href="privacy-policy.html">Privacy policy</a></li>
+            <li><a href="delete.html">Delete my data</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Elsewhere</h2>
+          <ul>
+            <li><a href="https://github.com/Reynold29" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/reynoldpreetham/" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://x.com/Reyzie29" rel="noopener">X</a></li>
+            <li><a href="https://projects.reyziehomelab.com/linkfree">All links</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© Reynold Preetham</span>
+        <a href="https://projects.reyziehomelab.com/">More projects</a>
       </div>
     </div>
-    <!-- row -->
-    </div>
-    <!-- container -->
-  </section>
-  <!--====== VIDEO COUNTER PART ENDS ======-->
-
-  <!--====== FOOTER PART START ======-->
-  <footer id="footer" class="footer-area pt-120">
-    <div class="container">
-      <div class="subscribe-area wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="thanksbar-content mt-45 text-center">
-              <h2 class="thanksbar-title" style="text-align: center;">
-                Thank You for visting this site. Have a Great Day!
-              </h2>
-            </div>
-          </div>
-          <!--<div class="col-lg-6">
-              <div class="subscribe-form mt-50">
-                <form action="#">
-                  <input type="text" placeholder="Enter E-mail" />
-                  <button class="main-btn">Subscribe</button>
-                </form>
-              </div>
-            </div>-->
-        </div>
-        <!-- row -->
-      </div>
-      <!-- subscribe area -->
-      <div class="footer-widget pb-100">
-        <div class="row">
-          <div class="col-lg-4 col-md-6 col-sm-8">
-            <div class="footer-about mt-50 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
-              <h4 style="color: white;">Let's Get to Know <br> Each Other</h4>
-              <!--<img src="assets/images/logo/logo.svg" alt="logo" />-->
-              </a>
-              <p class="text">
-                Do follow my socials and <br>contribute to the projects! I'm <br> No Pro in Flutter, so I totally have a
-                <br> lot to learn! 🙂
-              </p>
-              <ul class="social">
-                <li>
-                  <a href="https://github.com/Reynold29">
-                    <i class="lni lni-github-original"> </i>
-                  </a>
-                </li>
-                <li>
-                  <a href="https://x.com/Reyzie29">
-                    <i class="lni lni-twitter-filled"> </i>
-                  </a>
-                </li>
-                <li>
-                  <a href="https://projects.reyziehomelab.com/linkfree">
-                    <i class="lni lni-world"> </i>
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/in/reynoldpreetham/">
-                    <i class="lni lni-linkedin-original"> </i>
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <!-- footer about -->
-          </div>
-          <div class="col-lg-5 col-md-7 col-sm-12">
-            <div class="footer-link d-flex mt-50 justify-content-sm-between">
-              <div class="link-wrapper wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
-                <div class="footer-title">
-                  <h4 class="title">Quick Links</h4>
-                </div>
-                <ul class="link">
-                  <li><a class="page-scroll" href="#privacy">Privacy Policy</a></li>
-                </ul>
-              </div>
-              <!-- footer wrapper -->
-              <div class="link-wrapper wow fadeIn" data-wow-duration="1s" data-wow-delay="0.6s">
-                <div class="footer-title">
-                  <h4 class="title">Resources</h4>
-                </div>
-                <ul class="link">
-                  <li><a href="#home">Home</a></li>
-                  <li><a href="#downloads">Downloads</a></li>
-                  <li><a href="https://portfolio-reynold29.vercel.app/">Portfolio</a></li>
-                  <li><a href="https://t.me/Reynold29">Contact</a></li>
-                </ul>
-              </div>
-              <!-- footer wrapper -->
-            </div>
-            <!-- footer link -->
-          </div>
-          <div class="col-lg-3 col-md-5 col-sm-12">
-            <div class="footer-contact mt-50 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.8s">
-              <div class="footer-title">
-                <h4 class="title">Contact Me</h4>
-              </div>
-              <ul class="contact">
-                <li>Telegram: @Reynold29</li>
-                <li>reynold29clare@gmail.com</li>
-                <li>https://projects.reyziehomelab.com/linkfree</li>
-                <li>
-                  India
-                </li>
-              </ul>
-            </div>
-            <!-- footer contact -->
-          </div>
-        </div>
-        <!-- row -->
-      </div>
-      <!-- footer widget -->
-      <div class="footer-copyright">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="copyright d-sm-flex justify-content-between">
-              <div class="copyright-content">
-                <p class="text">
-                  ©
-                  <a href="https://projects.reyziehomelab.com/linkfree" rel="nofollow">Reynold29</a>
-                </p>
-              </div>
-              <!-- copyright content -->
-            </div>
-            <!-- copyright -->
-          </div>
-        </div>
-        <!-- row -->
-      </div>
-      <!-- footer copyright -->
-    </div>
-    <!-- container -->
-    <div id="particles-2"></div>
   </footer>
-  <!--====== FOOTER PART ENDS ======-->
 
-  <!--====== BACK TOP TOP PART ENDS ======-->
-
-  <!--====== Javascript Files ======-->
-  <script src="assets/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/js/wow.min.js"></script>
-  <script src="assets/js/glightbox.min.js"></script>
-  <script src="assets/js/count-up.min.js"></script>
-  <script src="assets/js/particles.min.js"></script>
-  <script src="assets/js/main.js"></script>
+  <script src="assets/site.js" defer></script>
 </body>
-
 </html>
