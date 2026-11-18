@@ -1,504 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YKC One — CSI Yesu Krupalaya Church · Mysuru</title>
-  <meta name="description"
-    content="Official companion app for CSI Yesu Krupalaya Church (Mysuru). Turn-by-turn carol routes with AES-256 coordinate encryption, parish directory, and verified double-entry church ledger receipts.">
-  <meta name="theme-color" content="#070a12">
-  <link rel="canonical" href="https://projects.reyziehomelab.com/ykc-one/">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>YKC One: the app for CSI Yesu Krupalaya Church, Mysuru</title>
+  <meta name="description" content="YKC One is the official app of CSI Yesu Krupalaya Church, Mysuru: Christmas carol navigation with protected home locations, the parish family directory, and signed tithe receipts." />
+  <meta name="theme-color" content="#0d1626" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://projects.reyziehomelab.com/ykc-one/" />
 
-  <!-- OpenGraph -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://projects.reyziehomelab.com/ykc-one/">
-  <meta property="og:title" content="YKC One — CSI Yesu Krupalaya Church · Mysuru">
-  <meta property="og:description"
-    content="Official companion app for CSI Yesu Krupalaya Church: Christmas Carol Rounds, Parish Directory, and Verified Church Ledger.">
-  <meta property="og:image" content="https://projects.reyziehomelab.com/ykc-one/assets/feature_graphic.png">
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://projects.reyziehomelab.com/ykc-one/" />
+  <meta property="og:title" content="YKC One · CSI Yesu Krupalaya Church, Mysuru" />
+  <meta property="og:description" content="Carol rounds, the parish directory and signed tithe receipts, in one app for CSI Yesu Krupalaya Church." />
+  <meta property="og:image" content="https://projects.reyziehomelab.com/ykc-one/assets/feature_graphic.png" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Favicon & Icons -->
-  <link rel="icon" type="image/png" href="assets/app_icon.png">
-  <link rel="apple-touch-icon" href="assets/app_icon.png">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/app_icon.png" />
 
-  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet">
-
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preload" as="image" href="assets/img/screens/overview.jpg" fetchpriority="high" />
 </head>
 
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- Sticky Header & Nav Tabs -->
-  <header class="site-header">
-    <div class="container nav-wrapper">
-      <a href="#overview" class="brand" data-tab="overview">
-        <img src="assets/app_icon.png" alt="YKC One App Icon" class="brand-icon">
-        <div class="brand-info">
-          <span class="brand-title">YKC One</span>
-          <span class="brand-badge">CSI Yesu Krupalaya Church · Mysuru</span>
-        </div>
+  <header class="site-nav">
+    <nav class="wrap nav-inner" aria-label="Main">
+      <a class="brand" href="#top">
+        <img src="assets/img/app-icon.png" alt="" width="38" height="38" />
+        <span><b>YKC One</b><small>CSI Yesu Krupalaya Church</small></span>
       </a>
-
-      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle Navigation Menu">
-        Menu ▾
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
-
-      <ul class="nav-tabs" id="navTabs">
-        <li>
-          <button class="tab-btn active" data-tab="overview">
-            <span>⛪ Overview</span>
-          </button>
-        </li>
-        <li>
-          <button class="tab-btn" data-tab="privacy">
-            <span>🛡️ Privacy Policy</span>
-          </button>
-        </li>
-        <li>
-          <button class="tab-btn danger-tab" data-tab="delete-account">
-            <span>🗑️ Data &amp; Account Deletion</span>
-          </button>
-        </li>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#who">Who it's for</a></li>
+        <li><a href="#tour">Features</a></li>
+        <li><a href="#privacy-summary">Privacy</a></li>
+        <li><a href="account-deletion.html">Delete my data</a></li>
+        <li><a class="btn btn-primary btn-sm" href="#download">Get the app</a></li>
       </ul>
-    </div>
+    </nav>
   </header>
 
-  <main>
-    <!-- ====================================================================
-         TAB 1: APP OVERVIEW & SHOWCASE
-         ==================================================================== -->
-    <div class="tab-content active" id="tab-overview">
-      <div class="container">
-        
-        <!-- Hero Section -->
-        <section class="hero-section">
-          <div class="hero-pill">
-            <span class="dot"></span>
-            <span>Official Release v1.0.0 · Mysore Diocese</span>
-          </div>
-
-          <h1 class="hero-title">
-            Parish Fellowship, Carol Rounds &amp; <span class="gradient-text">Transparent Stewardship</span>
-          </h1>
-
-          <p class="hero-subtitle">
-            The dedicated digital companion for <strong>CSI Yesu Krupalaya Church</strong>, Ramakrishna Nagar, Mysuru.
-            Bringing together household parish registries, turn-by-turn Christmas carol navigation, and verified
-            double-entry ledger giving into one secure, beautifully crafted platform.
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="wrap">
+        <div class="hero-top">
+        <div class="hero-copy">
+          <p class="parish-pill">
+            <img src="assets/img/app-icon.png" alt="" width="26" height="26" />
+            Official app · CSI Yesu Krupalaya Church, Ramakrishna Nagar, Mysuru
           </p>
-
+          <h1 id="hero-title">Carol rounds, parish families and church giving, <em>in one app.</em></h1>
+          <p class="hero-lede">
+            Carol teams find every home without seeing the whole map. Families keep their
+            details current. Every tithe comes back as a signed receipt.
+          </p>
           <div class="hero-actions">
-            <button class="btn btn-primary" onclick="document.querySelector('[data-tab=\'delete-account\']').click()">
-              Manage Account &amp; Data Deletion &rarr;
-            </button>
-            <button class="btn btn-secondary" onclick="document.querySelector('[data-tab=\'privacy\']').click()">
-              Read Privacy Policy
-            </button>
+            <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.reyzie.oneykc" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 2.3c-.2.2-.3.6-.3 1v17.4c0 .4.1.8.3 1l9.7-9.7L3.6 2.3zm10.8 8.6 2.7-2.7L5.3 1.5c-.3-.2-.7-.2-1-.1l10.1 9.5zm0 2.2L4.3 22.6c.3.1.7.1 1-.1l11.8-6.7-2.7-2.7zm6.2-2.3-2.6-1.5-3 3 3 3 2.6-1.5c.8-.5.8-1.6 0-3z"/></svg>
+              Get it on Google Play
+            </a>
+            <a class="btn btn-secondary" href="#download">iPhone and iPad: coming soon</a>
           </div>
-
-          <!-- Feature Graphic Banner -->
-          <div class="showcase-card">
-            <img src="assets/feature_graphic.png" alt="YKC One Church Showcase Graphic">
-          </div>
-        </section>
-
-        <!-- Technical Specification Row -->
-        <div class="spec-box">
-          <div class="spec-item">
-            <span class="spec-label">Application ID</span>
-            <span class="spec-value">com.reyzie.oneykc</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-label">Parish Location</span>
-            <span class="spec-value">Ramakrishna Nagar, Mysuru</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-label">Coordinate Security</span>
-            <span class="spec-value">AES-256 GCM Shield</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-label">Statutory Compliance</span>
-            <span class="spec-value">80G / Form 10BD Receipts</span>
-          </div>
+          <p class="hero-note">For registered families and church staff. Sign-in details come from the church office.</p>
+        </div>
+          <img class="hero-phone" src="assets/img/screens/overview.jpg" width="553" height="1200"
+               alt="YKC One home screen with carol route, parish registry, church ledger and privacy shield cards" fetchpriority="high" />
         </div>
 
-        <!-- Core Feature Cards -->
-        <section class="features-grid">
-          
-          <!-- Carol Rounds -->
-          <div class="feature-card highlight">
-            <div class="feature-icon-box">🎄</div>
-            <h3 class="feature-title">Christmas Carol Rounds &amp; Navigation</h3>
-            <p class="feature-desc">
-              Tailored turn-by-turn road guidance optimized for Mysuru layouts across Ramakrishna Nagar, Kuvempunagar,
-              Gokulam, and surrounding parishes during the joyous Christmas carol season.
-            </p>
-            <ul class="feature-points">
-              <li><strong>Privacy Shield:</strong> Coordinates protected by AES-256 encryption.</li>
-              <li><strong>Singer View:</strong> Only the active destination home is shown to carol teams.</li>
-              <li><strong>Real-time Progress:</strong> Live stop tracker and home arrival coordinator.</li>
-            </ul>
-          </div>
+        <figure class="hero-art">
+          <img src="assets/img/store-artwork.jpg" width="1800" height="1012"
+               alt="YKC One app icon beside the tagline Parish Fellowship, Christmas Carols and Verified Stewardship" />
+        </figure>
 
-          <!-- Parish Registry -->
-          <div class="feature-card">
-            <div class="feature-icon-box">📖</div>
-            <h3 class="feature-title">Parish Directory &amp; Family Registry</h3>
-            <p class="feature-desc">
-              Comprehensive directory of enrolled parishioner families, enabling pastoral care, prayer requests, home
-              visit scheduling, and community announcements.
-            </p>
-            <ul class="feature-points">
-              <li><strong>Household Profiles:</strong> Family relationships and contact channels.</li>
-              <li><strong>Pastoral Visits:</strong> Accurate home location mapping for pastors.</li>
-              <li><strong>Self-Service:</strong> Family heads manage their own members and contact updates.</li>
-            </ul>
-          </div>
-
-          <!-- Verified Church Ledger -->
-          <div class="feature-card">
-            <div class="feature-icon-box">⛪</div>
-            <h3 class="feature-title">Double-Entry Ledger &amp; Verified Receipts</h3>
-            <p class="feature-desc">
-              Complete financial stewardship and accountability. Members receive instant verified digital receipts
-              for all tithes, thanksgiving offerings, and charity donations.
-            </p>
-            <ul class="feature-points">
-              <li><strong>Authorized Signatures:</strong> Digital presbyter &amp; treasurer endorsements.</li>
-              <li><strong>Statutory Compliance:</strong> Form 10BD and 80G tax certificate integration.</li>
-              <li><strong>Strict Segregation:</strong> Row-Level Security ensures only your own family receipts are visible.</li>
-            </ul>
-          </div>
-
-        </section>
-
-      </div>
-    </div>
-
-    <!-- ====================================================================
-         TAB 2: DATA & ACCOUNT DELETION PORTAL
-         ==================================================================== -->
-    <div class="tab-content" id="tab-delete-account">
-      <div class="container deletion-wrapper">
-        
-        <div class="deletion-header">
-          <span class="danger-tag">Data Governance &amp; User Control</span>
-          <h1 class="legal-title">Account &amp; Data Deletion Request</h1>
-          <p class="legal-meta">
-            Compliant with Google Play Data Safety &amp; Apple App Store Policy · Response within 24–48 hours
-          </p>
-        </div>
-
-        <div class="legal-notice-box">
-          <strong>Your Right to Control Your Data:</strong> YKC One respects your digital privacy. You have full freedom
-          to request either <strong>partial data deletion</strong> (e.g. wiping your home's GPS coordinates or profile
-          information without closing your parish account) or a <strong>complete account deletion</strong>.
-        </div>
-
-        <!-- Deletion Methods -->
-        <div class="step-card">
-          <h3 class="step-title">
-            <span class="step-number">1</span>
-            Method A: Instant In-App Deletion (Immediate)
-          </h3>
-          <p style="color: var(--text-secondary); font-size: 0.9375rem; margin-bottom: 12px;">
-            If you have the <strong>YKC One</strong> app installed on your smartphone:
-          </p>
-          <ol style="padding-left: 20px; color: var(--text-secondary); font-size: 0.875rem; line-height: 1.8;">
-            <li>Open <strong>YKC One</strong> and navigate to <strong>More</strong> or <strong>Family Settings</strong>.</li>
-            <li>Select <strong>Account &amp; Privacy</strong>.</li>
-            <li>Choose either <strong>"Clear Home Geolocation Pin"</strong> (partial) or <strong>"Delete Account &amp; Access"</strong> (full wipe).</li>
-            <li>Confirm the prompt. Your credentials and stored device session are immediately cleared.</li>
-          </ol>
-        </div>
-
-        <div class="step-card">
-          <h3 class="step-title">
-            <span class="step-number">2</span>
-            Method B: Web Deletion Request Portal
-          </h3>
-          <p style="color: var(--text-secondary); font-size: 0.9375rem; margin-bottom: 20px;">
-            If you have uninstalled the app or prefer to submit a verified web request directly to our developer
-            and parish administration, complete the form below. An automated email draft will be formatted for
-            <strong>reynold29clare@gmail.com</strong>.
-          </p>
-
-          <form id="deletionForm" class="form-box">
-            
-            <div class="form-group">
-              <label for="memberName" class="form-label">
-                Parishioner / Family Head Name <span style="color: #f87171;">*</span>
-              </label>
-              <input type="text" id="memberName" class="form-input" placeholder="e.g. John Doe / Family #42" required>
-            </div>
-
-            <div class="form-group">
-              <label for="contactInfo" class="form-label">
-                Registered Mobile Number or Email <span style="color: #f87171;">*</span>
-              </label>
-              <input type="text" id="contactInfo" class="form-input" placeholder="e.g. +91 98765 43210 or name@example.com" required>
-              <p class="form-hint">The phone number or email linked to your YKC One mobile login.</p>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">
-                What data would you like deleted? <span style="color: #f87171;">*</span>
-              </label>
-              <p class="form-hint" style="margin-bottom: 10px;">
-                You can request deletion of specific data items <strong>without deleting your entire account</strong>:
-              </p>
-
-              <div class="scope-grid">
-                
-                <label class="scope-card" style="border-left: 3px solid #f87171;">
-                  <input type="checkbox" name="deleteScope" value="Full Account & All Mobile Credentials" id="scopeFull">
-                  <div class="scope-text">
-                    <h4 style="color: #f87171;">Complete Account Wipe (Permanent)</h4>
-                    <p>Permanently removes your login account, PIN, active device sessions, and revokes mobile access.</p>
-                  </div>
-                </label>
-
-                <label class="scope-card" style="border-left: 3px solid #3b82f6;">
-                  <input type="checkbox" name="deleteScope" value="Household GPS Coordinates & Carol Route Pin" id="scopeGeo">
-                  <div class="scope-text">
-                    <h4 style="color: #60a5fa;">Delete Household GPS Pin Only (Keep Account Active)</h4>
-                    <p>Wipes your residential latitude/longitude coordinates and door directions from carol/visit maps while preserving your church directory account.</p>
-                  </div>
-                </label>
-
-                <label class="scope-card" style="border-left: 3px solid #fbbf24;">
-                  <input type="checkbox" name="deleteScope" value="Profile Photo & Contact Information" id="scopeProfile">
-                  <div class="scope-text">
-                    <h4 style="color: #fbbf24;">Delete Profile Photo &amp; Optional Details (Keep Account Active)</h4>
-                    <p>Removes uploaded family photos, alternate phone numbers, or optional profile notes while preserving your member registry.</p>
-                  </div>
-                </label>
-
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="deletionReason" class="form-label">Additional Instructions or Remarks (Optional)</label>
-              <textarea id="deletionReason" class="form-textarea" placeholder="Provide any additional details or specific requests here..."></textarea>
-            </div>
-
-            <div style="margin-top: 24px;">
-              <button type="submit" class="btn btn-danger" style="width: 100%;">
-                Generate Verified Deletion Request &rarr;
-              </button>
-            </div>
-
-          </form>
-
-          <!-- Success & Dispatch Box -->
-          <div class="success-box" id="deletionSuccessBox">
-            <div class="receipt-header">
-              <div class="check-icon">✓</div>
-              <div>
-                <h3 style="color: #ffffff; font-size: 1.15rem; margin-bottom: 2px;">Deletion Request Ready</h3>
-                <p style="color: var(--text-muted); font-size: 0.8125rem;">Dispatch your verified request to the parish administrator.</p>
-              </div>
-            </div>
-
-            <table class="receipt-table">
-              <tr>
-                <td>Reference ID</td>
-                <td id="receiptId">YKC-DEL-XXXXXX</td>
-              </tr>
-              <tr>
-                <td>Member Name</td>
-                <td id="receiptMember">—</td>
-              </tr>
-              <tr>
-                <td>Contact Info</td>
-                <td id="receiptContact">—</td>
-              </tr>
-              <tr>
-                <td>Selected Scope</td>
-                <td id="receiptScope">—</td>
-              </tr>
-              <tr>
-                <td>Recipient</td>
-                <td>reynold29clare@gmail.com</td>
-              </tr>
-            </table>
-
-            <div class="dispatch-actions">
-              <a href="#" id="gmailWebBtn" target="_blank" class="btn btn-primary">
-                Open in Gmail Web ↗
-              </a>
-              <a href="#" id="mailtoBtn" class="btn btn-secondary">
-                Open in Mail App ✉
-              </a>
-              <button type="button" id="copyDetailsBtn" class="btn btn-outline">
-                <span id="copyBtnText">Copy Request Details</span>
-              </button>
-            </div>
-
-            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 18px; line-height: 1.5;">
-              <strong>Note regarding audited church records:</strong> Under Indian Trust and non-profit accounting regulations,
-              historical tithe receipts and audited accounting vouchers are retained for statutory financial compliance.
-              Personal phone numbers, login PINs, and household GPS coordinates will be permanently purged upon request.
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ====================================================================
-         TAB 3: PRIVACY POLICY
-         ==================================================================== -->
-    <div class="tab-content" id="tab-privacy">
-      <div class="container legal-wrapper">
-        
-        <div class="legal-header">
-          <span class="legal-badge">Official Policy</span>
-          <h1 class="legal-title">Privacy Policy for YKC One</h1>
-          <div class="legal-meta">
-            Effective: October 15, 2026 · Last Updated: October 15, 2026 · Bundle ID: com.reyzie.oneykc
-          </div>
-        </div>
-
-        <div class="legal-notice-box">
-          <strong>Summary:</strong> YKC One is the official parish companion for <strong>CSI Yesu Krupalaya Church</strong> (Mysuru).
-          We do not sell, rent, monetize, or share your data with advertisers. Household GPS coordinates are protected by AES-256
-          encryption, and all records are strictly governed by PostgreSQL Row-Level Security.
-        </div>
-
-        <div class="legal-section">
-          <h2>1. Overview &amp; Parish Philosophy</h2>
-          <p>
-            Welcome to <strong>YKC One</strong> ("the App", "we", "us", or "our"), the official church and parish companion
-            application for <strong>CSI Yesu Krupalaya Church</strong>, Ramakrishna Nagar, Mysuru, Karnataka.
-          </p>
-          <p>
-            YKC One is built exclusively to support our church community, spiritual fellowship, pastoral care, seasonal Christmas
-            carol rounds, and transparent financial stewardship. We adhere to the highest standards of data integrity and privacy.
-          </p>
-        </div>
-
-        <div class="legal-section">
-          <h2>2. Information We Collect &amp; Why</h2>
-          
-          <h3>A. Parish Registry &amp; Directory Information</h3>
-          <ul>
-            <li><strong>Personal Details:</strong> Names, gender, relationship to the family head, marital status, and dates of birth.</li>
-            <li><strong>Parish Milestones:</strong> Wedding anniversaries and family parish enrollment numbers.</li>
-            <li><strong>Contact Details:</strong> Phone numbers, email addresses, and residential physical addresses.</li>
-            <li><strong>Profile Photos:</strong> Optional profile or family photos uploaded to the parish directory.</li>
-          </ul>
-
-          <h3>B. Carol Rounds, Home Visits &amp; Location Data</h3>
-          <ul>
-            <li><strong>Household GPS Coordinates:</strong> Latitude and longitude coordinates of parishioner homes saved to facilitate pastoral home visits and seasonal Christmas carol rounds.</li>
-            <li><strong>Privacy-First Coordinate Shield:</strong> Household coordinates are secured with AES-256 encryption. Only active destination homes are revealed to singer devices during live rounds.</li>
-            <li><strong>Live Device Location:</strong> Accessed solely while actively navigating to a member home during carol rounds or when a family head drops their home pin. We <strong>never</strong> track background movements.</li>
-          </ul>
-
-          <h3>C. Financial Giving, Tithes &amp; Ledger Records</h3>
-          <ul>
-            <li><strong>Tithes &amp; Offerings:</strong> Contribution amounts, payment modes (Cash, Cheque, UPI, Bank Transfer), voucher numbers, and digital receipts.</li>
-            <li><strong>Authorized Signatures:</strong> Digital signatures authorized by church presbyters and treasurers to validate receipts.</li>
-            <li><strong>Statutory 80G Tax Exemption Data:</strong> For donors claiming statutory tax deductions, legal names, addresses, and PAN are collected strictly to issue Form 10BD certificates and official donation receipts.</li>
-          </ul>
-        </div>
-
-        <div class="legal-section">
-          <h2>3. Device Permissions &amp; Transparency</h2>
-          <ul>
-            <li><strong>Location (<code>ACCESS_FINE_LOCATION</code>, <code>ACCESS_COARSE_LOCATION</code>):</strong> Used during Christmas carol rounds for turn-by-turn navigation between parishioner homes, and for family heads to drop house pins.</li>
-            <li><strong>Internet Access (<code>INTERNET</code>):</strong> Connects securely via TLS/HTTPS to our encrypted cloud backend (Supabase) to synchronize receipts and directory details.</li>
-            <li><strong>Photo Library (<code>READ_MEDIA_IMAGES</code>):</strong> Used solely when a church treasurer uploads an authorized receipt signature or when members select profile photos.</li>
-          </ul>
-        </div>
-
-        <div class="legal-section">
-          <h2>4. Role-Based Access &amp; Row-Level Security</h2>
-          <p>
-            Our cloud database strictly enforces <strong>Row-Level Security (RLS)</strong>:
-          </p>
-          <ul>
-            <li><strong>Family Heads:</strong> Can only view their own household records and tithe receipts. Other families' records and the general ledger remain inaccessible.</li>
-            <li><strong>Carol Singers:</strong> Receive temporary, route-specific directions strictly during active carol nights.</li>
-            <li><strong>Data Team:</strong> Can update member phone numbers and addresses, with zero access to financial books or tithe receipts.</li>
-            <li><strong>Treasurers &amp; Presbyters:</strong> Manage vouchers, double-entry ledgers, and official receipts.</li>
-          </ul>
-        </div>
-
-        <div class="legal-section">
-          <h2>5. Data Retention &amp; User Deletion Rights</h2>
-          <p>
-            Parishioners have the right to request the correction or deletion of their data at any time:
-          </p>
-          <ul>
-            <li><strong>Partial Data Deletion:</strong> You may request deletion of specific items (such as your home GPS pin, directions, or profile photos) without deleting your account.</li>
-            <li><strong>Full Account Deletion:</strong> You may request complete account deletion, which revokes your login credentials, clears stored sessions, and wipes linked device access.</li>
-            <li><strong>Audited Financial Records:</strong> Tithe receipts and double-entry accounting records are legal financial books of the church and are retained in compliance with applicable statutory non-profit and trust accounting regulations.</li>
-          </ul>
-          <p>
-            To submit a deletion request, use the <a href="#delete-account" onclick="document.querySelector('[data-tab=\'delete-account\']').click()" style="color: var(--royal-blue-light); text-decoration: underline;">Data &amp; Account Deletion Portal</a>.
-          </p>
-        </div>
-
-        <div class="legal-section">
-          <h2>6. Contact Details</h2>
-          <p>
-            For any privacy inquiries or assistance regarding your records, please contact:
-          </p>
-          <div class="spec-box" style="margin-top: 14px;">
-            <div class="spec-item">
-              <span class="spec-label">Parish</span>
-              <span class="spec-value">CSI Yesu Krupalaya Church</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Address</span>
-              <span class="spec-value">Ramakrishna Nagar, Mysuru, Karnataka</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Email Support</span>
-              <span class="spec-value"><a href="mailto:reynold29clare@gmail.com" style="color: #60a5fa;">reynold29clare@gmail.com</a></span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </main>
-
-  <!-- Site Footer -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <h3>YKC One · CSI Yesu Krupalaya Church</h3>
-          <p>Ramakrishna Nagar, Mysuru, Karnataka, India</p>
-          <p style="margin-top: 4px; font-size: 0.8125rem;">Dedicated parish companion for carols, registry, and stewardship.</p>
-        </div>
-
-        <ul class="footer-links">
-          <li><a href="#overview" onclick="document.querySelector('[data-tab=\'overview\']').click()">Overview</a></li>
-          <li><a href="#privacy" onclick="document.querySelector('[data-tab=\'privacy\']').click()">Privacy Policy</a></li>
-          <li><a href="#delete-account" onclick="document.querySelector('[data-tab=\'delete-account\']').click()">Account &amp; Data Deletion</a></li>
-          <li><a href="mailto:reynold29clare@gmail.com">Contact Developer</a></li>
+        <ul class="pillars" aria-label="At a glance">
+          <li><strong>Home locations locked</strong><span>AES-256 encrypted, shown one stop at a time</span></li>
+          <li><strong>Receipts you can file</strong><span>Signed by the presbyter and treasurer, 80G ready</span></li>
+          <li><strong>No ads, no tracking</strong><span>Your records stay with the parish</span></li>
         </ul>
       </div>
+    </section>
 
+    <!-- Roles -->
+    <section class="section section-alt" id="who" aria-labelledby="who-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Who it's for</p>
+          <h2 id="who-title">Everyone sees what their role needs, and nothing more.</h2>
+          <p>Access is set by the church. Each person signs in to a view built for what they do.</p>
+        </div>
+        <ul class="roles">
+          <li class="role">
+            <span class="role-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg></span>
+            <h3>Family heads</h3>
+            <p>Sign in with your phone number and a one-time code from the church office, then set your own PIN.</p>
+            <p class="sees"><b>Sees:</b> your own household and your own receipts.</p>
+          </li>
+          <li class="role">
+            <span class="role-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
+            <h3>Carol singers</h3>
+            <p>Follow turn-by-turn directions from home to home on carol nights.</p>
+            <p class="sees"><b>Sees:</b> only the next stop on tonight's route.</p>
+          </li>
+          <li class="role">
+            <span class="role-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-4-6"/></svg></span>
+            <h3>Data team</h3>
+            <p>Keep the family directory up to date: names, phone numbers and addresses.</p>
+            <p class="sees"><b>Sees:</b> the directory, never the church books.</p>
+          </li>
+          <li class="role">
+            <span class="role-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h12l4 4v12H4z"/><path d="M8 10h8M8 14h8M8 18h5"/></svg></span>
+            <h3>Treasurers and presbyters</h3>
+            <p>Record tithes and offerings, post vouchers and sign receipts.</p>
+            <p class="sees"><b>Sees:</b> the full double-entry books.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Carol route tour -->
+    <section class="section" id="tour" aria-labelledby="tour-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">A walk through the app</p>
+          <h2 id="tour-title">Four stops on the route.</h2>
+        </div>
+
+        <ol class="route">
+          <li class="stop">
+            <span class="stop-pin" aria-hidden="true"><span>1</span></span>
+            <div class="stop-copy">
+              <p class="stop-label">Stop 1 · Carol rounds</p>
+              <h3>Turn-by-turn directions to every home</h3>
+              <p>Routing tuned for Mysuru's layouts, from Ramakrishna Nagar to Kuvempunagar and Gokulam. Mark each visit done and the next home appears.</p>
+              <ul class="stop-points">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>Live stop tracker</b> so every family is visited.</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>Car or bike,</b> shortest or fastest route.</span></li>
+              </ul>
+            </div>
+            <img class="stop-shot" src="assets/img/screens/carol-navigation.jpg" width="553" height="1200" loading="lazy"
+                 alt="Carol navigation screen with a route drawn across Mysuru and an Arrived button" />
+          </li>
+
+          <li class="stop">
+            <span class="stop-pin" aria-hidden="true"><span>2</span></span>
+            <div class="stop-copy">
+              <p class="stop-label">Stop 2 · Privacy shield</p>
+              <h3>Home locations stay locked</h3>
+              <p>Every household's location and door directions are encrypted with AES-256. Singers' phones only ever reveal the home they are walking to now.</p>
+              <ul class="stop-points">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>No background tracking.</b> Location is used only while navigating or dropping your home pin.</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>Remove your pin any time</b> and keep your account.</span></li>
+              </ul>
+            </div>
+            <img class="stop-shot" src="assets/img/screens/route-privacy.jpg" width="553" height="1200" loading="lazy"
+                 alt="Route screen showing bike and fastest-route options with the next stop only" />
+          </li>
+
+          <li class="stop">
+            <span class="stop-pin" aria-hidden="true"><span>3</span></span>
+            <div class="stop-copy">
+              <p class="stop-label">Stop 3 · Parish directory</p>
+              <h3>Every family, kept up to date</h3>
+              <p>Household profiles with members and contact details, grouped by ward. Pastors can plan home visits and follow up on prayer requests.</p>
+              <ul class="stop-points">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>Search</b> by family name, phone or ward.</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>One tap</b> to call or message a household.</span></li>
+              </ul>
+            </div>
+            <img class="stop-shot" src="assets/img/screens/parish-directory.jpg" width="553" height="1200" loading="lazy"
+                 alt="Parish family directory listing households by ward with call and chat buttons" />
+          </li>
+
+          <li class="stop">
+            <span class="stop-pin" aria-hidden="true"><span>4</span></span>
+            <div class="stop-copy">
+              <p class="stop-label">Stop 4 · Church giving</p>
+              <h3>Signed receipts for every offering</h3>
+              <p>Tithes, thanksgiving offerings and mission funds each get an official receipt, signed by the presbyter and treasurer and backed by balanced double-entry books.</p>
+              <ul class="stop-points">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>80G and Form 10BD</b> details for eligible donations.</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>Only your family's receipts</b> are ever visible to you.</span></li>
+              </ul>
+            </div>
+            <img class="stop-shot" src="assets/img/screens/receipts.jpg" width="553" height="1200" loading="lazy"
+                 alt="Official tithe receipt with fund breakdown, total and presbyter and treasurer signatures" />
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Download -->
+    <section class="section section-alt" id="download" aria-labelledby="download-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Download</p>
+          <h2 id="download-title">On Android now. Coming to iPhone and iPad.</h2>
+          <p>The same parish, routes and receipts on both, each built to feel at home on its own phone.</p>
+        </div>
+
+        <div class="store-grid">
+          <article class="store-card" aria-labelledby="android-title">
+            <div class="store-card-head">
+              <span class="platform-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.5 19.4 6.4a.4.4 0 0 0-.7-.4L16.9 9.1A11 11 0 0 0 12 8a11 11 0 0 0-4.9 1.1L5.3 6a.4.4 0 0 0-.7.4l1.8 3.1A10.4 10.4 0 0 0 1 18h22a10.4 10.4 0 0 0-5.4-8.5zM7 15.3a1.1 1.1 0 1 1 0-2.3 1.1 1.1 0 0 1 0 2.3zm10 0a1.1 1.1 0 1 1 0-2.3 1.1 1.1 0 0 1 0 2.3z"/></svg>
+              </span>
+              <div>
+                <h3 id="android-title">Android</h3>
+                <p class="store-meta"><span class="tag tag-live">Available</span> Google Play</p>
+              </div>
+            </div>
+            <ul class="store-list">
+              <li>Navigation keeps guiding with the screen locked, with a "Carol navigation active" notification</li>
+              <li>Your home pin opens straight in your maps app</li>
+              <li>Material 3 design with predictive back and touch ripples</li>
+            </ul>
+            <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.reyzie.oneykc" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 2.3c-.2.2-.3.6-.3 1v17.4c0 .4.1.8.3 1l9.7-9.7L3.6 2.3zm10.8 8.6 2.7-2.7L5.3 1.5c-.3-.2-.7-.2-1-.1l10.1 9.5zm0 2.2L4.3 22.6c.3.1.7.1 1-.1l11.8-6.7-2.7-2.7zm6.2-2.3-2.6-1.5-3 3 3 3 2.6-1.5c.8-.5.8-1.6 0-3z"/></svg>
+              Get it on Google Play
+            </a>
+          </article>
+
+          <article class="store-card" aria-labelledby="ios-title">
+            <div class="store-card-head">
+              <span class="platform-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9a4.8 4.8 0 0 0-3.8-2c-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9a5 5 0 0 0-4.2 2.6c-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.5 1.3 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.5a10 10 0 0 0 1.4-2.8 4.3 4.3 0 0 1-2.1-4.1zM13.9 5c.7-.8 1.2-2 1-3.1-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.4z"/></svg>
+              </span>
+              <div>
+                <h3 id="ios-title">iPhone and iPad</h3>
+                <p class="store-meta"><span class="tag tag-soon">Coming soon</span> App Store</p>
+              </div>
+            </div>
+            <ul class="store-list">
+              <li>Navigation carries on in the background, with the blue location indicator so you always know</li>
+              <li>Your home pin opens in Apple Maps</li>
+              <li>Native iOS navigation and gestures</li>
+              <li>Laid out for iPad as well as iPhone</li>
+            </ul>
+            <span class="btn" aria-disabled="true">Not on the App Store yet</span>
+          </article>
+        </div>
+
+        <div class="signin-note">
+          <span class="platform-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M14 9l2 2"/></svg>
+          </span>
+          <p><b>How to sign in.</b> Family heads use their registered phone number and a one-time code from the church office, then can set a personal PIN. Church staff sign in with the email the office set up for them.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Privacy -->
+    <section class="section" id="privacy-summary" aria-labelledby="privacy-title">
+      <div class="wrap privacy-band">
+        <div class="section-head flush">
+          <p class="eyebrow">Privacy</p>
+          <h2 id="privacy-title">Parish records, kept for the parish.</h2>
+          <p>The short version. The full policy covers every permission and record type.</p>
+          <div class="privacy-actions">
+            <a class="btn btn-secondary" href="privacy.html">Read the privacy policy</a>
+            <a class="btn btn-secondary" href="account-deletion.html">Delete account or data</a>
+          </div>
+        </div>
+        <ul class="promise-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.4 3.4 8.3 8 9 4.6-.7 8-4.6 8-9V6l-8-3z"/></svg>
+            <div><b>Never sold or shared with advertisers</b><span>No ads, no tracking and no data monetisation. Data travels over HTTPS to an encrypted database.</span></div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+            <div><b>Locked down by role</b><span>Row-level security means a family can only ever open its own records and receipts.</span></div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg>
+            <div><b>Delete some or all of it</b><span>Remove just your home pin or photos, or close your account. Audited financial records are kept as the law requires.</span></div>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="brand" href="#top">
+            <img src="assets/img/app-icon.png" alt="" width="38" height="38" loading="lazy" />
+            <span><b>YKC One</b><small>CSI Yesu Krupalaya Church</small></span>
+          </a>
+          <p>Ramakrishna Nagar, Mysuru, Karnataka. The parish companion for carols, families and stewardship.</p>
+        </div>
+        <div class="footer-col">
+          <h2>App</h2>
+          <ul>
+            <li><a href="#tour">Features</a></li>
+            <li><a href="https://play.google.com/store/apps/details?id=com.reyzie.oneykc" rel="noopener">Google Play</a></li>
+            <li><a href="mailto:reynold29clare@gmail.com">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Your data</h2>
+          <ul>
+            <li><a href="privacy.html">Privacy policy</a></li>
+            <li><a href="account-deletion.html">Delete account or data</a></li>
+          </ul>
+        </div>
+      </div>
       <div class="footer-bottom">
-        <div>&copy; 2026 CSI Yesu Krupalaya Church &bull; Developed by Reynold (Reyzie)</div>
-        <div>Package: <code style="color: #93c5fd; font-family: var(--font-mono);">com.reyzie.oneykc</code></div>
+        <span>© 2026 CSI Yesu Krupalaya Church · Built by Reynold Preetham</span>
+        <a href="https://projects.reyziehomelab.com/">More projects</a>
       </div>
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js" defer></script>
 </body>
-
 </html>

@@ -1,183 +1,174 @@
-/**
- * YKC One — Interactive Web Portal & Deletion Engine
- * CSI Yesu Krupalaya Church, Mysuru
- */
+// YKC One — small progressive enhancements. Every page reads fine without this file.
+(function () {
+  "use strict";
 
-document.addEventListener('DOMContentLoaded', () => {
-  // ── Tab Switching Logic ──────────────────────────────────────────────────
-  const tabButtons = document.querySelectorAll('.tab-btn[data-tab]');
-  const tabContents = document.querySelectorAll('.tab-content');
-  const mobileToggle = document.getElementById('mobileMenuToggle');
-  const navTabs = document.getElementById('navTabs');
+  const DEVELOPER_EMAIL = "reynold29clare@gmail.com";
+  const SCROLL_BORDER_OFFSET = 8;
+  const COPY_RESET_MS = 3000;
 
-  function switchTab(tabId, updateHash = true) {
-    if (!tabId) tabId = 'overview';
-    const targetContent = document.getElementById(`tab-${tabId}`);
-    if (!targetContent) return;
+  // The old site used tabs at #privacy and #delete-account. Store listings and shared
+  // links may still point there, so send them to the real pages.
+  const LEGACY_HASHES = {
+    "#privacy": "privacy.html",
+    "#delete-account": "account-deletion.html"
+  };
 
-    tabButtons.forEach(btn => {
-      btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
-    });
-
-    tabContents.forEach(content => {
-      content.classList.toggle('active', content.id === `tab-${tabId}`);
-    });
-
-    if (updateHash) {
-      history.pushState(null, null, `#${tabId}`);
-    }
-
-    // Close mobile nav menu if open
-    if (navTabs) navTabs.classList.remove('mobile-open');
-
-    // Scroll to top smoothly
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  function redirectLegacyHash() {
+    const target = LEGACY_HASHES[window.location.hash];
+    const onIndex = !/\/(privacy|account-deletion)\.html$/.test(window.location.pathname);
+    if (target && onIndex) window.location.replace(target);
   }
 
-  // Handle Tab Click
-  tabButtons.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const tabId = btn.getAttribute('data-tab');
-      switchTab(tabId);
-    });
-  });
+  function initNav() {
+    const nav = document.querySelector(".site-nav");
+    const toggle = document.querySelector(".nav-toggle");
+    const links = document.getElementById("nav-links");
+    if (!nav) return;
 
-  // Handle Hash on Load and Change
-  function handleHash() {
-    const hash = window.location.hash.replace('#', '').trim();
-    if (hash) {
-      switchTab(hash, false);
-    }
-  }
+    const onScroll = () => nav.classList.toggle("is-scrolled", window.scrollY > SCROLL_BORDER_OFFSET);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
 
-  window.addEventListener('hashchange', handleHash);
-  handleHash();
-
-  // Mobile Menu Toggle
-  if (mobileToggle && navTabs) {
-    mobileToggle.addEventListener('click', () => {
-      navTabs.classList.toggle('mobile-open');
-    });
-  }
-
-  // ── Account Deletion Form Handling ───────────────────────────────────────
-  const deletionForm = document.getElementById('deletionForm');
-  const successBox = document.getElementById('deletionSuccessBox');
-  const receiptId = document.getElementById('receiptId');
-  const receiptMember = document.getElementById('receiptMember');
-  const receiptContact = document.getElementById('receiptContact');
-  const receiptScope = document.getElementById('receiptScope');
-  const gmailWebBtn = document.getElementById('gmailWebBtn');
-  const mailtoBtn = document.getElementById('mailtoBtn');
-  const copyDetailsBtn = document.getElementById('copyDetailsBtn');
-  const copyBtnText = document.getElementById('copyBtnText');
-
-  const scopeFull = document.getElementById('scopeFull');
-  const otherScopes = [
-    document.getElementById('scopeGeo'),
-    document.getElementById('scopeProfile')
-  ].filter(Boolean);
-
-  let fullEmailText = '';
-
-  // If full account is checked, uncheck individual partial components
-  if (scopeFull) {
-    scopeFull.addEventListener('change', () => {
-      if (scopeFull.checked) {
-        otherScopes.forEach(s => { if (s) s.checked = false; });
+    if (!toggle || !links) return;
+    const setOpen = (open) => {
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      links.classList.toggle("is-open", open);
+    };
+    toggle.addEventListener("click", () => setOpen(toggle.getAttribute("aria-expanded") !== "true"));
+    links.addEventListener("click", (e) => { if (e.target.closest("a")) setOpen(false); });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && links.classList.contains("is-open")) {
+        setOpen(false);
+        toggle.focus();
       }
     });
   }
 
-  otherScopes.forEach(s => {
-    if (!s) return;
-    s.addEventListener('change', () => {
-      if (s.checked && scopeFull) {
-        scopeFull.checked = false;
-      }
+  // ---------- Deletion request (account-deletion.html) ----------
+
+  function makeReference() {
+    const bytes = new Uint8Array(4);
+    window.crypto.getRandomValues(bytes);
+    const code = Array.from(bytes, (b) => b.toString(36).padStart(2, "0")).join("").slice(0, 6).toUpperCase();
+    return "YKC-DEL-" + code;
+  }
+
+  function buildRequest({ reference, name, contact, scopes, notes }) {
+    const subject = `[YKC One] Account & Data Deletion Request - ${reference}`;
+    const lines = [
+      "Hello Reynold,",
+      "",
+      "I am requesting the deletion of my account / personal data from YKC One (CSI Yesu Krupalaya Church):",
+      "",
+      `• Reference Code: ${reference}`,
+      `• Parish Member / Family Name: ${name}`,
+      `• Registered Contact (Phone / Email): ${contact}`,
+      "• Requested Deletion Scope:",
+      ...scopes.map((s) => `  - ${s}`)
+    ];
+    if (notes) lines.push("", "• Additional Notes / Remarks:", `  ${notes}`);
+    lines.push(
+      "",
+      `• Submitted At: ${new Date().toLocaleString()} (Local Time)`,
+      "",
+      "Please process this request and permanently remove the specified records and login credentials.",
+      "",
+      "Thank you."
+    );
+    const body = lines.join("\n");
+    return { subject, body, plain: `To: ${DEVELOPER_EMAIL}\nSubject: ${subject}\n\n${body}` };
+  }
+
+  function initDeletionForm() {
+    const form = document.getElementById("deletionForm");
+    if (!form) return;
+
+    const errorBox = document.getElementById("deletion-error");
+    const errorText = errorBox.querySelector("[data-message]");
+    const receipt = document.getElementById("deletionReceipt");
+    const nameInput = document.getElementById("memberName");
+    const contactInput = document.getElementById("contactInfo");
+    const notesInput = document.getElementById("deletionReason");
+    const scopeFieldset = document.getElementById("scopeFieldset");
+    const scopeFull = document.getElementById("scopeFull");
+    const partialScopes = [document.getElementById("scopeGeo"), document.getElementById("scopeProfile")].filter(Boolean);
+    const copyBtn = document.getElementById("copyDetailsBtn");
+    const copyLabel = document.getElementById("copyBtnText");
+    let requestText = "";
+
+    // A full wipe already covers the partial options, so keep the choices exclusive.
+    scopeFull.addEventListener("change", () => {
+      if (scopeFull.checked) partialScopes.forEach((s) => { s.checked = false; });
     });
-  });
+    partialScopes.forEach((s) => s.addEventListener("change", () => {
+      if (s.checked) scopeFull.checked = false;
+    }));
 
-  if (deletionForm) {
-    deletionForm.addEventListener('submit', (e) => {
+    const showError = (message, focusEl) => {
+      errorText.textContent = message;
+      errorBox.hidden = false;
+      if (focusEl) focusEl.focus();
+    };
+
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
+      errorBox.hidden = true;
+      [nameInput, contactInput].forEach((el) => el.removeAttribute("aria-invalid"));
+      scopeFieldset.removeAttribute("aria-invalid");
 
-      const memberName = document.getElementById('memberName').value.trim();
-      const contactInfo = document.getElementById('contactInfo').value.trim();
-      const reason = document.getElementById('deletionReason').value.trim();
+      const name = nameInput.value.trim();
+      const contact = contactInput.value.trim();
+      const scopes = Array.from(form.querySelectorAll('input[name="deleteScope"]:checked'), (cb) => cb.value);
 
-      const selectedBoxes = Array.from(document.querySelectorAll('input[name="deleteScope"]:checked'))
-        .map(cb => cb.value);
-
-      if (selectedBoxes.length === 0) {
-        alert('Please select at least one item to delete.');
+      if (!name) {
+        nameInput.setAttribute("aria-invalid", "true");
+        showError("Please enter the parishioner or family head name.", nameInput);
+        return;
+      }
+      if (!contact) {
+        contactInput.setAttribute("aria-invalid", "true");
+        showError("Please enter the mobile number or email you use to sign in.", contactInput);
+        return;
+      }
+      if (scopes.length === 0) {
+        scopeFieldset.setAttribute("aria-invalid", "true");
+        showError("Please choose what you would like deleted.", form.querySelector('input[name="deleteScope"]'));
         return;
       }
 
-      // Generate verification receipt ID
-      const randomCode = Math.random().toString(36).substring(2, 8).toUpperCase();
-      const refId = 'YKC-DEL-' + randomCode;
-      const targetDevEmail = 'reynold29clare@gmail.com';
+      const reference = makeReference();
+      const request = buildRequest({ reference, name, contact, scopes, notes: notesInput.value.trim() });
+      requestText = request.plain;
 
-      // Update UI elements
-      if (receiptId) receiptId.textContent = refId;
-      if (receiptMember) receiptMember.textContent = memberName;
-      if (receiptContact) receiptContact.textContent = contactInfo;
-      if (receiptScope) receiptScope.textContent = selectedBoxes.join(', ');
+      const subject = encodeURIComponent(request.subject);
+      const body = encodeURIComponent(request.body);
+      document.getElementById("receiptId").textContent = reference;
+      document.getElementById("receiptMember").textContent = name;
+      document.getElementById("receiptContact").textContent = contact;
+      document.getElementById("receiptScope").textContent = scopes.join(", ");
+      document.getElementById("gmailWebBtn").href =
+        `https://mail.google.com/mail/?view=cm&fs=1&to=${DEVELOPER_EMAIL}&su=${subject}&body=${body}`;
+      document.getElementById("mailtoBtn").href = `mailto:${DEVELOPER_EMAIL}?subject=${subject}&body=${body}`;
 
-      // Formulate Subject & Body
-      const subject = `[YKC One] Account & Data Deletion Request - ${refId}`;
-      const body =
-`Hello Reynold,
+      receipt.hidden = false;
+      receipt.focus();
+      receipt.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
 
-I am requesting the deletion of my account / personal data from YKC One (CSI Yesu Krupalaya Church):
-
-• Reference Code: ${refId}
-• Parish Member / Family Name: ${memberName}
-• Registered Contact (Phone / Email): ${contactInfo}
-• Requested Deletion Scope:
-  - ${selectedBoxes.join('\n  - ')}
-` + (reason ? `\n• Additional Notes / Remarks:\n  ${reason}\n` : '') +
-`\n• Submitted At: ${new Date().toLocaleString()} (Local Time)
-
-Please process this request and permanently remove the specified records and login credentials.
-
-Thank you.`;
-
-      fullEmailText = `To: ${targetDevEmail}\nSubject: ${subject}\n\n${body}`;
-
-      const subjectEncoded = encodeURIComponent(subject);
-      const bodyEncoded = encodeURIComponent(body);
-
-      // Direct Gmail Web Compose URL
-      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${targetDevEmail}&su=${subjectEncoded}&body=${bodyEncoded}`;
-      if (gmailWebBtn) gmailWebBtn.href = gmailUrl;
-
-      // Native Mailto Link
-      const mailtoUrl = `mailto:${targetDevEmail}?subject=${subjectEncoded}&body=${bodyEncoded}`;
-      if (mailtoBtn) mailtoBtn.href = mailtoUrl;
-
-      // Show success receipt
-      if (successBox) {
-        successBox.classList.add('visible');
-        successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    copyBtn.addEventListener("click", async () => {
+      if (!requestText) return;
+      try {
+        await navigator.clipboard.writeText(requestText);
+        copyLabel.textContent = "Copied";
+      } catch (err) {
+        copyLabel.textContent = "Copy failed, use the email buttons";
       }
+      window.setTimeout(() => { copyLabel.textContent = "Copy request text"; }, COPY_RESET_MS);
     });
   }
 
-  // Copy Details Handler
-  if (copyDetailsBtn) {
-    copyDetailsBtn.addEventListener('click', () => {
-      if (!fullEmailText) return;
-      navigator.clipboard.writeText(fullEmailText).then(() => {
-        if (copyBtnText) copyBtnText.textContent = '✓ Copied to Clipboard!';
-        setTimeout(() => {
-          if (copyBtnText) copyBtnText.textContent = 'Copy Request Details';
-        }, 3000);
-      }).catch(() => {
-        alert('Request Details:\n\n' + fullEmailText);
-      });
-    });
-  }
-});
+  redirectLegacyHash();
+  initNav();
+  initDeletionForm();
+})();
